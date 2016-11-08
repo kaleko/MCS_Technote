@@ -1,6 +1,8 @@
-%%%% SIGNAL SECTION %%%%
+
 \section{MCS Performance on Simulated Single Muons}\label{singlemuon_MC_section}
-In this section, MCS performance is studied on a sample of simulated, fully contained, single muons in {\ub}. It is demonstrated that the range-based energy of a track agrees with the true energy with negligible bias and with a resolution of better than 5\%. The MCS performance on single {\sc MCTracks} is shown to be comparable to that on single reconstructed PandoraNuPMA tracks when the track is well reconstructed, with a minimal bias and a resolution that varies between 5 and 20\%, performing better for higher energy (longer) tracks. Additionally, the scattering angle of track segments for a given energy is shown to be gaussian in line with the Highland formula prediction both for {\sc MCTracks} and reconstructed tracks.
+
+% Executive summary
+In this section, MCS performance is studied on a sample of simulated, fully contained, single muons in {\ub}. It is demonstrated that the range-based energy of a track agrees with the true energy with negligible bias and with a resolution of better than 5\%. The MCS performance on single {\sc MCTracks} is shown to be comparable to that on single reconstructed PandoraNuPMA tracks when the track is well reconstructed, with a minimal bias and a resolution that varies between 5 and 20\%, performing better for higher energy (longer) tracks. Additionally, the scattering angle of track segments for a given energy is shown to be gaussian, in line with the Highland formula prediction both for {\sc MCTracks} and reconstructed tracks.
 
 
 \subsection{Input Sample}\label{SingleMu_Input_Sample_section}
@@ -8,7 +10,12 @@ In order to study MCS performance in the most straightforward way, a sample of s
 
 This section of the technote will include studies from this single muon sample, both with {\sc MCTracks} (described in Section \ref{MCTrack_section}) and with reconstructed tracks (described in Section \ref{RecoTrack_section}).
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Performance with \sc{MCTracks}}
+
+
 \subsubsection{MCTrack Description}\label{MCTrack_section}
 {\sc MCTrack} objects are made from the output of {\sc geant}4, and are created from {\sc geant}4 energy depositions in the detector. {\sc geant}4 outputs 3D energy depositions in the detector, along with truth information about which parent particles deposited this energy. {\sc MCTracks} are 3D objects which are formed by grouping energy depositions based on parent particles. Whether a particle in {\sc geant}4 is turned into an {\sc MCTrack} or an {\sc MCShower} (not discussed in this note) is based on truth PDG (for example, muons always form {\sc MCTracks}).\\
 
@@ -77,7 +84,7 @@ In order to compute a bias and a resolution, Figure \ref{true_range_energy_MCTra
 
 
 \subsubsection{MCS Energy Validation}\label{MCS_Energy_Validation_MCTrack_section}
-For this sample of {\sc MCTracks}, the trajectory points only of each {\sc MCTrack} is used as input to the MCS code, described in Section XXX. The resulting MCS energy versus range-based energy can be seen in Figure \ref{MCS_range_energy_MCTrack_fig}. Range energy is used here instead of true energy in order to make this plot more directly comparable with the same analysis on data where true energy is not accessible\footnote{It is acceptable to use range energy based on Figure \ref{true_range_bias_resolution_MCTrack_fig}.}. In order to compute a bias and a resolution, Figure \ref{MCS_range_energy_MCTrack_fig} is sliced in bins of range energy and a histogram of the fractional energy difference ($\frac{E_{MCS} - E_{range}}{E_{range}}$) is created for each bin. This distribution is shown for three representative bins in Figure \ref{MCS_range_bias_resolution_MCTrack_slices_fig}. The mean of each distribution is used to compute a bias a function of true energy, while the standard deviation of each distribution is used to compute a resolution. The bias and resolution for this energy reconstruction method shown in Figure \ref{MCS_range_bias_resolution_MCTrack_fig}. This figure indicates a bias in the MCS energy resolution on the order of a few percent, with a resolution that decreases from about 18\% for contained {\sc MCTracks} with true total energy around 0.5 GeV (which corresponds to a length of about 1.7 meters) to below 10\% for contained {\sc MCTracks} with true total energy greater than 0.8 GeV (which corresponds to a length of about 3.1 meters).
+For this sample of {\sc MCTracks}, the trajectory points only of each {\sc MCTrack} is used as input to the MCS code, described in Section XXX. The resulting MCS energy versus range-based energy can be seen in Figure \ref{MCS_range_energy_MCTrack_fig}. Range energy is used here instead of true energy in order to make this plot more directly comparable with the same analysis on data where true energy is not accessible\footnote{It is acceptable to use range energy based on Figure \ref{true_range_bias_resolution_MCTrack_fig}.}. In order to compute a bias and a resolution, Figure \ref{MCS_range_energy_MCTrack_fig} is sliced in bins of range energy and a histogram of the fractional energy difference ($\frac{E_{MCS} - E_{range}}{E_{range}}$) is created for each bin. This distribution is shown for three representative bins in Figure \ref{MCS_range_bias_resolution_MCTrack_slices_fig}. The mean of each distribution is used to compute a bias a function of range energy, while the standard deviation of each distribution is used to compute a resolution. The bias and resolution for this energy reconstruction method shown in Figure \ref{MCS_range_bias_resolution_MCTrack_fig}. This figure indicates a bias in the MCS energy resolution on the order of a few percent, with a resolution that decreases from about 18\% for contained {\sc MCTracks} with true total energy around 0.5 GeV (which corresponds to a length of about 1.7 meters) to below 10\% for contained {\sc MCTracks} with true total energy greater than 0.8 GeV (which corresponds to a length of about 3.1 meters).
 
 
 \begin{figure}[h!]
@@ -141,6 +148,12 @@ For each 20cm segment of each {\sc MCTrack} in this single muon sample, the ener
 
 
 
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Performance with Reconstructed Tracks}
 \subsubsection{Reconstructed Track Description}\label{RecoTrack_section}
 XXX this section has description of PandoraNuPMA tracks, cite pandora reference rather than lengthy description.
@@ -153,7 +166,86 @@ For analysis on single muon reconstructed tracks, the input sample is the one de
 	\item The reconstructed track is fully contained within the fiducial volume
 	\item The start of the reconstructed track is within 3cm of the start of the {\sc MCTrack}, and the end of the reconstructed track is within 3cm of the end of the {\sc MCTrack} (or vice-versa).
 \end{enumerate}
-The purpose the ``vice-versa'' claus in the last selection criteria is to take into account tracks that are well reconstructed in terms of position, but are flipped in direction. In the case of backwards-tracks, the reconstructed track is flipped to have the correct direction before proceeding with the analysis.
+The last selection criteria is the one most worth noting; it ensures that the track is well reconstructed and not broken or truncated. The purpose the ``vice-versa'' claus in the last selection criteria is to take into account tracks that are well reconstructed in terms of position, but are flipped in direction. In the case of backwards-tracks, the reconstructed track is flipped to have the correct direction before proceeding with the analysis. The application of these track selection cuts reduces the sample down to 307 reconstructed single muon tracks, which are used in this analysis.
+
+
+
+
+
+
+\subsubsection{MCS Energy Validation}\label{MCS_Energy_Validation_MCTrack_section}
+For this sample of reconstructed tracks, the trajectory points only of each track is used as input to the MCS code, described in Section XXX. The resulting MCS energy versus range-based energy can be seen in Figure \ref{MCS_range_energy_RecoTrack_fig}. In order to compute a bias and a resolution, Figure \ref{MCS_range_energy_RecoTrack_fig} is sliced in bins of range energy and a histogram of the fractional energy difference ($\frac{E_{MCS} - E_{range}}{E_{range}}$) is created for each bin. This distribution is shown for three representative bins in Figure \ref{MCS_range_bias_resolution_RecoTrack_slices_fig}. The mean of each distribution is used to compute a bias a function of range, while the standard deviation of each distribution is used to compute a resolution. The bias and resolution for this energy reconstruction method shown in Figure \ref{MCS_range_bias_resolution_RecoTrack_fig}. XXX CHECK THIS XXX This figure indicates a bias in the MCS energy resolution on the order of a few percent, with a resolution that decreases from about 18\% for contained {\sc MCTracks} with true total energy around 0.5 GeV (which corresponds to a length of about 1.7 meters) to below 10\% for contained {\sc MCTracks} with true total energy greater than 0.8 GeV (which corresponds to a length of about 3.1 meters).
+
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=100mm]{Figures/MCS_range_comparison_RecoTracks.png}
+\end{center}
+\caption{\textit{MCS computed energy versus range energy for the single muon reconstructed track sample described in Section \ref{RecoTrack_Selection_section}.}}
+\label{MCS_range_energy_RecoTrack_fig}
+\end{figure}
+
+\begin{figure}
+\centering
+\mbox{
+	\subfigure[\textit{Fractional energy difference between 0.35 and 0.53 GeV range energy.}]
+	{\includegraphics[width=50mm]{Figures/MCS_range_resolution_RecoTracks_slice1.png}}
+	\quad
+	\subfigure[\textit{Fractional energy difference between 0.90 and 1.08 GeV range energy.}]
+	{\includegraphics[width=50mm]{Figures/MCS_range_resolution_RecoTracks_slice2.png}}
+	\quad
+	\subfigure[\textit{Fractional energy difference between 1.45 and 1.63 GeV range energy.}]
+	{\includegraphics[width=50mm]{Figures/MCS_range_resolution_RecoTracks_slice3.png}}
+	}
+\caption{\textit{Fractional energy difference for a few representative bins of range energy derived from Figure \ref{MCS_range_energy_RecoTrack_fig}.}}
+\label{MCS_range_bias_resolution_RecoTrack_slices_fig}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\mbox{
+	\subfigure[\textit{MCS energy bias as a function of range energy.}]
+	{\includegraphics[width=75mm]{Figures/MCS_range_bias_RecoTracks.png}}
+	\quad
+	\subfigure[\textit{MCS energy resolution as a function of range energy.}]
+	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_RecoTracks.png}}
+	}
+\caption{\textit{MCS energy bias and resolution as a function of range energy for the single muon reconstructed track sample described in Section \ref{RecoTrack_Selection_section}.}}
+\label{MCS_range_bias_resolution_RecoTrack_fig}
+\end{figure}
+
+
+
+\subsubsection{Highland Validation}\label{Highland_Validation_RecoTrack_section}
+For a given track segment energy and length, 98\% of the angular scatter deviations should be gaussian with an RMS described by the Highland equation (Equation \ref{highland_eqtn}), while the remaining 2\% are larger angle Rutherford scatters [XXX source]. Therefore, a histogram of track segment angular deviations divided by the RMS predicted by the Highland equation should be gaussian with a width of unity. In this section, we validate this claim.\\
+
+For each 20cm segment of each reconstructed track in this single muon sample, the energy of the muon at the start of that segment is estimated by taking the computed MCS energy and subtracting out energy lost in the track upstream of the start of this segment, assuming the track was minimally ionizing (depositing 2.2 MeV per centimeter of track). This energy, along with the segment length, is converted into an expected RMS angular deviation by way of Equation \ref{highland_eqtn}. For each consecutive pairs of segments, the angular scatter in milliradians divided by the Highland expected RMS in millradians is an entry in the histogram shown in Figure \ref{Highland_validation_RecoTracks_fig}. From this figure we can see that the Highland formula is valid for reconstructed tracks, though the width is slightly smaller than unity. XXX maybe make a statement here about ``track straightening''?
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=100mm]{Figures/Highland_validation_RecoTracks.png}
+\end{center}
+\caption{\textit{20cm segment angular deviations divided by expected Highland RMS for the single muon reconstructed track sample described in Section \ref{RecoTrack_Selection_section}.}}
+\label{Highland_validation_RecoTracks_fig}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 % \subsection{Track Reconstruction and Event Selection}
 % \subsubsection{Reconstructed Track Description}\label{RecoTrack_section}
