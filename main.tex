@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{mystyle}
+\usepackage{authblk}
+\usepackage{amsmath}
+
+\title{\myTitle}
+\author[1]{David Kaleko\thanks{Corresponding Author}}
+\author[2]{Polina Abratenko}
+\author[1]{Mike Shaevitz}
+\author[2]{Josh Spitz}
+\author[3]{XXX NOTE AUTHOR LIST IS PRELIMINARY XXX}
+
+\affil[1]{Columbia University, NY}
+\affil[2]{University of Michigan, MI}
+\affil[3]{Misc}
+
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\abstract{abstract goes here... brief overview of what MCS is, why it's important for exiting tracks, how this technote looks at contained tracks to demonstrate that MCS is a viable way to reconstruct energy in microboone, this technote looks both at simulated muons and real muons-from-neutrinos in data, and how this technote also describes some potential other uses for MCS like diagnosing broken tracks, determining track direction, and maybe pion/muon separation.}
+
+\clearpage
+\tableofcontents
+
+\clearpage
+\input{./Tex/global_vars.tex}
+
+%note introduction should include a note about the microboone detector environment (broken wires, noise, etc)
+\input{./Tex/introduction.tex}
+
+\input{./Tex/technique.tex}
+
+\input{./Tex/MC_singlemuon_performance.tex}
+
+\input{./Tex/data_performance.tex}
+
+\input{./Tex/conclusions.tex}
+
+
+%%%%%%%%%%%% BIBLIOGRAPHY %%%%%%%%%%%%%
+\clearpage
+\input{./Tex/bibliography.tex}
+
+\end{document}

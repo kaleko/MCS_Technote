@@ -1,0 +1,52 @@
+\ProvidesPackage{mystyle}
+
+\usepackage{fontenc}
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{babel}
+
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{graphicx} % Required to insert images
+\usepackage{subfigure} %for horizontally placed pictures
+\usepackage{hyperref} %to make table of contents clickable
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black
+	}
+
+%\usepackage{subcaption}
+\usepackage{lipsum}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\headsep=0.25in 
+\linespread{1.1} % Line spacing
+
+% Appendix
+\usepackage[titletoc]{appendix}
+
+\newcommand{\myversion}{1.0}
+% \newcommand{\myAuthorName}{David Kaleko}
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{} % Top left header
+\chead{Technote Version {\myversion}} % Top right header
+\rhead{\today}
+\lfoot{} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\newcommand{\myTitle}{Multiple Coloumb Scattering in MicroBooNE}
+

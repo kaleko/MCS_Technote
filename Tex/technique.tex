@@ -1,0 +1,53 @@
+%%%% SIGNAL SECTION %%%%
+\section{MCS Implementation using the maximum likelihood method}\label{MCS_technique_section}
+
+To determine the angular deflections of the particle, its track through the medium is first split into segments. The angles of deflection between adjacent segments are then taken. The \emph{maximum likelihood method} is then used to find the momentum of the particle. Individual angle deflections are given as input to the likelihood product: 
+
+\begin{equation}
+	L=\prod_{(i,j)}f_{ij}
+\end{equation} 
+
+\noindent which is then maximized to find the momentum, $p$. 
+
+The probability to measure a certain deflection is given by:
+
+\begin{equation}
+f_{ij}= \frac{1}{\sqrt{2\pi}(\Delta \theta)_{std}}e^{\frac{-(\Delta \theta)_{ij}^2}{2(\Delta \theta)_{std}^2}}
+\end{equation}
+
+\noindent where $f=f((\Delta \theta)_{ij};(\Delta \theta)_{std})$ is a Gaussian function with mean 0 and standard deviation given by $(\Delta \theta)_{std}=\sqrt{\theta_0^2+\delta \theta_0^2}$ (where the angular resolution $\delta \theta_0$ is given a fixed value of 2 mrad from Monte Carlo information \cite{leonidas2}). The momentum and standard deviation are updated along the track using the following energy-range relation: 
+\begin{equation}
+    p_i \simeq p - \frac{k_{cal}L_i}{c}
+\end{equation}
+
+\noindent where $p_i$ is the momentum along the track for a certain segment $i$, $p$ is the initial momentum of the particle at the neutrino interaction vertex, $L_i$ is the distance of the $i^{\text{th}}$ segment from the starting point of the track, and $k_{cal}$ is the ionization constant for muons in liquid argon, given to be $2.1 \times 10^{-3}$ GeV/cm.
+
+For this implementation, a minimum reconstructed track length of 100 cm was used. A relativistic limit approximation was also used, meaning $\beta \approx 1$ and $E\approx p$. 
+
+The idea and implementation of MCS using the maximum likelihood method for this project is credited to Leonidas Kalousis, a former member of the MicroBooNE collaboration.  Further details regarding the technique can be found in his internal notes concerning both Monte Carlo simulated tracks \cite{leonidas1} and reconstructed tracks \cite{leonidas2}. 
+
+%Initial contents of technique.tex below, commented out as per request. -Polina
+
+%\begin{enumerate}
+%\item this will be a detailed description of exactly how the algorithm works. it will start with a copy/paste of polina's section 1B then i will add details.
+%\item details that need to be added include a description of all of the knobs that can be turned in the MCS code: the resolution term, the step size in the energy raster scan, the segment length, and whether to use x- scatters, y- scatters, or both.
+%\item possible plot: the highland formula RMS versus segment energy so people can visualize how much more "straight" a 1 GeV muon segment is than a 500 MeV muon segment, etc... some explanation that a muon loses MIP energy as it traverses LAr so scattering gets more and more, this is taken into account in our method
+%\item discussion of how our method compares to icarus's (cite their paper)
+%\end{enumerate}
+%
+%\begin{figure}
+%\centering
+%\mbox{
+%	\subfigure[\textit{sample figure left}]
+%	{\includegraphics[width=25mm]{Figures/FILLER.png}}
+%	\quad
+%	\subfigure[\textit{sample figure right}]
+%	{\includegraphics[width=25mm]{Figures/FILLER.png}}
+%	}
+%\caption{\textit{THIS IS A SAMPLE FIGURE}}
+%\label{sample_fig}
+%\end{figure}
+
+
+
+
