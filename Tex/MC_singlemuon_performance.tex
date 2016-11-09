@@ -173,7 +173,7 @@ The last selection criteria is the one most worth noting; it ensures that the tr
 
 
 
-\subsubsection{MCS Energy Validation}\label{MCS_Energy_Validation_MCTrack_section}
+\subsubsection{MCS Energy Validation}\label{MCS_Energy_Validation_RecoTrack_section}
 For this sample of reconstructed tracks, the trajectory points only of each track is used as input to the MCS code, described in Section XXX. The resulting MCS energy versus range-based energy can be seen in Figure \ref{MCS_range_energy_RecoTrack_fig}. In order to compute a bias and a resolution, Figure \ref{MCS_range_energy_RecoTrack_fig} is sliced in bins of range energy and a histogram of the fractional energy difference ($\frac{E_{MCS} - E_{range}}{E_{range}}$) is created for each bin. This distribution is shown for three representative bins in Figure \ref{MCS_range_bias_resolution_RecoTrack_slices_fig}. The mean of each distribution is used to compute a bias a function of range, while the standard deviation of each distribution is used to compute a resolution. The bias and resolution for this energy reconstruction method shown in Figure \ref{MCS_range_bias_resolution_RecoTrack_fig}. XXX CHECK THIS XXX This figure indicates a bias in the MCS energy resolution on the order of a few percent, with a resolution that decreases from about 18\% for contained {\sc MCTracks} with true total energy around 0.5 GeV (which corresponds to a length of about 1.7 meters) to below 10\% for contained {\sc MCTracks} with true total energy greater than 0.8 GeV (which corresponds to a length of about 3.1 meters).
 
 
