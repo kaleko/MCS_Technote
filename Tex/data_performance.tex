@@ -22,7 +22,7 @@ reference CCInclusive technote, good runs list, no EXT data used only BNB. cosmi
 \label{bad_evd_fig_1}
 \end{figure}
 
-\subsubsection{MCS Energy Validation}\label{MCS_Energy_Validation_DataRecoTrack_section}
+\subsection{MCS Energy Validation}\label{MCS_Energy_Validation_DataRecoTrack_section}
 For this sample of reconstructed tracks, the trajectory points only of each track is used as input to the MCS code, described in Section XXX. The resulting MCS energy versus range-based energy without any additional hand-scan reconstruction quality checks can be seen in Figure \ref{MCS_range_energy_DataRecoTrack_nohandscan_fig}. The off-diagonal visible in this figure (where MCS energy greatly overestimates range energy) is caused by poor track reconstruction (truncated tracks) and MIDs. Figure \ref{MCS_range_energy_RecoTrack_withandwithouthandscan_fig} divides Figure \ref{MCS_range_energy_DataRecoTrack_nohandscan_fig} into those events which are handscanned as having poorly reconstructed or obviously MID'd tracks, and those which are well reconstructed. It can be seen that hand-scanning tends to remove the off-diagonal and therefore improve the MCS energy resolution.\\
 
 In order to compute a bias and a resolution, Figure \ref{MCS_range_energy_DataRecoTrack_fig} is sliced in bins of range energy and a histogram of the fractional energy difference ($\frac{E_{MCS} - E_{range}}{E_{range}}$) is created for each bin. This distribution is shown for two representative bins in Figure \ref{MCS_range_bias_resolution_DataRecoTrack_slices_fig}. The mean of each distribution is used to compute a bias a function of range, while the standard deviation of each distribution is used to compute a resolution. The bias and resolution for this energy reconstruction method shown in Figure \ref{MCS_range_bias_resolution_DataRecoTrack_fig}. XXX CHECK THIS XXX This figure indicates a bias in the MCS energy resolution on the order of a few percent, with a resolution that decreases from about 18\% for contained {\sc MCTracks} with true total energy around 0.5 GeV (which corresponds to a length of about 1.7 meters) to below 10\% for contained {\sc MCTracks} with true total energy greater than 0.8 GeV (which corresponds to a length of about 3.1 meters).
@@ -79,7 +79,7 @@ In order to compute a bias and a resolution, Figure \ref{MCS_range_energy_DataRe
 
 
 
-\subsubsection{Highland Validation}\label{Highland_Validation_DataRecoTrack_section}
+\subsection{Highland Validation}\label{Highland_Validation_DataRecoTrack_section}
 For a given track segment energy and length, 98\% of the angular scatter deviations should be gaussian with an RMS described by the Highland equation (Equation \ref{highland_eqtn}), while the remaining 2\% are larger angle Rutherford scatters [XXX source]. Therefore, a histogram of track segment angular deviations divided by the RMS predicted by the Highland equation should be gaussian with a width of unity. In this section, we validate this claim.\\
 
 For each 20cm segment of each reconstructed track in this single muon sample, the energy of the muon at the start of that segment is estimated by taking the computed MCS energy and subtracting out energy lost in the track upstream of the start of this segment, assuming the track was minimally ionizing (depositing 2.2 MeV per centimeter of track). This energy, along with the segment length, is converted into an expected RMS angular deviation by way of Equation \ref{highland_eqtn}. For each consecutive pairs of segments, the angular scatter in milliradians divided by the Highland expected RMS in millradians is an entry in the histogram shown in Figure \ref{Highland_validation_DataRecoTracks_fig}. From this figure we can see that the Highland formula is valid for well reconstructed tracks in data.
@@ -92,3 +92,20 @@ For each 20cm segment of each reconstructed track in this single muon sample, th
 \label{Highland_validation_DataRecoTracks_fig}
 \end{figure}
 
+
+\subsection{MCS to Determine Track Direction}\label{TrackDirection_DataRecoTrack_section}
+This section demonstrates the ability for the multiple coloumb scattering code to determine the direction of a track. The MCS code as it is described in Section XXX works by maximizing a likelihood based on angular scatters between segments of a track along with the expected RMS angular deviation from the Highland equation (Equation \ref{highland_eqtn}) and assuming minimally ionizing energy loss in upstream portions of the track, since tracks tend to scatter more as they lose energy. In practice, there is actually a negative log likelihood that is minimized, meaning the lower the likelihood the more confident the fit is. In order to determine the direction of a track with MCS, one can compute the converged minimum log likelihood for the track assuming it is in the correct direction, then reverse the ordering of the trajectory points in the track and compute the converged minimum log likelihood for this ``backwards'' track. The likelihood should be better (smaller) for tracks in the correct direction than reversed tracks.\\
+
+Given this sample in {\ub} data, the true direction of the track is known because it begins at the visible neutrino vertex. The minimized log likelihood for each of these tracks both in the correct (forwards) direction and incorrect (backwards) direction can be seen in Figure \ref{TrackDirection_DataRecoTrack_LLHDoverlay_fig}. A smaller likelihood here means a better fit in the MCS code. Figure \ref{TrackDirection_DataRecoTrack_LLHDdiff_fig} shows the difference of these two distributions, forwards minus backwards. Any negative entries in this figure indicate that the forwards-going track had a better fit than backwards-going. This figure shows that MCS can be used as a tool to test track direction in {\ub} data.
+
+\begin{figure}
+\centering
+\mbox{
+	\subfigure[\textit{The minimized log likelihood value for each track in the well-reconstructed, fully contained neutrino-induced muon tracks in data sample, both with tracks oriented in the correct (forwards) direction and reversed (backwards) direction. A smaller likelihood here means a better fit in the MCS code.}\label{TrackDirection_DataRecoTrack_LLHDoverlay_fig}]
+	{\includegraphics[width=75mm]{Figures/TrackDirection_DataRecoTrack_LLHDoverlay.png}}
+	\quad
+	\subfigure[\textit{The difference, forwards minus backwards, of the log likelihoods. Negative entries indicate that the forwards-going tracks had a better fit than the backwards-going ones.}\label{TrackDirection_DataRecoTrack_LLHDdiff_fig}]
+	{\includegraphics[width=75mm]{Figures/TrackDirection_DataRecoTrack_LLHDdiff.png}}
+	}
+\caption{\textit{Evidence that MCS can be used to determine track directions by analyzing the output of the likelihood fit.}}
+\end{figure}
