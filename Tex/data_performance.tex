@@ -92,6 +92,47 @@ For each 20cm segment of each reconstructed track in this single muon sample, th
 \label{Highland_validation_DataRecoTracks_fig}
 \end{figure}
 
+\subsection{Optimizing Segment Length}\label{SegmentLength_DataRecoTrack_section}
+One of the tunable parameters in the MCS code is the length of segments into which a track is broken. While shorter segment lengths yield more segments per track and therefore more sampling points to build a stronger likelihood, they also lead to the breakdown of the gaussian nature of scatters. Longer segments tend to have more gaussian scatters but lead to fewer sampling points and therefore worse energy resolution. For these two reasons there exists an optimal segment length. Figure \ref{Highland_seglenstudy_DataRecoTracks_fig} shows analogous figures to Figure \ref{Highland_validation_DataRecoTracks_fig} for four different segment lengths ranging between 5cm and 25cm. The input sample for this figure are the neutrino-induced muons that are fully contained and have been deemed well reconstructed. From this figure it can be seen that only segment lengths longer than 20cm provide truly gaussian distributions. Figure \ref{seglenstudy_bias_resolution_DataRecoTrack_fig} shows the bias and resolution for the MCS energy reconstruction method on this same sample. While shorter segment lengths tend to have a slightly higher bias, the difference is small. Similarly, shorter segment lengths tend to have better resolution but the difference is small at larger range energies. For range energies below about 0.5 GeV the difference in resolution between segment lengths grows because the tracks are short enough where the longer segment lengths are not providing enough sampling points for the MCS method to make an accurate estimation of the track energy. In order to maintain a gaussian distribution of angular scatters while providing enough sampling points for an energy resolution of below 30\% for the shortest viable tracks, a segment length of 20cm has been chosen for this analysis.
+
+\begin{figure}
+\centering
+\mbox{
+	\subfigure[\textit{Highland validation figure for 5cm segment lengths.}]
+	{\includegraphics[width=75mm]{Figures/seglenstudy_gaus_5cm.png}}
+	\quad
+	\subfigure[\textit{Highland validation figure for 10cm segment lengths.}]
+	{\includegraphics[width=75mm]{Figures/seglenstudy_gaus_10cm.png}}
+	}\newline
+\mbox{
+	\subfigure[\textit{Highland validation figure for 20cm segment lengths.}]
+	{\includegraphics[width=75mm]{Figures/seglenstudy_gaus_20cm.png}}
+	\quad
+	\subfigure[\textit{Highland validation figure for 25cm segment lengths.}]
+	{\includegraphics[width=75mm]{Figures/seglenstudy_gaus_25cm.png}}
+	}
+\caption{\textit{Highland validation figures analogous to Figure \ref{Highland_validation_DataRecoTracks_fig} for various segment lengths, taken from the sample of well reconstructed neutrino-induced muons in {\ub} data. The gaussian nature of this plot breaks down for segment lengths that are too short.}}
+\label{Highland_seglenstudy_DataRecoTracks_fig}
+\end{figure}
+
+
+
+\begin{figure}
+\centering
+\mbox{
+	\subfigure[\textit{MCS energy bias as a function of range energy for four different segment lengths.}]
+	{\includegraphics[width=75mm]{Figures/seglenstudy_DataRecoTracks_bias.png}}
+	\quad
+	\subfigure[\textit{MCS energy resolution as a function of range energy for four different segment lengths.}]
+	{\includegraphics[width=75mm]{Figures/seglenstudy_DataRecoTracks_resolution.png}}
+	}
+\caption{\textit{MCS energy bias and resolution as a function of range energy for the selected, well reconstructed neutrino-induced muons in {\ub} data.}}
+\label{seglenstudy_bias_resolution_DataRecoTrack_fig}
+\end{figure}
+
+
+
+
 
 \subsection{MCS to Determine Track Direction}\label{TrackDirection_DataRecoTrack_section}
 This section demonstrates the ability for the multiple coloumb scattering code to determine the direction of a track. The MCS code as it is described in Section XXX works by maximizing a likelihood based on angular scatters between segments of a track along with the expected RMS angular deviation from the Highland equation (Equation \ref{highland_eqtn}) and assuming minimally ionizing energy loss in upstream portions of the track, since tracks tend to scatter more as they lose energy. In practice, there is actually a negative log likelihood that is minimized, meaning the lower the likelihood the more confident the fit is. In order to determine the direction of a track with MCS, one can compute the converged minimum log likelihood for the track assuming it is in the correct direction, then reverse the ordering of the trajectory points in the track and compute the converged minimum log likelihood for this ``backwards'' track. The likelihood should be better (smaller) for tracks in the correct direction than reversed tracks.\\
