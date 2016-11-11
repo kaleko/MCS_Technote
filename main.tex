@@ -8,6 +8,7 @@
 \author[2]{Polina Abratenko}
 \author[1]{Mike Shaevitz}
 \author[2]{Josh Spitz}
+\author[3]{Leonidas Kalousis}
 \author[3]{XXX NOTE AUTHOR LIST IS PRELIMINARY XXX}
 
 \affil[1]{Columbia University, NY}
@@ -20,7 +21,7 @@
 \begin{document}
 \maketitle
 
-\abstract{abstract goes here... brief overview of what MCS is, why it's important for exiting tracks, how this technote looks at contained tracks to demonstrate that MCS is a viable way to reconstruct energy in microboone, this technote looks both at simulated muons and real muons-from-neutrinos in data, and how this technote also describes some potential other uses for MCS like diagnosing broken tracks, determining track direction, and maybe pion/muon separation.}
+\abstract{Liquid Argon Time Projection Chambers (LArTPCs) are an important detector technology for the future of the neutrino physics community. This technology allows for, among other things, precise three-dimensional reconstruction of charged particle tracks that traverse the detector medium. The MicroBooNE experiment is a LArTPC at the Fermi National Accelerator laboratory with active volume dimensions of 2.3 m width $\times$ 2.6 m height $\times$ 10.4 m length located in the Booster Neutrino Beamline (BNB) which has a peak neutrino energy of about 0.7 GeV. In this note, we discuss a technique of measuring a track-like particle's energy by means of multiple coloumb scattering (MCS), which does not require the full track to be contained inside of the detector volume as other track energy reconstruction methods do (E.G. range-based energy reconstruction and calorimetric energy reconstruction). In this note we provide motivation for why this technique is important, demonstrate and quantify its performance on simulated single tracks, and then demonstrate its performance on fully contained neutrino-induced muon tracks both in simulation and in data. In general we find good agreement between data and simulation, with negligible bias in the energy reconstruction and with resolutions that vary as a function of track length, between 5\% for the longest tracks (several meters long) and 25\% for the shortest (one meter long). This technote also describes other uses for multiple coloumb scattering besides energy reconstruction, including identification of poorly reconstructed tracks, determination of track direction, and some particle identification capabilities.}
 
 \clearpage
 \tableofcontents
@@ -30,14 +31,15 @@
 
 %note introduction should include a note about the microboone detector environment (broken wires, noise, etc)
 \input{./Tex/introduction.tex}
-
+\clearpage
 \input{./Tex/technique.tex}
-
+\clearpage
 \input{./Tex/MC_singlemuon_performance.tex}
-
+\clearpage
 \input{./Tex/MC_neutrino_performance.tex}
+\clearpage
 \input{./Tex/data_performance.tex}
-
+\clearpage
 \input{./Tex/conclusions.tex}
 
 

@@ -1,30 +1,90 @@
 %%%% SIGNAL SECTION %%%%
-\section{MCS Implementation using the maximum likelihood method}\label{MCS_technique_section}
+\section{MCS Implementation Using the Maximum Likelihood Method}\label{MCS_technique_section}
 
-To determine the angular deflections of the particle, its track through the medium is first split into segments. The angles of deflection between adjacent segments are then taken. The \emph{maximum likelihood method} is then used to find the momentum of the particle. Individual angle deflections are given as input to the likelihood product: 
+This section describes exactly how the phenomenon of multiple coloumb scattering is leveraged to determine the momentum of a track-like particle reconstructed in a LArTPC. In general, the approach is as follows:
+\begin{enumerate}
+\item The three-dimensional track is broken up into segments of configurable length.
+\item The scattering angles between each consecutive segment are measured.
+\item Those angles combined with the Highland formula (Equation \ref{highland_eqtn}) are used to build a likelihood that the particle has a specific energy, taking into account energy loss in upstream segments of the track.
+\item The energy corresponding to the maximum likelihood is chosen to be the MCS computed energy.
+\end{enumerate}
+Each of these steps are discussed in detail in the following subsections.\\
 
+The idea and initial implementation of MCS using the maximum likelihood method for this analysis is credited to Leonidas Kalousis, a former member of the MicroBooNE collaboration. Further details regarding the technique can be found in his internal notes concerning both Monte Carlo simulated tracks \cite{leonidas1} and reconstructed tracks \cite{leonidas2}. Only slight modifications to this code have been made for the analysis described in this note.\\
+
+For this analysis, a minimum start-to-end reconstructed track length of 100 cm was used. Additionally, the relativistic limit approcimation was also used ($\beta \approx 1$ and $E \approx p$).
+
+\subsection{Track Segmentation}\label{track_segmentation_section}
+The input to the track segmentation routine is a vector of ordered three-dimensional trajectory points (x,y,z) representing the reconstructed track. The points are ordered along the direction of the track, with the first point representing the start of the track, and the last point representing the end of the track. These trajectory points can be determined in a number of ways by different track reconstruction algorithms. In general, a three-dimensional track is reconstructed by combining two-dimensional hits reconstructed from signals on the different wire planes along with timing information from the photomultiplier tubes to reconstruct the third dimension. In the case of this note, the PandoraNuPMA algorithm is used to reconstruct the track (XXX citation to pandora publication).\\
+
+Also input to the track segmentation routine is the desired segment length, which is a tunable parameter. In this note, segment lengths are generally taken to be 20cm except where otherwise explicitly stated (as in Section \ref{SegmentLength_DataRecoTrack_section}). This routine begins at the start of the track, and iterates through the trajectory points in order, each time computing the straight-line distance between the first point and the current one. When a point is reached that is greater than the desired segment length, that iteration stops and the direction cosines of this segment are computed.\\
+
+Given the subset of the three-dimensional trajectory points (x, y, z) that correspond to one ``segment" of the track, a three-dimensional linear fit is applied to the data points using the orthogonal distance regression method around the trajectory point averages for that segment. This method finds the eigenvalues and eigenvectors of the (data - average) covariance matrix and the solution is the one associated with the maximum eigenvalue.\\
+
+At the end of this routine, a vector of length $n$ (where $n$ is the number of segments for the track) is stored containing the direction cosines at the start of each segment.
+
+
+\subsection{Scattering Angle Computation}\label{scattering_angle_computation_section}
+This routine within the MCS code takes as input the vector of length $n$ (where $n$ is the number of segments for the track) containing the direction cosines at the start of each segment. In general, the algorithm iterates over consecutive pairs of segments (the segmentation routine is described in Section \ref{track_segmentation_section}) and computes angular scatters between each, and stores them for later use by a future subroutine. This code is more complicated than just taking the dot product between consecutive direction cosines to find the total angular scatter between segments because the Highland formula is derived from scattering independently in the two directions orthogonal to the direction of the track. For this reason, this subroutine performs a coordinate transformation for each pair of segments such that the ``z'' direction (which, in detector coordinates is just the beam direction) is rotated to be along the direction of the first two segments. With the ``z'' direction as such, ``x'' and ``y'' directions are chosen such that all of ``x'', ``y'', and ``z'' are mutually orthogonal. Note that at this point, all of ``x'', ``y'', and ``z'' are different than the similarly named detector coordinates. The scattering angle both in the ``x'' and ``y'' planes are then computed for each consecutive pairs of segments. After this routine, a vector of length $2n$ is stored containing the scattering angles in the ``x'' plane as well as in the ``y'' plane. These scattering angles are what are input into the maximum likelihood routine to determine track energy.
+
+
+\subsection{Maximum Likelihood Theory}\label{likelihood_theory_section}
+
+The normal probability distribution for a variable with a gaussian error sigma is given by:
 \begin{equation}
-	L=\prod_{(i,j)}f_{ij}
-\end{equation} 
-
-\noindent which is then maximized to find the momentum, $p$. 
-
-The probability to measure a certain deflection is given by:
-
-\begin{equation}
-f_{ij}= \frac{1}{\sqrt{2\pi}(\Delta \theta)_{std}}e^{\frac{-(\Delta \theta)_{ij}^2}{2(\Delta \theta)_{std}^2}}
+f_X(\Delta\theta_j) = (2\pi\sigma_0^2)^{-\frac{1}{2}}exp(-\frac{1}{2}\frac{(\Delta\theta_j-\mu_0)^2}{\sigma_0^2})
 \end{equation}
 
-\noindent where $f=f((\Delta \theta)_{ij};(\Delta \theta)_{std})$ is a Gaussian function with mean 0 and standard deviation given by $(\Delta \theta)_{std}=\sqrt{\theta_0^2+\delta \theta_0^2}$ (where the angular resolution $\delta \theta_0$ is given a fixed value of 2 mrad from Monte Carlo information \cite{leonidas2}). The momentum and standard deviation are updated along the track using the following energy-range relation: 
+Here, each $\Delta\theta_j$ corresponds to a $\Delta\theta$ measurement between one pair of segments in a track either in the rotated-coordinates ``x'' or ``y'' plane, $\mu_0$ is assumed to be zero, and $\sigma_\theta^0$ is the RMS angular deflection computed by the modified Highland formula (Equation \ref{modified_highland_eqtn}), which is a function of both the energy and the length of that segment. Since energy is lost between segments, $\sigma_\theta^0$ is different for each angular measurement along the track so we replace $\sigma_\theta^0$ with $\sigma_\theta^j$, where $j$ is an index representative of the segment. \newline
+
+To get the likelihood, one takes the product of $f_X(\Delta\theta_j)$ over all the $\Delta\theta_j$ segment-to-segment scatters along the track. Since the product of exponentials is just an exponential with the sum of the arguments, this product becomes
 \begin{equation}
-    p_i \simeq p - \frac{k_{cal}L_i}{c}
+L(\mu;(\sigma_\theta^1)^2,...,(\sigma_\theta^n)^2;\Delta\theta_1,...,\Delta\theta_n) = \prod_{j=1}^{n}f_X(\Delta\theta_j,\mu,(\sigma_\theta^j)^2) = (2\pi)^\frac{-n}{2}\times\prod_{j=1}^{n}(\sigma_\theta^j)^{-1} \times exp(-\frac{1}{2}\sum_{j=1}^{n}\frac{(\Delta\theta_j-\mu_0)^2}{(\sigma_\theta^j)^2})
 \end{equation}
 
-\noindent where $p_i$ is the momentum along the track for a certain segment $i$, $p$ is the initial momentum of the particle at the neutrino interaction vertex, $L_i$ is the distance of the $i^{\text{th}}$ segment from the starting point of the track, and $k_{cal}$ is the ionization constant for muons in liquid argon, given to be $2.1 \times 10^{-3}$ GeV/cm.
+In practice, rather than maximizing likelihood it is often more computationally convenient to instead minimize the negative log likelihood. Taking the natural logarithm of the likelihood $L$ gives an expression that is related to a $\chi^2$
+\begin{equation}\label{leo_llhd_eqtn}
+l(\mu;(\sigma_\theta^1)^2,...,(\sigma_\theta^n)^2;\Delta\theta_1,...,\Delta\theta_n) = ln(L) = -\frac{n}{2}ln(2\pi) - \sum_{j=1}^{n}ln(\sigma_\theta^j) - \frac{1}{2}\sum_{j=1}^{n}\frac{(\Delta\theta_j-\mu)^2}{(\sigma_\theta^j)^2}
+\end{equation}
 
-For this implementation, a minimum reconstructed track length of 100 cm was used. A relativistic limit approximation was also used, meaning $\beta \approx 1$ and $E\approx p$. 
+The negative log likelihood for one specific segment's angular scatter $\Delta\theta_j$ given an expected scattering RMS $\sigma_\theta^j$ is given by the following equation
+\begin{equation}\label{negative_llh_eqtn}
+-l(\mu, \sigma_\theta^j, \Delta\theta_j) = \frac{1}{2}ln(2\pi) + ln(\sigma_\theta^j) + \frac{1}{2}\frac{(\Delta\theta_j-\mu)^2}{(\sigma_\theta^j)^2}
+\end{equation}
 
-The idea and implementation of MCS using the maximum likelihood method for this project is credited to Leonidas Kalousis, a former member of the MicroBooNE collaboration.  Further details regarding the technique can be found in his internal notes concerning both Monte Carlo simulated tracks \cite{leonidas1} and reconstructed tracks \cite{leonidas2}. 
+In general, Equation \ref{negative_llh_eqtn} is evaluated for each segment in a track given a postulated full track energy, and the sum of these terms is used to determine the likelihood that the postulated track energy is correct for that track.
+
+
+\subsection{Maximum Likelihood Implementation}\label{maximum_likelihood_section}
+
+Given a set of angular deflections in the ``x'' and ``y'' planes for each segment as described in Section \ref{scattering_angle_computation_section}, a modified version of the Highland formula (Equation \ref{modified_highland_eqtn}) is used along with a maximum likelihood method to determine the energy of the track. 
+
+\begin{equation}\label{modified_highland_eqtn}
+\sigma_{\theta}^{RMS} = \sqrt{ (\sigma_\theta^0)^2 + (\sigma_\theta^{res})^2} = \sqrt{ (\frac{13.6\  \text{MeV}}{p\beta c}z\sqrt{\frac{\ell}{X_0}}\Big[1+0.0038\text{ln}\Big(\frac{\ell}{X_0}\Big)\Big])^2 + (\sigma_\theta^{res})^2 }
+\end{equation}
+where the formula is ``modified'' from the original Highland formula (Equation \ref{highland_eqtn}) in that it includes a detector-inherent angular resolution term $\sigma_\theta^{res}$ which is given a fixed value of 2 mrad in this analysis from Monte Carlo information [XXX check this... maybe include section discussing 2mrad in more details. long story short it doesn't have any effect except for the highest energy tracks.] \cite{leonidas2}.\\
+
+In general, this routine does a raster scan over postulated track energies in steps of 1 MeV from a minimum of the full track range-based energy up to a maximum of 7.5 GeV. Starting with the range-based energy as a minimum is valid because the range-based energy is known to be an accurate predictor of energy for contained tracks (see Section \ref{Range_Energy_Validation_section}) and is therefore an acceptable minimum both for contained and for exiting tracks. Ending at 7.5 GeV as a maximum energy is valid because given the BNB spectrum, no neutrino-induced tracks above that energy are expected in {\ub}.\\
+
+Given a postulated full track energy, $E_t$, the maximum likelihood algorithm iterates over angular scatters for each segment, with two $\Delta\theta_j$ values for each segment (corresponding to the ``x'' and ``y'' scattering planes). The energy of the $j$th segment is given by
+\begin{equation}\label{segment_E_equation}
+E_{j} = E_t - k_{cal}*N_{upstream}*l_{seg}
+\end{equation}
+where $k_{cal}$ is the minimally ionizing energy constant given to be $2.2 \frac{MeV}{cm}$ in liquid argon, $N_{upstream}$ is the number of segments upstream of this particular segment, and $l_{seg}$ is the segmentation length. This definition of $E_j$ therefore takes into account energy loss along the track, and can never be negative given the range of possible $E_t$ values described previously. This value of segment energy is used to predict the RMS angular scatter for that segment ($\sigma_\theta^{RMS}$) by way of a modified version of the modified Highland formula, Equation \ref{modified_highland_eqtn}. Still assuming the mean angular scatter, $\mu$, is zero, Equation \ref{negative_llh_eqtn} is evaluated for each segment and all evaluations are summed to compute a total summed negative log likelihood for that postulated track energy, $E_t$.\\
+
+After the raster scan over postulated track energies $E_t$ is complete, the one with the smallest summed negative log likelihood is chosen to be the final MCS computed energy for the track.
+
+
+
+
+
+
+
+
+
+
+
+
 
 %Initial contents of technique.tex below, commented out as per request. -Polina
 
