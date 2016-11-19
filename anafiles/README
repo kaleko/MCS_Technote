@@ -1,0 +1,28 @@
+Dear reader,
+
+These anafiles are the output of MCSBiasStudyDriver, which runs MCSBiasStudy. Both of these things live in David Kaleko's custom larlite git repository, found here: https://github.com/kaleko/KalekoAna
+
+Here are some instructions to run MCSBiasStudyDriver using the larlite input files provided:
+------------------------------------------------------------------
+To run MCSBiasStudyDriver, the python run script needs to be told what kind of input files are being used (EG single muon MCTrack, real data, etc), along with the input files themselves.
+
+Here is a copy/paste python dictionary of analysis type and input files:
+
+anatype_dict = {
+'SingleMuonMCTrack' : data_basedir + 'kaleko_prod_muminus_100616_larlite_out/larlite_*.root',
+'SingleMuonRecoTrack' : data_basedir + 'kaleko_prod_muminus_100616_larlite_out/larlite_*.root',
+'MCBNBSelectedRecoTrack' : data_basedir + '082416_mcc7_savedlongesttracks.root',
+'MCBNBRecoTrack' : data_basedir + 'kaleko_mcc7_bnb_minimalproducts/ccnumu_longmuontrack_fullycontained_savedevents.root',
+'DataBNBSelectedRecoTrack' : data_basedir + 'data_selected_contained_1m/savedlongesttracks.root'
+}
+
+I have uploaded all of these input files to fermilab at /pnfs/uboone/persistent/users/kaleko/MCS_Technote_inputfiles/
+They are not included in this git repository because they are too large.
+------------------------------------------------------------------
+
+Copies of the already-processed-by-MCSBiasStudyDriver analysis outfiles can be found here: /pnfs/uboone/persistent/users/kaleko/MCS_Technote_inputfiles/
+They are not included in this git repository because they are too large.
+
+I recommend you scp them to the "anafiles" directory in this repository if you want the ipynb scripts to work.
+
+Lastly, note that in order to include hand-scan results in the analysis, a .csv of my handscan results is include in this MCS_Technote repository, and the relevant ipynb plot-creating analysis scripts read in the csv and handle it appropriately.

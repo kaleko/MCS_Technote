@@ -1,0 +1,1 @@
+rsync -v -e ssh -r /Users/davidkaleko/Desktop/MCS_Technote/anafiles/ kaleko@uboonegpvm04.fnal.gov:/pnfs/uboone/persistent/users/kaleko/MCS_Technote_anafiles/
