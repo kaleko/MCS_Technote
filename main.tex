@@ -9,7 +9,7 @@
 \author[1]{Mike Shaevitz}
 \author[2]{Josh Spitz}
 \author[3]{Leonidas Kalousis}
-\author[3]{XXX NOTE AUTHOR LIST IS PRELIMINARY XXX}
+\author[3]{XXX NOTE AUTHOR LIST IS PRELIMINARY, THIS WILL BE A COLLABORATION PAPER XXX}
 
 \affil[1]{Columbia University, NY}
 \affil[2]{University of Michigan, MI}
@@ -21,7 +21,7 @@
 \begin{document}
 \maketitle
 
-\abstract{Liquid Argon Time Projection Chambers (LArTPCs) are an important detector technology for the future of the neutrino physics community. This technology allows for, among other things, precise three-dimensional reconstruction of charged particle tracks that traverse the detector medium. The MicroBooNE experiment is a LArTPC at the Fermi National Accelerator laboratory with active volume dimensions of 2.3 m width $\times$ 2.6 m height $\times$ 10.4 m length located in the Booster Neutrino Beamline (BNB) which has a peak neutrino energy of about 0.7 GeV. In this note, we discuss a technique of measuring a track-like particle's energy by means of multiple coloumb scattering (MCS), which does not require the full track to be contained inside of the detector volume as other track energy reconstruction methods do (E.G. range-based energy reconstruction and calorimetric energy reconstruction). In this note we provide motivation for why this technique is important, demonstrate and quantify its performance on simulated single tracks, and then demonstrate its performance on fully contained neutrino-induced muon tracks both in simulation and in data. In general we find good agreement between data and simulation, with negligible bias in the energy reconstruction and with resolutions that vary as a function of track length, between 5\% for the longest tracks (several meters long) and 25\% for the shortest (one meter long). This technote also describes other uses for multiple coloumb scattering besides energy reconstruction, including identification of poorly reconstructed tracks, determination of track direction, and some particle identification capabilities.}
+\abstract{Liquid Argon Time Projection Chambers (LArTPCs) are an important detector technology for the future of the neutrino physics community. This technology allows for, among other things, precise three-dimensional reconstruction of charged particle tracks that traverse the detector medium. The MicroBooNE experiment is a LArTPC at the Fermi National Accelerator laboratory with active volume dimensions of 2.3 m width $\times$ 2.6 m height $\times$ 10.4 m length located in the Booster Neutrino Beamline (BNB) which has a peak neutrino momentum of about 0.7 GeV. In this note, we discuss a technique of measuring a track-like particle's momentum by means of multiple coloumb scattering (MCS), which does not require the full track to be contained inside of the detector volume as other track momentum reconstruction methods do (E.G. range-based momentum reconstruction and calorimetric momentum reconstruction). In this note we provide motivation for why this technique is important, demonstrate and quantify its performance on simulated single tracks, and then demonstrate its performance on fully contained neutrino-induced muon tracks both in simulation and in data. In general we find good agreement between data and simulation, with negligible bias in the momentum reconstruction and with resolutions that vary as a function of track length, between 5\% for the longest tracks (several meters long) and 15\% for the shortest (one meter long) when 10 centimeter segments are used in the MCS algorithm. This technote also describes other uses for multiple coloumb scattering besides momentum reconstruction, including identification of poorly reconstructed tracks, determination of track direction, and some particle identification capabilities.}
 
 \clearpage
 \tableofcontents
@@ -29,14 +29,28 @@
 \clearpage
 \input{./Tex/global_vars.tex}
 
-%note introduction should include a note about the microboone detector environment (broken wires, noise, etc)
+\section{Note Content Overview}
+This is a technote internal to the MicroBooNE collaboration quantifying the performance of the multiple coloumb scattering based momentum estimation technique. While the note may seem lengthy, do not fear. Many sections are essentially the same, containing the same plots constructed in the same way, but from different input samples. In general the structure of this note is as follows:
+\begin{enumerate}
+\item An introduction to the MicroBooNE detector, and motivation for the multiple coloumb scattering method for this experiment and within the future LArTPC community.
+\item A detailed description of how the actual method works.
+\item Demonstration of this method on single muon {\sc MCTracks}. The purpose of this is to demonstrate that the technique works with the least obfuscated input.
+\item Demonstration of this method on a high-statistics sample of truth-selected muons from well reconstructed simulated numu charged-current interactions. The purpose of this is to demonstrate that the technique works with automatically reconstructed tracks, and its performance is quantified on a relevant sample (where the muons have the momentum and angle spectra that one would expect in MicroBooNE from the BNB). This section also describes optimizing the segment length used in the algorithm, optimizing the additional constant resolution term used in the algorithm, as well as a potential additional use for the technique involving determining track directionality.
+\item Demonstration of this method on automatically-selected well-reconstructed neutrino events in the full MicroBooNE BNB + cosmics simulation. The purpose of this section is to get one step towards working with real automatically-selected BNB data. This section describes MID rates, MCS PID capabilities, and other things that the previous (truth-based selection) section does not.
+\item Demonstration of this method on automatically-selected real neutrino events in actual MicroBooNE BNB data. In order to ensure the tracks are well-reconstructed and to mitigate MIDs, a handscanning effort is used and is described in this section.
+\item A conclusion section reiterating the usefulness of the tool, along with a list of plots that might be good to put in a potential publication derived from this note.
+\end{enumerate}
+
+
 \input{./Tex/introduction.tex}
 \clearpage
 \input{./Tex/technique.tex}
 \clearpage
 \input{./Tex/MC_singlemuon_performance.tex}
 \clearpage
-\input{./Tex/MC_neutrino_performance.tex}
+\input{./Tex/MC_trueneutrino_performance.tex}
+\clearpage
+\input{./Tex/MC_selected_neutrino_performance.tex}
 \clearpage
 \input{./Tex/data_performance.tex}
 \clearpage

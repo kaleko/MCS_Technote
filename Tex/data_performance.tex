@@ -1,5 +1,5 @@
 %%%% SIGNAL SECTION %%%%
-\section{MCS Performance on Muons from numuCC Events in MicroBooNE Data}\label{data_performance_section}
+\section{MCS Performance on Automatically Selected Muons from numuCC Events in MicroBooNE Data}\label{data_performance_section}
 
 \subsection{Input sample}
 The input sample to this portion of the analysis is roughly 5e19 POT worth of triggered BNB neutrino interactions in {\ub} data as used by the CCInclusive group and descibed in their interal note\cite{CCIncInternalNote}. These events are run through the same fully automated reconstruction chain and event selection routine described in Section \ref{MC_BNB_input_sample_section}. The SAM definition used for this sample is ``prod\_bnb\_reco\_neutrino2016\_beamfilter\_goodruns\_v5''.
@@ -7,11 +7,11 @@ The input sample to this portion of the analysis is roughly 5e19 POT worth of tr
 \subsection{Event selection}
 The exact same event selection cuts are used to identify $\nu_\mu$ charged-current events in this data sample as described in Section \ref{MC_BNB_eventselection_section}. The same further cuts to isolate the subset of those events viable for MCS analysis are also placed, with the exception of the cut requiring the reconstructed track matches well with an {\sc MCTrack} in the event (as there are no {\sc MCTracks} in real data). In order to accommodate for this difference, a hand scan of the selected events was conducted.\\
 
-After the event selection cuts, the minimum track length cut, and the containment cuts were placed, 598 events (tracks) remained. Each of these events (tracks) were scanned by hand with an interactive event display. What was shown to the scanner (David Kaleko) were three two-dimensional displays with the raw-wire signals on them. Overlaid on each display was the 2D projection of the 3D reconstructed track and vertex. The scanner looked to ensure the track was well reconstructed (it started within a few cm of the vertex and ended within a few cm of the end of the wire-signal track or vice-versa). Additionally the scanner looked for obvious MID toplogies like cosmic rays inducing Michel electrons at the reconstructed neutrino vertex (for example when a clear Bragg peak is visible at the neutrino vertex) and also for obvious MID topologies where the track is likely a pion (for example if it charge-exchanges and creates a clear neutral pion decay topology). In general, the scanner chose to be conservative in the sense that if the track didn't look very clearly like a muon from a $\nu_\mu$ charged-current event, the track (event) was removed from the analysis.\\
+After the event selection cuts, the minimum track length cut, and the containment cuts were placed, 598 events (tracks) remained. Each of these events (tracks) were scanned by hand with an interactive event display. What was shown to the scanner (David Kaleko) were three two-dimensional displays with the raw-wire signals on them. Overlaid on each display was the 2D projection of the 3D reconstructed track and vertex. The scanner looked to ensure the track was well reconstructed (it started within a few cm of the vertex and ended within a few cm of the end of the wire-signal track or vice-versa in all three planes). Additionally the scanner looked for obvious MID topologies like cosmic rays inducing Michel electrons at the reconstructed neutrino vertex (for example when a clear Bragg peak is visible at the neutrino vertex) and also for obvious MID topologies where the track is likely a pion (for example if it charge-exchanges and creates a clear neutral pion decay topology). In general, the scanner chose to be conservative in the sense that if the track didn't look very clearly like a muon from a $\nu_\mu$ charged-current event, the track (event) was removed from the analysis.\\
 
-A sample event that was removed by the hand scanner is shown in Figure \ref{bad_evd_fig_1}. Only one two-dimensional display is shown (from the collection plane wires), while the 2D projection of the 3D track is shown in black. The 2D projection of the 3D reconstructed neutrino vertex is shown as a small cyan dot near the bottom left of the image. It is clear that the reconstructed track starts in the correct place, but it is truncated and stops before the end of the track. This track was deemed ``poorly reconstructed'' and was therefore removed from the analysis. A second sample event that was removed by the hand scanner is shown in Figure \ref{bad_evd_fig_2}. This event was deemed some form of MID. The reconstructed track matches wire signals well, but this event does not appear to be a clean $\nu_\mu$ charged-current event, with at least one neutral pion decay visible near the center of the track. A sample event that was deemed acceptable is shown in Figure \ref{good_evd_fig_1}.
+A sample event that was removed by the hand scanner is shown in Figure \ref{bad_evd_fig_1}. Only one two-dimensional display is shown (from the collection plane wires), while the 2D projection of the 3D track is shown in black. The 2D projection of the 3D reconstructed neutrino vertex is shown as a small cyan dot near the bottom left of the image. It is clear that the reconstructed track starts in the correct place, but it is truncated and stops before the end of the track. This track was deemed ``poorly reconstructed'' and was therefore removed from the analysis. A second sample event that was removed by the hand scanner is shown in Figure \ref{bad_evd_fig_2}. This event was deemed some form of unknown MID. The reconstructed track matches wire signals well, but this event does not appear to be a clean $\nu_\mu$ charged-current event, with at least one neutral pion decay visible near the center of the track. A sample event that was deemed acceptable is shown in Figure \ref{good_evd_fig_1}.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \begin{center}
 \includegraphics[width=100mm]{Figures/bad_evd_1.png}
 \end{center}
@@ -19,7 +19,7 @@ A sample event that was removed by the hand scanner is shown in Figure \ref{bad_
 \label{bad_evd_fig_1}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \begin{center}
 \includegraphics[width=100mm]{Figures/bad_evd_2.png}
 \end{center}
@@ -27,7 +27,7 @@ A sample event that was removed by the hand scanner is shown in Figure \ref{bad_
 \label{bad_evd_fig_2}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \begin{center}
 \includegraphics[width=100mm]{Figures/good_evd_1.png}
 \end{center}
@@ -35,44 +35,44 @@ A sample event that was removed by the hand scanner is shown in Figure \ref{bad_
 \label{good_evd_fig_1}
 \end{figure}
 
-\subsection{MCS Energy Validation}\label{MCS_Energy_Validation_DataRecoTrack_section}
-For this sample of reconstructed tracks from $\nu_\mu$ charged current events in data, only the trajectory points of each reconstructed track are used as input to the MCS code, described in Section \ref{MCS_technique_section}. The resulting MCS energy versus range-based energy \textit{without any additional hand-scan reconstruction quality checks} can be seen in Figure \ref{MCS_range_energy_DataRecoTrack_nohandscan_fig}. The off-diagonal visible in this figure (where MCS energy greatly overestimates range energy) is caused both by poor track reconstruction (truncated tracks) and MIDs. Figure \ref{MCS_range_energy_RecoTrack_withandwithouthandscan_fig} divides Figure \ref{MCS_range_energy_DataRecoTrack_nohandscan_fig} into those events which are handscanned as having poorly reconstructed or obviously MID'd tracks, and those which are well reconstructed. It can be seen that hand-scanning tends to remove the off-diagonal and therefore improve the MCS energy resolution.\\
+\subsection{MCS Momentum Validation}\label{MCS_Momentum_Validation_DataRecoTrack_section}
+For this sample of reconstructed tracks from $\nu_\mu$ charged current events in data, only the 3D trajectory points of each reconstructed track are used as input to the MCS code, described in Section \ref{MCS_technique_section}. The resulting MCS momentum versus range-based momentum \textit{without any additional hand-scan reconstruction quality checks} can be seen in Figure \ref{MCS_range_momentum_DataRecoTrack_nohandscan_fig}. The off-diagonal visible in this figure (where MCS momentum greatly overestimates range momentum) is caused both by poor track reconstruction (truncated tracks) and MIDs. Figure \ref{MCS_range_momentum_RecoTrack_withandwithouthandscan_fig} divides Figure \ref{MCS_range_momentum_DataRecoTrack_nohandscan_fig} into those events which are handscanned as having poorly reconstructed or obviously MID'd tracks, and those which are well reconstructed. It can be seen that hand-scanning tends to remove the off-diagonal and therefore improve the MCS momentum resolution.\\
 
-In order to compute a bias and a resolution, Figure \ref{MCS_range_energy_DataRecoTrack_fig} is sliced in bins of range energy and a histogram of the fractional energy difference ($\frac{E_{MCS} - E_{range}}{E_{range}}$) is created for each bin. This distribution is shown for two representative bins in Figure \ref{MCS_range_bias_resolution_DataRecoTrack_slices_fig}. The mean of each distribution is used to compute a bias a function of range, while the standard deviation of each distribution is used to compute a resolution. The bias and resolution for this energy reconstruction method shown in Figure \ref{MCS_range_bias_resolution_DataRecoTrack_fig}. This figure indicates a bias in the MCS energy resolution on the order of a few percent, with a resolution that decreases from about 18\% for contained reconstructed tracks with range energy around 0.5 GeV (which corresponds to a length of about 1.7 meters) to below 10\% for contained reconstructed tracks with range energy greater than 0.8 GeV (which corresponds to a length of about 3.1 meters). This agrees well with the same bias and resolution measurement in simulation as shown in Figure \ref{MCS_range_bias_resolution_MCNuRecoTrack_fig}.
+In order to compute a bias and a resolution, Figure \ref{MCS_range_momentum_DataRecoTrack_fig} (the tracks that were hand scanned as being well-reconstructed) is sliced in bins of range momentum and a histogram of the fractional momentum difference ($\frac{p_{MCS} - p_{range}}{p_{range}}$) is created for each bin. This distribution is shown for two representative bins in Figure \ref{MCS_range_bias_resolution_DataRecoTrack_slices_fig}. The mean of each distribution is used to compute a bias as a function of range momentum, while the standard deviation of each distribution is used to compute a resolution. The bias and resolution for this momentum reconstruction method shown in Figure \ref{MCS_range_bias_resolution_DataRecoTrack_fig}. This figure indicates a positive bias in the MCS momentum resolution on the order of a few percent, with a resolution that decreases from about 13\% for contained reconstructed tracks with range momentum around 0.5 GeV (which corresponds to a length of about 1.7 meters) to below 8\% for contained reconstructed tracks with range momentum greater than 0.8 GeV (which corresponds to a length of about 3.1 meters). This agrees well with the same bias and resolution measurement in simulation as shown in Figure \ref{MCS_range_bias_resolution_MCBNBSelectedRecoTrack_fig}. Note the bias and resolution plots stop at a maximum range-based momentum of below 1.4 GeV due to limited statistics.
 
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \begin{center}
-\includegraphics[width=100mm]{Figures/MCS_range_comparison_DataRecoTracks_nohandscan.png}
+\includegraphics[width=100mm]{Figures/MCS_range_comparison_DataBNBSelectedRecoTrack.png}
 \end{center}
-\caption{\textit{MCS computed energy versus range energy for the selected neutrino-induced fully contained muon sample in data without any additional handscanning to check for reconstruction quality. The off-diagonal where MCS energy greatly overestimates range energy is caused by poor track reconstruction (truncated tracks) and MIDs.}}
-\label{MCS_range_energy_DataRecoTrack_nohandscan_fig}
+\caption{\textit{MCS computed momentum versus range momentum for the selected neutrino-induced fully contained muon sample in data without any additional handscanning to check for reconstruction quality. The off-diagonal where MCS momentum greatly overestimates range momentum is caused by poor track reconstruction (truncated tracks) and MIDs.}}
+\label{MCS_range_momentum_DataRecoTrack_nohandscan_fig}
 \end{figure}
 
 \begin{figure}
 \centering
 \mbox{
-	\subfigure[\textit{The subset of events in Figure \ref{MCS_range_energy_DataRecoTrack_nohandscan_fig} which were hand-scanned as having poor reconstruction quality or obvious MID topologies.}]
-	{\includegraphics[width=75mm]{Figures/MCS_range_energy_DataRecoTracks_badhandscan.png}}
+	\subfigure[\textit{The subset of events in Figure \ref{MCS_range_momentum_DataRecoTrack_nohandscan_fig} which were hand-scanned as having poor reconstruction quality or obvious MID topologies.}]
+	{\includegraphics[width=75mm]{Figures/MCS_range_momentum_DataRecoTracks_badhandscan.png}}
 	\quad
-	\subfigure[\textit{The subset of events in Figure \ref{MCS_range_energy_DataRecoTrack_nohandscan_fig} which were hand-scanned as having good reconstruction quality or obvious MID topologies.}\label{MCS_range_energy_DataRecoTrack_fig}]
-	{\includegraphics[width=75mm]{Figures/MCS_range_energy_DataRecoTracks_goodhandscan.png}}
+	\subfigure[\textit{The subset of events in Figure \ref{MCS_range_momentum_DataRecoTrack_nohandscan_fig} which were hand-scanned as having good reconstruction quality or obvious MID topologies.}\label{MCS_range_momentum_DataRecoTrack_fig}]
+	{\includegraphics[width=75mm]{Figures/MCS_range_momentum_DataRecoTracks_goodhandscan.png}}
 	}
-\caption{\textit{MCS computed energy versus range energy for the selected neutrino-induced fully contained muon sample in data hand-scanned as having poorly reconstructed tracks (left) and well reconstructed tracks (right).}}
-\label{MCS_range_energy_RecoTrack_withandwithouthandscan_fig}
+\caption{\textit{MCS computed momentum versus range momentum for the selected neutrino-induced fully contained muon sample in data hand-scanned as having poorly reconstructed tracks (left) and well reconstructed tracks (right).}}
+\label{MCS_range_momentum_RecoTrack_withandwithouthandscan_fig}
 \end{figure}
 
 
 \begin{figure}
 \centering
 \mbox{
-	\subfigure[\textit{Fractional energy difference between 0.35 and 0.53 GeV range energy.}]
-	{\includegraphics[width=50mm]{Figures/MCS_range_resolution_DataRecoTracks_slice1.png}}
+	\subfigure[\textit{Fractional momentum difference between 0.35 and 0.53 GeV range momentum.}]
+	{\includegraphics[width=75mm]{Figures/{MCS_range_resolution_DataBNBSelectedRecoTrack_slice_0.35_0.53}.png}}
 	\quad
-	\subfigure[\textit{Fractional energy difference between 0.90 and 1.08 GeV range energy.}]
-	{\includegraphics[width=50mm]{Figures/MCS_range_resolution_DataRecoTracks_slice2.png}}
+	\subfigure[\textit{Fractional momentum difference between 0.90 and 1.08 GeV range momentum.}]
+	{\includegraphics[width=75mm]{Figures/{MCS_range_resolution_DataBNBSelectedRecoTrack_slice_0.90_1.08}.png}}
 	}
-\caption{\textit{Fractional energy difference for a few representative bins of range energy derived from Figure \ref{MCS_range_energy_DataRecoTrack_fig}.}}
+\caption{\textit{Fractional momentum difference for a few representative bins of range momentum derived from Figure \ref{MCS_range_momentum_DataRecoTrack_fig}.}}
 \label{MCS_range_bias_resolution_DataRecoTrack_slices_fig}
 \end{figure}
 
@@ -80,84 +80,36 @@ In order to compute a bias and a resolution, Figure \ref{MCS_range_energy_DataRe
 \begin{figure}
 \centering
 \mbox{
-	\subfigure[\textit{MCS energy bias as a function of range energy.}]
-	{\includegraphics[width=75mm]{Figures/MCS_range_bias_DataRecoTracks.png}}
+	\subfigure[\textit{MCS momentum bias as a function of range momentum.}]
+	{\includegraphics[width=75mm]{Figures/MCS_range_bias_DataBNBSelectedRecoTrack.png}}
 	\quad
-	\subfigure[\textit{MCS energy resolution as a function of range energy.}]
-	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_DataRecoTracks.png}}
+	\subfigure[\textit{MCS momentum resolution as a function of range momentum.}]
+	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_DataBNBSelectedRecoTrack.png}}
 	}
-\caption{\textit{MCS energy bias and resolution as a function of range energy for the selected, well reconstructed neutrino-induced muons in {\ub} data.}}
+\caption{\textit{MCS momentum bias and resolution as a function of range momentum for the selected, well reconstructed neutrino-induced muons in {\ub} data.}}
 \label{MCS_range_bias_resolution_DataRecoTrack_fig}
 \end{figure}
 
 
 
 \subsection{Highland Validation}\label{Highland_Validation_DataRecoTrack_section}
-For this sample of contained, selected, well-reconstructed neutrino-induced tracks in {\ub} data, the same Highland validation plot is created in exactly the same way as described in Section \ref{Highland_Validation_MCTrack_section}. For each consecutive pairs of segments, the angular scatter in milliradians divided by the Highland expected RMS in millradians is an entry in the histogram shown in Figure \ref{Highland_validation_DataRecoTracks_fig}. From this figure we can see that the Highland formula is valid for well reconstructed tracks in data.
+For this sample of contained, selected, well-reconstructed neutrino-induced tracks in {\ub} data, the same Highland validation plot is created in exactly the same way as described in Section \ref{Highland_Validation_MCTrack_section}. For each consecutive pair of segments, the angular scatter in milliradians divided by the Highland expected RMS in millradians is an entry in the histogram shown in Figure \ref{Highland_validation_DataRecoTracks_fig}. From this figure we can see that the Highland formula is valid for well reconstructed, contained muon tracks in data.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \begin{center}
-\includegraphics[width=100mm]{Figures/Highland_validation_DataRecoTracks_goodhandscan.png}
+\includegraphics[width=100mm]{Figures/Highland_validation_DataBNBSelectedRecoTrack.png}
 \end{center}
-\caption{\textit{20cm segment angular deviations divided by expected Highland RMS for the sample of well reconstructed, neutrino induced muons in {\ub} data.}}
+\caption{\textit{10 cm segment angular deviations divided by expected Highland RMS for the sample of well reconstructed, neutrino induced muons in {\ub} data.}}
 \label{Highland_validation_DataRecoTracks_fig}
 \end{figure}
 
-\subsection{Optimizing Segment Length}\label{SegmentLength_DataRecoTrack_section}
-One of the tunable parameters in the MCS code is the length of segments into which a track is broken. While shorter segment lengths yield more segments per track and therefore more sampling points to build a stronger likelihood, they also lead to the breakdown of the gaussian nature of scatters. Longer segments tend to have a more gaussian distribution of scatters but lead to fewer sampling points and therefore worse energy resolution. For these two reasons there exists an optimal segment length. Figure \ref{Highland_seglenstudy_DataRecoTracks_fig} shows analogous figures to Figure \ref{Highland_validation_DataRecoTracks_fig} for four different segment lengths ranging between 5cm and 25cm. The input sample for this figure are the neutrino-induced muons that are fully contained and have been deemed well reconstructed. From this figure it can be seen that only segment lengths longer than 20cm provide truly gaussian distributions. Figure \ref{seglenstudy_bias_resolution_DataRecoTrack_fig} shows the bias and resolution for the MCS energy reconstruction method on this same sample. While shorter segment lengths tend to have a slightly higher bias, the difference is small. Similarly, shorter segment lengths tend to have better resolution but the difference is small at larger range energies. For range energies below about 0.5 GeV the difference in resolution between segment lengths grows because the tracks are short enough where the longer segment lengths are not providing enough sampling points for the MCS method to make an accurate estimation of the track energy. In order to maintain a gaussian distribution of angular scatters while providing enough sampling points for an energy resolution of below 30\% for the shortest viable tracks, a segment length of 20cm has been chosen for this analysis.
-
-\begin{figure}
-\centering
-\mbox{
-	\subfigure[\textit{Highland validation figure for 5cm segment lengths.}]
-	{\includegraphics[width=75mm]{Figures/seglenstudy_gaus_5cm.png}}
-	\quad
-	\subfigure[\textit{Highland validation figure for 10cm segment lengths.}]
-	{\includegraphics[width=75mm]{Figures/seglenstudy_gaus_10cm.png}}
-	}\newline
-\mbox{
-	\subfigure[\textit{Highland validation figure for 20cm segment lengths.}]
-	{\includegraphics[width=75mm]{Figures/seglenstudy_gaus_20cm.png}}
-	\quad
-	\subfigure[\textit{Highland validation figure for 25cm segment lengths.}]
-	{\includegraphics[width=75mm]{Figures/seglenstudy_gaus_25cm.png}}
-	}
-\caption{\textit{Highland validation figures analogous to Figure \ref{Highland_validation_DataRecoTracks_fig} for various segment lengths, taken from the sample of well reconstructed neutrino-induced muons in {\ub} data. The gaussian nature of this plot breaks down for segment lengths that are too short.}}
-\label{Highland_seglenstudy_DataRecoTracks_fig}
-\end{figure}
-
-
-
-\begin{figure}
-\centering
-\mbox{
-	\subfigure[\textit{MCS energy bias as a function of range energy for four different segment lengths.}]
-	{\includegraphics[width=75mm]{Figures/seglenstudy_DataRecoTracks_bias.png}}
-	\quad
-	\subfigure[\textit{MCS energy resolution as a function of range energy for four different segment lengths.}]
-	{\includegraphics[width=75mm]{Figures/seglenstudy_DataRecoTracks_resolution.png}}
-	}
-\caption{\textit{MCS energy bias and resolution as a function of range energy for the selected, well reconstructed neutrino-induced muons in {\ub} data.}}
-\label{seglenstudy_bias_resolution_DataRecoTrack_fig}
-\end{figure}
 
 
 
 
 
-\subsection{MCS to Determine Track Direction}\label{TrackDirection_DataRecoTrack_section}
-This section demonstrates the ability for the multiple coloumb scattering code to determine the direction of a track. The MCS code as it is described in Section \ref{MCS_technique_section} works by maximizing a likelihood based on angular scatters between segments of a track along with the expected RMS angular deviation from the modified Highland equation (Equation \ref{modified_highland_eqtn}). In practice, there is actually a negative log likelihood that is minimized, meaning the lower the likelihood the more confident the fit is. In order to determine the direction of a track with MCS, one can compute the converged minimum negative log likelihood for the track assuming it is oriented in the correct direction, then reverse the ordering of the trajectory points in the track and compute the converged minimum negative log likelihood for the reversed track. The likelihood should be better (smaller) for tracks in the correct direction than their reversed counterparts.\\
 
-Given this sample in {\ub} data, the true direction of the track is known because it begins at the visible neutrino vertex. The minimized negative log likelihood for each of these tracks both in the correct (forwards) direction and incorrect (backwards) direction can be seen in Figure \ref{TrackDirection_DataRecoTrack_LLHDoverlay_fig}. A smaller likelihood here means a better fit in the MCS code. Figure \ref{TrackDirection_DataRecoTrack_LLHDdiff_fig} shows the difference of these two distributions, forwards minus backwards. Any negative entries in this figure indicate that the forwards-going track had a better fit than backwards-going. This figure shows that MCS can be used as a tool to test track direction in {\ub} data.
 
-\begin{figure}
-\centering
-\mbox{
-	\subfigure[\textit{The minimized negative log likelihood value for each track in the well-reconstructed, fully contained neutrino-induced muon tracks in data sample, both with tracks oriented in the correct (forwards) direction and reversed (backwards) direction. A smaller likelihood here means a better fit in the MCS code.}\label{TrackDirection_DataRecoTrack_LLHDoverlay_fig}]
-	{\includegraphics[width=75mm]{Figures/TrackDirection_DataRecoTrack_LLHDoverlay.png}}
-	\quad
-	\subfigure[\textit{The difference, forwards minus backwards, of the log likelihoods. Negative entries indicate that the forwards-going tracks had a better fit than the backwards-going ones.}\label{TrackDirection_DataRecoTrack_LLHDdiff_fig}]
-	{\includegraphics[width=75mm]{Figures/TrackDirection_DataRecoTrack_LLHDdiff.png}}
-	}
-\caption{\textit{Evidence that MCS can be used to determine track directions by analyzing the output of the likelihood fit.}}
-\end{figure}
+
+
+
