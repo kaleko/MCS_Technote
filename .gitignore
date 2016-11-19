@@ -7,4 +7,5 @@
 *.toc
 *.ipynb_checkpoints
 *.bbl
+*.blg
 *.bbg
