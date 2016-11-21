@@ -24,7 +24,7 @@ After these additional cuts are placed, 1613 events (tracks) remain for MCS anal
 
 
 % Let's be honest with ourselves this pie chart is unnecessary and should just be described in one sentence.
-% \begin{figure}[h!]
+% \begin{figure}[ht!]
 % \begin{center}
 % \includegraphics[width=100mm]{Figures/MCBNBSelectedRecoTrack_MID_piechart.png}
 % \end{center}
@@ -36,10 +36,10 @@ After these additional cuts are placed, 1613 events (tracks) remain for MCS anal
 \subsection{MCS Momentum Validation}\label{MCS_Momentum_Validation_MCBNBSelectedRecoTrack_section}
 For this sample of reconstructed tracks, only the 3D trajectory points of each reconstructed track are used as input to the MCS code, described in Section \ref{MCS_technique_section}. The resulting MCS momentum versus range-based momentum without any cuts other than those described in Section \ref{MC_BNB_eventselection_section} can be seen in Figure \ref{MCS_range_momentum_MCBNBSelectedRecoTrack_noPDGcut_fig}. The off-diagonal visible in this figure (where MCS momentum greatly overestimates range momentum) is caused primarily by MIDs, most commonly where the longest track is a proton. Note that there are no ``broken tracks'' (which is another not-yet-discussed possible explanation for the off-diagonal) because of the track-{\sc MCTrack} matching requirement described in Section \ref{MC_BNB_eventselection_section}. Figure \ref{MCS_range_momentum_MCBNBSelectedRecoTrack_withPDGcuts_fig} divides Figure \ref{MCS_range_momentum_MCBNBSelectedRecoTrack_noPDGcut_fig} into those events in which the MCTrack matched to the reconstructed track is a proton, a pion, or a muon. From this figure it is clear comparing MCS momentum to range momentum for contained tracks will provide a handle on separating muon tracks from proton tracks in data (though it is hard to make similar conclusions about pions due to limited statistics in this study).\\
 
-In order to compute a bias and a resolution, Figure \ref{MCS_range_momentum_MCBNBSelectedRecoTrack_muononly_fig} is sliced in bins of range momentum and a histogram of the fractional momentum difference ($\frac{p_{MCS} - p_{range}}{p_{range}}$) is created for each bin. This distribution is shown for three representative bins in Figure \ref{MCS_range_bias_resolution_MCBNBSelectedRecoTrack_slices_fig}. The mean of each distribution is used to compute a bias a function of range, while the standard deviation of each distribution is used to compute a resolution. The bias and resolution for this momentum reconstruction method is shown in Figure \ref{MCS_range_bias_resolution_MCBNBSelectedRecoTrack_fig}. This figure indicates a positive bias in the MCS momentum resolution on the order of a few percent, with a resolution that decreases from about 11\% for contained tracks with true total momentum around 0.5 GeV (which corresponds to a length of about 1.7 meters) to below 8\% for contained tracks with true total momentum greater than 0.8 GeV (which corresponds to a length of about 3.1 meters). This agrees well with the analogous plots created from simulated single muons with {\sc MCTracks} (Figure \ref{MCS_range_bias_resolution_MCTrack_fig}).
+In order to compute a bias and a resolution, Figure \ref{MCS_range_momentum_MCBNBSelectedRecoTrack_muononly_fig} is sliced in bins of range momentum and a histogram of the fractional momentum difference ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$) is created for each bin. Note that the inverse of the momentum is used rather than the momentum because this distribution is more gaussian distributed. Also note that this fractional momentum difference using inverse of momentum is algebraically equivalent to ($\frac{p_{range} - p_{MCS}}{p_{MCS}}$). This distribution is shown for three representative bins in Figure \ref{MCS_range_bias_resolution_MCBNBSelectedRecoTrack_slices_fig}, along with the gaussian fit to each.  The mean ($\mu$) of each gaussian fit is used to compute a bias as a function of range momentum, while the width ($\sigma$) of each distribution is used to compute a resolution. The bias and resolution for this momentum reconstruction method is shown in Figure \ref{MCS_range_bias_resolution_MCBNBSelectedRecoTrack_fig}. This figure indicates a bias in the MCS momentum resolution on the order of a few percent, with a resolution that decreases from about 10\% for contained tracks with true total momentum around 0.5 GeV (which corresponds to a length of about 1.7 meters) to below 7\% for contained tracks with true total momentum greater than 0.8 GeV (which corresponds to a length of about 3.1 meters). This agrees well with the analogous plots created from simulated single muons with {\sc MCTracks} (Figure \ref{MCS_range_bias_resolution_MCTrack_fig}).
 
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \begin{center}
 \includegraphics[width=100mm]{Figures/MCS_range_comparison_MCBNBSelectedRecoTrack.png}
 \end{center}
@@ -100,7 +100,7 @@ In order to compute a bias and a resolution, Figure \ref{MCS_range_momentum_MCBN
 \subsection{Highland Validation}\label{Highland_Validation_MCBNBSelectedRecoTrack_section}
 For this sample of contained, automatically selected, well-reconstructed neutrino-induced tracks, the same Highland validation plot is created in exactly the same way as described in Section \ref{Highland_Validation_MCTrack_section}. For each consecutive pair of segments, the angular scatter in milliradians divided by the Highland expected RMS in millradians is an entry in the histogram shown in Figure \ref{Highland_validation_MCBNBSelectedRecoTracks_fig}. From this figure we can see that the Highland formula is valid for automatically selected, well reconstructed neutrino-induced muon tracks in simulation.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \begin{center}
 \includegraphics[width=100mm]{Figures/Highland_validation_MCBNBSelectedRecoTrack.png}
 \end{center}

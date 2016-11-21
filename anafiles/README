@@ -20,7 +20,7 @@ I have uploaded all of these input files to fermilab at /pnfs/uboone/persistent/
 They are not included in this git repository because they are too large.
 ------------------------------------------------------------------
 
-Copies of the already-processed-by-MCSBiasStudyDriver analysis outfiles can be found here: /pnfs/uboone/persistent/users/kaleko/MCS_Technote_inputfiles/
+Copies of the already-processed-by-MCSBiasStudyDriver analysis outfiles can be found here: /pnfs/uboone/persistent/users/kaleko/MCS_Technote_anafiles/
 They are not included in this git repository because they are too large.
 
 I recommend you scp them to the "anafiles" directory in this repository if you want the ipynb scripts to work.
