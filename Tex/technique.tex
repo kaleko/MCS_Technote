@@ -15,7 +15,7 @@ The idea and initial implementation of MCS using the maximum likelihood method f
 For this analysis, a minimum start-to-end reconstructed track length of 100 cm was used.% Additionally, the relativistic limit approcimation was also used ($\beta \approx 1$ and $E \approx p$).
 
 \subsection{Track Segmentation}\label{track_segmentation_section}
-The input to the track segmentation routine is a vector of ordered three-dimensional trajectory points (x,y,z) representing the reconstructed track. The points are ordered along the direction of the track, with the first point representing the start of the track, and the last point representing the end of the track. These trajectory points can be determined in a number of ways by different track reconstruction algorithms. In general, a three-dimensional track is reconstructed by combining two-dimensional hits reconstructed from signals on the different wire planes along with timing information from the photomultiplier tubes to reconstruct the third dimension. In the case of this note, the PandoraNuPMA algorithm is used to reconstruct the track \cite{Marshall:2015rfa}.\\
+The input to the track segmentation routine is a vector of ordered three-dimensional trajectory points (x,y,z) representing the reconstructed track. The points are ordered along the direction of the track, with the first point representing the start of the track, and the last point representing the end of the track. These trajectory points can be determined in a number of ways by different track reconstruction algorithms. In the case of this analysis, the track reconstruction algorithm is named ``pandoraNuPMA" which constructs these three-dimensional trajectory points by combining two-dimensional hits reconstructed from signals on the different wire planes along with timing information from the photomultiplier tubes to reconstruct the third dimension\cite{Marshall:2015rfa}.\\
 
 Also input to the track segmentation routine is the desired segment length, which is a tunable parameter. In this note, segment lengths are generally taken to be 10 cm (based on the findings of Section \ref{SegmentLength_MCBNBRecoTrack_section}) except where otherwise explicitly stated (as in Section \ref{SegmentLength_MCBNBRecoTrack_section}). This routine begins at the start of the track, and iterates through the trajectory points in order, each time computing the straight-line distance between the first point and the current one. When a point is reached that is greater than the desired segment length, that iteration stops and the direction cosines of this segment are computed.\\
 
@@ -25,42 +25,41 @@ At the end of this routine, a vector of length $n$ (where $n$ is the number of s
 
 
 \subsection{Scattering Angle Computation}\label{scattering_angle_computation_section}
-This routine within the MCS code takes as input the vector of length $n$ (where $n$ is the number of segments for the track) containing the direction cosines at the start of each segment. In general, the algorithm iterates over consecutive pairs of segments (the segmentation routine is described in Section \ref{track_segmentation_section}) and computes angular scatters between each, and stores them for later use by a future subroutine. This code is more complicated than just taking the dot product between consecutive direction cosines to find the total angular scatter between segments because the Highland formula is derived from scattering independently in the two directions orthogonal to the direction of the track. For this reason, this subroutine performs a coordinate transformation for each pair of segments such that the ``z'' direction (which, in detector coordinates is just the beam direction) is rotated to be along the direction of the first two segments. With the ``z'' direction as such, ``x'' and ``y'' directions are chosen such that all of ``x'', ``y'', and ``z'' are mutually orthogonal. Note that at this point, all of ``x'', ``y'', and ``z'' are different than the similarly named detector coordinates. The scattering angle both in the ``x'' and ``y'' planes are then computed for each consecutive pairs of segments. After this routine, a vector of length $2n$ is stored containing the scattering angles in the ``x'' plane as well as in the ``y'' plane. These scattering angles are what are input into the maximum likelihood routine to determine track momentum.
+This routine within the MCS code takes as input the vector of length $n$ (where $n$ is the number of segments for the track) containing the direction cosines at the start of each segment. In general, the algorithm iterates over consecutive pairs of segments (the segmentation routine is described in Section \ref{track_segmentation_section}) and computes angular scatters between each, and stores them for later use by a future subroutine. This code is more complicated than just taking the dot product between consecutive direction cosines to find the total angular scatter between segments because the Highland formula is derived from scattering independently in the two directions orthogonal to the direction of the track. For this reason, this subroutine performs a coordinate transformation for each pair of segments such that the direction of first of the two segments is along the $z'$ direction, as drawn in Figure \ref{mcs_nocap_fig}. With the $z'$ direction defined as such, $x'$ and $y'$ directions are chosen such that all of $x'$, $y'$, and $z'$ are mutually orthogonal, again shown in Figure \ref{mcs_nocap_fig}\footnote{Note that at this point, all of $x'$, $y'$, and $z'$ are different than the detector coordinates, $x$, $y$, and $z$ which correspond to drift direction, vertical direction, and beam direction respectively.}. The scattering angles both in the $x'$ and $y'$ planes are then computed for each consecutive pairs of segments. After this routine, a vector of length $2n$ is stored containing the scattering angles in the $x'$ plane as well as in the $y'$ plane. These scattering angles are what are input into the maximum likelihood routine to determine track momentum.
 
 
 \subsection{Maximum Likelihood Theory}\label{likelihood_theory_section}
 
 The normal probability distribution for a variable with a gaussian error sigma is given by:
 \begin{equation}
-f_X(\Delta\theta_j) = (2\pi\sigma_0^2)^{-\frac{1}{2}}exp(-\frac{1}{2}\frac{(\Delta\theta_j-\mu_0)^2}{\sigma_0^2})
+f_X(\Delta\theta) = (2\pi\sigma_o^2)^{-\frac{1}{2}}exp(-\frac{1}{2}\frac{(\Delta\theta-\mu_o)^2}{\sigma_o^2})
 \end{equation}
 
-Here, each $\Delta\theta_j$ corresponds to a $\Delta\theta$ measurement between one pair of segments in a track either in the rotated-coordinates ``x'' or ``y'' plane, $\mu_0$ is assumed to be zero, and $\sigma_\theta^0$ is the RMS angular deflection computed by the modified Highland formula (Equation \ref{modified_highland_eqtn}), which is a function of both the momentum and the length of that segment. Since energy is lost between segments, $\sigma_\theta^0$ is different for each angular measurement along the track so we replace $\sigma_\theta^0$ with $\sigma_\theta^j$, where $j$ is an index representative of the segment. \newline
+Here, each $\Delta\theta$ corresponds to a scattering angle measurement between one pair of segments in a track either in the rotated-coordinates $x'$ or $y'$ plane (both are used in the algorithm), $\mu_o$ is assumed to be zero, and $\sigma_o$ is the RMS angular deflection computed by the modified Highland formula (Equation \ref{modified_highland_eqtn}), which is a function of both the momentum and the length of that segment. Since energy is lost between segments, $\sigma_o$ is different for each angular measurement along the track so we replace $\sigma_o$ with $\sigma_{o,j}$, where $j$ is an index representative of the segment. \newline
 
 To get the likelihood, one takes the product of $f_X(\Delta\theta_j)$ over all the $\Delta\theta_j$ segment-to-segment scatters along the track. Since the product of exponentials is just an exponential with the sum of the arguments, this product becomes
 \begin{equation}
-L(\mu;(\sigma_\theta^1)^2,...,(\sigma_\theta^n)^2;\Delta\theta_1,...,\Delta\theta_n) = \prod_{j=1}^{n}f_X(\Delta\theta_j,\mu,(\sigma_\theta^j)^2) = (2\pi)^\frac{-n}{2}\times\prod_{j=1}^{n}(\sigma_\theta^j)^{-1} \times exp(-\frac{1}{2}\sum_{j=1}^{n}\frac{(\Delta\theta_j-\mu_0)^2}{(\sigma_\theta^j)^2})
+L(\mu;(\sigma_{o,1})^2,...,(\sigma_{o,n})^2;\Delta\theta_1,...,\Delta\theta_n) = \prod_{j=1}^{n}f_X(\Delta\theta_j,\mu_o,(\sigma_{o,j})^2) = (2\pi)^\frac{-n}{2}\times\prod_{j=1}^{n}(\sigma_{o,j})^{-1} \times exp(-\frac{1}{2}\sum_{j=1}^{n}\frac{(\Delta\theta_j-\mu_o)^2}{(\sigma_{o,j})^2})
 \end{equation}
 
 In practice, rather than maximizing likelihood it is often more computationally convenient to instead minimize the negative log likelihood. Taking the natural logarithm of the likelihood $L$ gives an expression that is related to a $\chi^2$
 \begin{equation}\label{leo_llhd_eqtn}
-l(\mu;(\sigma_\theta^1)^2,...,(\sigma_\theta^n)^2;\Delta\theta_1,...,\Delta\theta_n) = ln(L) = -\frac{n}{2}ln(2\pi) - \sum_{j=1}^{n}ln(\sigma_\theta^j) - \frac{1}{2}\sum_{j=1}^{n}\frac{(\Delta\theta_j-\mu)^2}{(\sigma_\theta^j)^2}
+l(\mu;(\sigma_{o,1})^2,...,(\sigma_{o,n})^2;\Delta\theta_1,...,\Delta\theta_n) = ln(L) = -\frac{n}{2}ln(2\pi) - \sum_{j=1}^{n}ln(\sigma_{o,j}) - \frac{1}{2}\sum_{j=1}^{n}\frac{(\Delta\theta_j-\mu)^2}{(\sigma_{o,j})^2}
 \end{equation}
 
 The negative log likelihood for one specific segment's angular scatter $\Delta\theta_j$ given an expected scattering RMS $\sigma_\theta^j$ is given by the following equation
 \begin{equation}\label{negative_llh_eqtn}
--l(\mu, \sigma_\theta^j, \Delta\theta_j) = \frac{1}{2}ln(2\pi) + ln(\sigma_\theta^j) + \frac{1}{2}\frac{(\Delta\theta_j-\mu)^2}{(\sigma_\theta^j)^2}
+-l(\mu, \sigma_{o,j}, \Delta\theta_j) = \frac{1}{2}ln(2\pi) + ln(\sigma_{o,j}) + \frac{1}{2}\frac{(\Delta\theta_j-\mu)^2}{(\sigma_{o,j})^2}
 \end{equation}
 
 In general, Equation \ref{negative_llh_eqtn} is evaluated for each segment in a track given a postulated full track momentum, and the sum of these terms is used to determine the likelihood that the postulated track momentum is correct for that track.
 
-
 \subsection{Maximum Likelihood Implementation}\label{maximum_likelihood_section}
 
-Given a set of angular deflections in the ``x'' and ``y'' planes for each segment as described in Section \ref{scattering_angle_computation_section}, a modified version of the Highland formula (Equation \ref{modified_highland_eqtn}) is used along with a maximum likelihood method to determine the momentum of the track. 
+Given a set of angular deflections in the $x'$ and $y'$ planes for each segment as described in Section \ref{scattering_angle_computation_section}, a modified version of the Highland formula (Equation \ref{modified_highland_eqtn}) is used along with a maximum likelihood method to determine the momentum of the track. 
 
 \begin{equation}\label{modified_highland_eqtn}
-\sigma_{\theta}^{RMS} = \sqrt{ (\sigma_\theta^0)^2 + (\sigma_\theta^{res})^2} = \sqrt{ (\frac{13.6\  \text{MeV}}{p\beta c}z\sqrt{\frac{\ell}{X_0}}\Big[1+0.0038\text{ln}\Big(\frac{\ell}{X_0}\Big)\Big])^2 + (\sigma_\theta^{res})^2 }
+\sigma_{o}^{RMS} = \sqrt{ (\sigma_o)^2 + (\sigma_o^{res})^2} = \sqrt{ (\frac{13.6\  \text{MeV}}{p\beta c}z\sqrt{\frac{\ell}{X_0}}\Big[1+0.0038\text{ln}\Big(\frac{\ell}{X_0}\Big)\Big])^2 + (\sigma_o^{res})^2 }
 \end{equation}
 where the formula is ``modified'' from the original Highland formula (Equation \ref{highland_eqtn}) in that it includes a detector-inherent angular resolution term $\sigma_\theta^{res}$ which is given a fixed value of 2 mrad in this analysis as described in Section \ref{ResolutionStudy_MCBNBRecoTrack_section}\cite{leonidas2}.\\
 
@@ -70,7 +69,7 @@ Given a postulated full track momentum, the full track energy $E_t$ is computed 
 \begin{equation}\label{energy_momentum_relation_eqtn}
 E^2 = p^2 + m^2
 \end{equation}
- and the maximum likelihood algorithm iterates over angular scatters for each segment, with two $\Delta\theta_j$ values for each segment (corresponding to the ``x'' and ``y'' scattering planes). The energy of the $j$th segment is given by
+ and the maximum likelihood algorithm iterates over angular scatters for each segment, with two $\Delta\theta_j$ values for each segment (corresponding to the $x'$ and $y'$ scattering planes). The energy of the $j$th segment is given by
 \begin{equation}\label{segment_E_equation}
 E_{j} = E_t - k_{cal}*N_{upstream}*l_{seg}
 \end{equation}
