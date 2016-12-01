@@ -27,7 +27,9 @@ Each {\sc MCTrack} is itself a vector of 3D trajectory points, which are ordered
 
 Since the output of a nominal reconstruction chain (going through hit finding, clustering, matching across planes, etc.) are 3D tracks, {\sc MCTracks} can be studied in an analysis in the exact same way as a reconstructed track would be. {\sc MCTracks} can be thought of as perfectly reconstructed tracks, where each trajectory point along the track is a true 3D energy deposition inside of the {\ub} TPC.\\
 
-Since {\sc MCTracks} are formed from true 3D energy depositions and not from wire signals on drift electrons, {\sc MCTracks} are insensitive to broken wires, noise, and other simulated detector effects.
+Since {\sc MCTracks} are formed from true 3D energy depositions and not from wire signals on drift electrons, {\sc MCTracks} are insensitive to broken wires, noise, and other simulated detector effects.\\
+
+It is worth noting that delta rays eminating from muon tracks are relevant for MCS calculations. Here, delta rays form {\sc MCShowers} and are therefore invisible to this analysis. This is the same as assuming the reconstructed tracks have perfectly removed charge from delta rays in their algorithms.
 
 \subsubsection{MCTrack Selection}\label{MCTrack_Selection_section}
 For analysis on single muon {\sc MCTracks}, the input sample is the one described in Section \ref{SingleMu_Input_Sample_section}. From that sample, the following requirements are placed for event selection:

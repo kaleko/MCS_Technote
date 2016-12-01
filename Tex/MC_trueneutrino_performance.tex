@@ -13,7 +13,21 @@ The event selection for this subanalysis is truth based. The cuts are:
 \item The {\sc MCTrack} associated with the outgoing muon from the interaction is at least one meter in length.
 \item There is a reconstructed track that starts within 3 cm of the start and ends within 3 cm of the end of the aforementioned {\sc MCTrack} (or vice-versa). This cut is requiring that the track is well reconstructed in terms of position (direction is taken into account later).
 \end{itemize}
-After these additional cuts are placed, 13810 events (tracks) remain for MCS analysis.
+After these additional cuts are placed, 13810 events (tracks) remain for MCS analysis. The energy and angle distributions for these 13810 muons can be seen in Figure \ref{BNBmuon_energy_angle_fig}. It should be noted that any computed metrics from this sample (and therefore any other BNB sample) have convolved any effects of performance differences as a function of angle.\\
+
+\begin{figure}
+\centering
+\mbox{
+	\subfigure[\textit{Muon energy distribution.}]
+	{\includegraphics[width=75mm]{Figures/FILLER.png}}
+	\quad
+	\subfigure[\textit{Muon theta angle (angle with respect to the beam direction) distribution.}]
+	{\includegraphics[width=75mm]{Figures/FILLER.png}}
+	}
+\caption{\textit{Energy and angle distributions for muons from numuCC interactions in \ub simulation passing cuts described in Section \ref{MCBNBRecoTrack_eventselection_section}.}}
+\label{BNBmuon_energy_angle_fig}
+\end{figure}
+
 
 
 
@@ -78,8 +92,8 @@ For this sample of tracks, the same Highland validation plot is created in exact
 
 
 \subsection{Optimizing Segment Length}\label{SegmentLength_MCBNBRecoTrack_section}
-One of the tunable parameters in the MCS algorithm is the length of segments into which a track is broken. While shorter segment lengths yield more segments per track and therefore more sampling points to build a stronger likelihood, they also lead to the breakdown of the gaussian nature of scatters. Longer segments tend to have a more gaussian distribution of scatters but lead to fewer sampling points and therefore worse momentum resolution. Additionally, shorter segment lengths tend to have a higher momentum bias. For these reasons there exists an optimal segment length. Figure \ref{Highland_seglenstudy_MCBNBRecoTracks_fig} shows analogous figures to Figure \ref{Highland_validation_MCBNBRecoTrack_fig} for four different segment lengths ranging between 2 cm and 20 cm, with the same input sample of tracks. From this figure it can be seen that only segment lengths longer than or equal to 10 cm provide truly gaussian distributions.\\
-Figure \ref{seglenstudy_bias_resolution_MCBNBRecoTrack_fig} shows the bias and resolution for the MCS momentum reconstruction method on this same sample. Here we see that shorter segment lengths tend to have a higher bias. Similarly, shorter segment lengths tend to have better resolution but the difference is small at larger range momenta. For range momenta below about 0.5 GeV the difference in resolution between segment lengths grows because the tracks are short enough where the longer segment lengths are not providing enough sampling points for the MCS method to make an accurate estimation of the track momentum. In order to maintain a gaussian distribution of angular scatters while providing enough sampling points for an momentum resolution of below 10\% for the shortest viable tracks, a segment length of 10 cm has been chosen for this analysis.
+One of the tunable parameters in the MCS algorithm is the length of segments into which a track is broken. While shorter segment lengths yield more segments per track and therefore more sampling points to build a stronger likelihood, they also lead to the breakdown of the gaussian nature of scatters. Longer segments tend to have a more gaussian distribution of scatters but lead to fewer sampling points and therefore worse momentum resolution. Additionally, shorter segment lengths tend to have a higher momentum bias though why this is the case is not immediately obvious. For these reasons there exists an optimal segment length. Figure \ref{Highland_seglenstudy_MCBNBRecoTracks_fig} shows analogous figures to Figure \ref{Highland_validation_MCBNBRecoTrack_fig} for four different segment lengths ranging between 2 cm and 20 cm, with the same input sample of tracks. From this figure it can be seen that only segment lengths longer than or equal to 10 cm provide reasonably gaussian distributions.\\
+Figure \ref{seglenstudy_bias_resolution_MCBNBRecoTrack_fig} shows the bias and resolution for the MCS momentum reconstruction method on this same sample. Here we see that shorter segment lengths tend to have a higher bias. Similarly, shorter segment lengths tend to have better resolution but the difference is small at larger range momenta. For range momenta below about 0.5 GeV the difference in resolution between segment lengths grows because the tracks are short enough that the longer segment lengths are not providing enough sampling points for the MCS method to make an accurate estimation of the track momentum. In order to maintain a gaussian distribution of angular scatters while providing enough sampling points for an momentum resolution of below 10\% for the shortest viable tracks, a segment length of 10 cm has been chosen for this analysis.
 
 \begin{figure}
 \centering
@@ -106,10 +120,10 @@ Figure \ref{seglenstudy_bias_resolution_MCBNBRecoTrack_fig} shows the bias and r
 \begin{figure}
 \centering
 \mbox{
-	\subfigure[\textit{MCS momentum bias as a function of range momentum for four different segment lengths.}]
+	\subfigure[\textit{MCS momentum bias as a function of range momentum for six different segment lengths.}]
 	{\includegraphics[width=75mm]{Figures/seglenstudy_MCBNBRecoTrack_bias.png}}
 	\quad
-	\subfigure[\textit{MCS momentum resolution as a function of range momentum for four different segment lengths.}]
+	\subfigure[\textit{MCS momentum resolution as a function of range momentum for six different segment lengths.}]
 	{\includegraphics[width=75mm]{Figures/seglenstudy_MCBNBRecoTrack_resolution.png}}
 	}
 \caption{\textit{MCS momentum bias and resolution as a function of range momentum for the selected, well reconstructed neutrino-induced truth-selected muons in simulation.}}
@@ -119,17 +133,17 @@ Figure \ref{seglenstudy_bias_resolution_MCBNBRecoTrack_fig} shows the bias and r
 
 
 \subsection{Optimizing Constant Detector Resolution Term}\label{ResolutionStudy_MCBNBRecoTrack_section}
-This section describes how the resolution term $\sigma_o^{res}$ in the modified Highland equation, Equation \ref{modified_highland_eqtn} is chosen. This constant was chosen \textit{after} choosing the optimal segment length of 10 cm described in Section \ref{SegmentLength_MCBNBRecoTrack_section}. In order to choose a resolution term, a procedure similar to the one described in the segment length optimization section (Section \ref{SegmentLength_MCBNBRecoTrack_section}) is followed. This sample of well-reconstructed truth-selected muons from numu charged current interactions in simulation was analyzed with various different resolution terms. It was found that the resolution term has a very small impact for the muons studied in this sample. It is worth noting that this resolution term will have a stronger impact on the energy resolution the higher energy the muons are (as higher energy muons have smaller angular scatters so the resolution term begins to dominate), but since this study only considers contained muons that have lower energy, the term's impact is weak.\\
+This section describes how the resolution term $\sigma_o^{res}$ in the modified Highland equation, Equation \ref{modified_highland_eqtn} is chosen. This constant was chosen \textit{after} choosing the optimal segment length of 10 cm described in Section \ref{SegmentLength_MCBNBRecoTrack_section}. In order to choose a resolution term, a procedure similar to the one described in the segment length optimization section (Section \ref{SegmentLength_MCBNBRecoTrack_section}) is followed. This sample of well-reconstructed truth-selected muons from numu charged current interactions in simulation was analyzed with various different resolution terms. It was found that the resolution term has a very small impact for the muons studied in this sample. It is worth noting that this resolution term will have a stronger impact on the energy resolution the higher energy the muons are (as higher energy muons have smaller angular scatters so the resolution term begins to dominate), but since this study only considers contained muons that have lower energy, the term's impact is weak. It is also worth noting that a muon traversing the entire director would be roughly 10 meters long, which corresponds to a total energy of 2.45 GeV, which corresponds to an RMS scattering angle predicted by Equation \ref{highland_eqtn} $\sigma_o$ of 4.6 mrad at the start of the track if 10 cm segments are used.\\
 
 The momentum bias and resolution are computed in the usual way for different resolution terms, using the nominal 10 cm segment length in the algorithm. The results can be seen in Figures \ref{ResolutionStudy_MCBNBRecoTrack_bias_fig} and \ref{ResolutionStudy_MCBNBRecoTrack_resolution_fig} respectively. For 10 cm segments, the resolution terms have small impact on the bias and momentum resolution of the algorithm so long as the resolution parameter isn't exceedingly large (above 5 mrad). Therefore, a default resolution of 2 mrad has been chosen to be used for the entirety of this analysis.
 
 \begin{figure}
 \centering
 \mbox{
-	\subfigure[\textit{MCS momentum bias as a function of range momentum for five different resolution terms.}\label{ResolutionStudy_MCBNBRecoTrack_bias_fig} ]
+	\subfigure[\textit{MCS momentum bias as a function of range momentum for six different resolution terms.}\label{ResolutionStudy_MCBNBRecoTrack_bias_fig} ]
 	{\includegraphics[width=75mm]{Figures/resstudy_MCBNBRecoTrack_bias.png}}
 	\quad
-	\subfigure[\textit{MCS momentum resolution as a function of range momentum for five different resolution terms.}\label{ResolutionStudy_MCBNBRecoTrack_resolution_fig} ]
+	\subfigure[\textit{MCS momentum resolution as a function of range momentum for six different resolution terms.}\label{ResolutionStudy_MCBNBRecoTrack_resolution_fig} ]
 	{\includegraphics[width=75mm]{Figures/resstudy_MCBNBRecoTrack_resolution.png}}
 	}
 \caption{\textit{The impact of constant resolution terms, $\sigma_o^{res}$ in the modified Highland equation, Equation \ref{modified_highland_eqtn}.}}
@@ -137,7 +151,7 @@ The momentum bias and resolution are computed in the usual way for different res
 
 
 \subsection{MCS to Determine Track Direction}\label{TrackDirection_MCBNBRecoTrack_section}
-This section demonstrates the ability for the multiple coloumb scattering algorithm to determine the direction of a track. The MCS code as it is described in Section \ref{MCS_technique_section} works by maximizing a likelihood based on angular scatters between segments of a track along with the expected RMS angular deviation from the modified Highland equation (Equation \ref{modified_highland_eqtn}). In practice, there is actually a negative log likelihood that is minimized, meaning the lower the likelihood the more confident the fit is. In order to determine the direction of a track with MCS, one can compute the converged minimum negative log likelihood for the track assuming it is oriented in the correct direction, then reverse the ordering of the trajectory points in the track and compute the converged minimum negative log likelihood for the reversed track. The likelihood should be better (smaller) for tracks in the correct direction than their reversed counterparts.\\
+This section demonstrates the ability for the multiple coulomb scattering algorithm to determine the direction of a track. The MCS code as it is described in Section \ref{MCS_technique_section} works by maximizing a likelihood based on angular scatters between segments of a track along with the expected RMS angular deviation from the modified Highland equation (Equation \ref{modified_highland_eqtn}). In practice, there is actually a negative log likelihood that is minimized, meaning the lower the likelihood the more confident the fit is. In order to determine the direction of a track with MCS, one can compute the converged minimum negative log likelihood for the track assuming it is oriented in the correct direction, then reverse the ordering of the trajectory points in the track and compute the converged minimum negative log likelihood for the reversed track. The likelihood should be better (smaller) for tracks in the correct direction than their reversed counterparts.\\
 
 Given this truth-selected sample in simulation, the true direction of the track is known. The minimized negative log likelihood for each of these tracks both in the correct (forwards) direction and incorrect (backwards) direction can be seen in Figure \ref{TrackDirection_MCBNBRecoTrack_LLHDoverlay_fig}. A smaller likelihood here means a better fit in the MCS code. Figure \ref{TrackDirection_MCBNBRecoTrack_LLHDdiff_fig} shows the difference of these two distributions, forwards minus backwards. Any negative entries in this figure indicate that the forwards-going track had a better fit than backwards-going. This figure shows that MCS can be used as a tool to test track direction.
 
@@ -147,7 +161,7 @@ Given this truth-selected sample in simulation, the true direction of the track 
 	\subfigure[\textit{The minimized negative log likelihood value for each track in the well-reconstructed, fully contained neutrino-induced truth-selected muon tracks in simulation sample, both with tracks oriented in the correct (forwards) direction and reversed (backwards) direction. A smaller likelihood here means a better fit in the MCS code.}\label{TrackDirection_MCBNBRecoTrack_LLHDoverlay_fig}]
 	{\includegraphics[width=75mm]{Figures/TrackDirection_MCBNBRecoTrack_LLHDoverlay.png}}
 	\quad
-	\subfigure[\textit{The difference, forwards minus backwards, of the log likelihoods. Negative entries indicate that the forwards-going tracks had a better fit than the backwards-going ones.}\label{TrackDirection_MCBNBRecoTrack_LLHDdiff_fig}]
+	\subfigure[\textit{The track-by-track difference, forwards minus backwards, of the log likelihoods. Negative entries indicate that the forwards-going tracks had a better fit than the backwards-going ones.}\label{TrackDirection_MCBNBRecoTrack_LLHDdiff_fig}]
 	{\includegraphics[width=75mm]{Figures/TrackDirection_MCBNBRecoTrack_LLHDdiff.png}}
 	}
 \caption{\textit{Evidence that MCS can be used to determine track directions by analyzing the output of the likelihood fit.}}
