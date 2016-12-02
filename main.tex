@@ -5,15 +5,17 @@
 
 \title{\myTitle}
 \author[1]{David Kaleko\thanks{Corresponding Author}}
-\author[2]{Polina Abratenko}
+\author[2]{Leonidas Kalousis}
+\author[3]{Polina Abratenko}
 \author[1]{Mike Shaevitz}
-\author[2]{Josh Spitz}
-\author[3]{Leonidas Kalousis}
-\author[3]{XXX NOTE AUTHOR LIST IS PRELIMINARY, THIS WILL BE A COLLABORATION PAPER XXX}
+\author[3]{Josh Spitz}
+
+\author[4]{[AUTHOR LIST FOR THIS NOTE SHOWN, ANYTHING PUBLIC WILL BE COLLABORATION-WIDE]}
 
 \affil[1]{Columbia University, NY}
-\affil[2]{University of Michigan, MI}
-\affil[3]{Misc}
+\affil[2]{Vrije Universiteit Brussel, Belgium}
+\affil[3]{University of Michigan, MI}
+\affil[4]{Misc}
 
 
 \date{\today}
@@ -36,8 +38,13 @@ While the note may seem lengthy, do not fear. Many sections are essentially the 
 \begin{enumerate}
 \item An introduction to the MicroBooNE detector, and motivation for the multiple coulomb scattering method for this experiment and within the future LArTPC community.
 \item A detailed description of how the actual method works.
-\item Demonstration of this method on single muon {\sc MCTracks}. The purpose of this is to demonstrate that the technique works with the least obfuscated input.
-\item Demonstration of this method on a high-statistics sample of truth-selected muons from well reconstructed simulated numu charged-current interactions. The purpose of this is to demonstrate that the technique works with automatically reconstructed tracks, and its performance is quantified on a relevant sample (where the muons have the momentum and angle spectra that one would expect in MicroBooNE from the BNB). This section also describes optimizing the segment length used in the algorithm, optimizing the additional constant resolution term used in the algorithm, as well as a potential additional use for the technique involving determining track directionality.
+% \item Demonstration of this method on single muon {\sc MCTracks}. The purpose of this is to demonstrate that the technique works with the least obfuscated input.
+\item Demonstration of this method on a high-statistics sample of truth-selected muons from simulated numu charged-current interactions. This sample is relevant because the muons have the momentum and angle spectra that one would expect in MicroBooNE from the BNB. MCS performance is demonstrated both for {\sc MCTracks} in this sample, and well-reconstructed pandoraNuPMA tracks. 
+\begin{itemize}
+	\item The purpose of demonstrating that the technique works with {\sc MCTracks} (which come from true {\sc GEANT4} energy depositions in the detector) is to serve a ``best-case'' baseline before reconstruction effects are convolved. 
+	\item The purpose of demonstrating that this technique works with automatically reconstructed tracks is to get one step closer towards a data/MC comparison.
+\end{itemize}
+This input sample is also used in additional studies including optimizing the segment length used in the algorithm, optimizing the additional constant resolution term used in the algorithm, as well as a potential additional use for the technique involving determining track directionality. These studies can be found in the appendices.
 \item Demonstration of this method on automatically-selected well-reconstructed neutrino events in the full MicroBooNE BNB + cosmics simulation. The purpose of this section is to get one step towards working with real automatically-selected BNB data. This section describes particle mis-identification (MID) rates, MCS PID capabilities, and other things that the previous (truth-based selection) section does not.
 \item Demonstration of this method on automatically-selected real neutrino events in actual MicroBooNE BNB data. In order to ensure the tracks are well-reconstructed and to mitigate MIDs, a handscanning effort is used and is described in this section.
 \item A conclusion section reiterating the usefulness of the tool, along with a list of plots that might be good to put in a potential publication derived from this note.
@@ -45,19 +52,24 @@ While the note may seem lengthy, do not fear. Many sections are essentially the 
 
 
 \input{./Tex/introduction.tex}
-% \clearpage
+\clearpage
 \input{./Tex/technique.tex}
-% \clearpage
-\input{./Tex/MC_singlemuon_performance.tex}
+\clearpage
+% DEPRICATED
+%% \input{./Tex/MC_singlemuon_performance.tex}
 % \clearpage
 \input{./Tex/MC_trueneutrino_performance.tex}
-% \clearpage
+\clearpage
 \input{./Tex/MC_selected_neutrino_performance.tex}
-% \clearpage
+\clearpage
 \input{./Tex/data_performance.tex}
-% \clearpage
+\clearpage
 \input{./Tex/conclusions.tex}
 
+\clearpage
+\begin{appendices}
+\input{./Tex/appendices.tex}
+\end{appendices}
 
 %%%%%%%%%%%% BIBLIOGRAPHY %%%%%%%%%%%%%
 \clearpage

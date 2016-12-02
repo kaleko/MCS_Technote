@@ -33,11 +33,12 @@ It is worth noting that delta rays eminating from muon tracks are relevant for M
 
 \subsubsection{MCTrack Selection}\label{MCTrack_Selection_section}
 For analysis on single muon {\sc MCTracks}, the input sample is the one described in Section \ref{SingleMu_Input_Sample_section}. From that sample, the following requirements are placed for event selection:
+%19500 events
 \begin{enumerate}
-	\item There is exactly one {\sc MCTrack} in the event.
-	\item The {\sc MCTrack} is longer than one meter in start-to-end length.
-	\item The {\sc MCTrack} is fully contained within the fiducial volume (defined in Section \ref{fidvol_section}).
-	\item The {\sc MCTrack} does not decay in flight.
+	\item There is exactly one {\sc MCTrack} in the event. %17583 events left
+	\item The {\sc MCTrack} is longer than one meter in start-to-end length. %8803 left
+	\item The {\sc MCTrack} is fully contained within the fiducial volume (defined in Section \ref{fidvol_section}). %625 left
+	\item The {\sc MCTrack} does not decay in flight. %623 left
 \end{enumerate}
 After these selection requirements are placed, the intial sample of 19,500 muons is reduced to 623 which are used for analysis.
 
@@ -76,10 +77,10 @@ In order to compute a bias and a resolution, Figure \ref{true_range_energy_MCTra
 \begin{figure}
 \centering
 \mbox{
-	\subfigure[\textit{Range energy bias as a function of true energy.}]
+	\subfigure[\textit{Range energy bias as a function of true energy. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{N}}$, and the horizontal error bars indicate bin width.}]
 	{\includegraphics[width=75mm]{Figures/true_range_bias_SingleMuonMCTrack.png}}
 	\quad
-	\subfigure[\textit{Range energy resolution as a function of true energy.}]
+	\subfigure[\textit{Range energy resolution as a function of true energy. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{2N}}$, and the horizontal error bars indicate bin width.}]
 	{\includegraphics[width=75mm]{Figures/true_range_resolution_SingleMuonMCTrack.png}}
 	}
 \caption{\textit{Range energy and true energy bias and resolution for the single muon {\sc MCTrack} sample described in Section \ref{MCTrack_Selection_section}.}}
@@ -121,10 +122,10 @@ For this sample of {\sc MCTracks}, only the 3D trajectory points of each {\sc MC
 \begin{figure}
 \centering
 \mbox{
-	\subfigure[\textit{MCS momentum bias as a function of range momentum.}]
+	\subfigure[\textit{MCS momentum bias as a function of range momentum. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{N}}$, and the horizontal error bars indicate bin width.}]
 	{\includegraphics[width=75mm]{Figures/MCS_range_bias_SingleMuonMCTrack.png}}
 	\quad
-	\subfigure[\textit{MCS momentum resolution as a function of range momentum.}]
+	\subfigure[\textit{MCS momentum resolution as a function of range momentum. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{2N}}$, and the horizontal error bars indicate bin width.}]
 	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_SingleMuonMCTrack.png}}
 	}
 \caption{\textit{MCS momentum bias and resolution as a function of range momentum for the single muon {\sc MCTrack} sample described in Section \ref{MCTrack_Selection_section}.}}

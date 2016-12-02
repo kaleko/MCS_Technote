@@ -1,11 +1,11 @@
 %%%% SIGNAL SECTION %%%%
 \section{MCS Performance on Automatically Selected Muons from numuCC Events in MicroBooNE Data}\label{data_performance_section}
 
-\subsection{Input sample}
+\subsection{Input Sample}
 The input sample to this portion of the analysis is roughly 5e19 POT worth of triggered BNB neutrino interactions in {\ub} data as used by the CCInclusive group and descibed in their interal note\cite{CCIncInternalNote}. These events are run through the same fully automated reconstruction chain and event selection routine described in Section \ref{MC_BNB_input_sample_section}. The SAM definition used for this sample is ``prod\_bnb\_reco\_neutrino2016\_beamfilter\_goodruns\_v5''.
 
-\subsection{Event selection}
-The exact same event selection cuts are used to identify $\nu_\mu$ charged-current events in this data sample as described in Section \ref{MC_BNB_eventselection_section}. The same further cuts to isolate the subset of those events viable for MCS analysis are also placed, with the exception of the cut requiring the reconstructed track matches well with an {\sc MCTrack} in the event (as there are no {\sc MCTracks} in real data). In order to accommodate for this difference, a hand scan of the selected events was conducted.\\
+\subsection{Event Selection}
+The exact same event selection cuts are used to identify $\nu_\mu$ charged-current events in this data sample as described in Section \ref{MC_BNB_eventselection_section}. The fiducial volume used in this subanalysis is the same as is used throughout the note, defined in Section \ref{fidvol_section}. The same further cuts to isolate the subset of those events viable for MCS analysis are also placed, with the exception of the cut requiring the reconstructed track matches well with an {\sc MCTrack} in the event (as there are no {\sc MCTracks} in real data). In order to accommodate for this difference, a hand scan of the selected events was conducted.\\
 
 After the event selection cuts, the minimum track length cut, and the containment cuts were placed, 598 events (tracks) remained. Each of these events (tracks) were scanned by hand with an interactive event display. What was shown to the scanner (David Kaleko) were three two-dimensional displays with the raw-wire signals on them. Overlaid on each display was the 2D projection of the 3D reconstructed track and vertex. The scanner looked to ensure the track was well reconstructed (it started within a few cm of the vertex and ended within a few cm of the end of the wire-signal track or vice-versa in all three planes). Additionally the scanner looked for obvious MID topologies like cosmic rays inducing Michel electrons at the reconstructed neutrino vertex (for example when a clear Bragg peak is visible at the neutrino vertex) and also for obvious MID topologies where the track is likely a pion (for example if it charge-exchanges and creates a clear neutral pion decay topology). In general, the scanner chose to be conservative in the sense that if the track didn't look very clearly like a muon from a $\nu_\mu$ charged-current event, the track (event) was removed from the analysis. The purpose of searching for MIDs is to attempt to reproduce the truth-based removal of pion and proton MIDs that is ultimately done in Section \ref{MC_performance_section} so as to make an apples-to-apples data/MC comparison.\\
 
@@ -13,7 +13,7 @@ A sample event that was removed by the hand scanner is shown in Figure \ref{bad_
 
 \begin{figure}[ht!]
 \begin{center}
-\includegraphics[width=100mm]{Figures/bad_evd_1.png}
+\includegraphics[width=100mm]{Figures/static_figs/bad_evd_1.png}
 \end{center}
 \caption{\textit{A hand-scanned data event that was deemed ``poorly reconstructed'' and removed from this analysis. The 2D projection of the 3D reconstructed track (shown in black overlaid on raw wire signals) clearly stops before it reaches the end of the particle's trajectory.}}
 \label{bad_evd_fig_1}
@@ -21,7 +21,7 @@ A sample event that was removed by the hand scanner is shown in Figure \ref{bad_
 
 \begin{figure}[ht!]
 \begin{center}
-\includegraphics[width=100mm]{Figures/bad_evd_2.png}
+\includegraphics[width=100mm]{Figures/static_figs/bad_evd_2.png}
 \end{center}
 \caption{\textit{A hand-scanned data event that was deemed some form of MID and removed from this analysis. The 2D projection of the 3D reconstructed track (shown in black overlaid on raw wire signals) matches raw wire signals well, but this event does not appear to be a clean $\nu_\mu$ charged-current event, with at least one neutral pion decay visible near the center of the track.}}
 \label{bad_evd_fig_2}
@@ -29,16 +29,19 @@ A sample event that was removed by the hand scanner is shown in Figure \ref{bad_
 
 \begin{figure}[ht!]
 \begin{center}
-\includegraphics[width=100mm]{Figures/good_evd_1.png}
+\includegraphics[width=100mm]{Figures/static_figs/good_evd_1.png}
 \end{center}
 \caption{\textit{A hand-scanned data event that was deemed acceptable for MCS analysis. The track looks well reconstructed, and the wire signals indicate that the particle is likely a muon, and a clear Bragg peak can be seen at the end of the track indicating the track is well contained.}}
 \label{good_evd_fig_1}
 \end{figure}
 
 \subsection{MCS Momentum Validation}\label{MCS_Momentum_Validation_DataRecoTrack_section}
-For this sample of reconstructed tracks from $\nu_\mu$ charged current events in data, only the 3D trajectory points of each reconstructed track are used as input to the MCS code, described in Section \ref{MCS_technique_section}. The resulting MCS momentum versus range-based momentum \textit{without any additional hand-scan reconstruction quality checks} can be seen in Figure \ref{MCS_range_momentum_DataRecoTrack_nohandscan_fig}. The off-diagonal visible in this figure (where MCS momentum greatly overestimates range momentum) is caused both by poor track reconstruction (truncated tracks) and MIDs. Figure \ref{MCS_range_momentum_RecoTrack_withandwithouthandscan_fig} divides Figure \ref{MCS_range_momentum_DataRecoTrack_nohandscan_fig} into those events which are handscanned as having poorly reconstructed or obviously MID'd tracks, and those which are well reconstructed. It can be seen that hand-scanning tends to remove the off-diagonal and therefore improve the MCS momentum resolution.\\
+The MCS momentum versus range-based momentum \textit{without any additional hand-scan reconstruction quality checks} can be seen in Figure \ref{MCS_range_momentum_DataRecoTrack_nohandscan_fig}. The off-diagonal component visible in this figure (where MCS momentum greatly overestimates range momentum) is caused both by poor track reconstruction (truncated tracks) and MIDs. Figure \ref{MCS_range_momentum_RecoTrack_withandwithouthandscan_fig} divides Figure \ref{MCS_range_momentum_DataRecoTrack_nohandscan_fig} into those events which are handscanned as having poorly reconstructed or obviously MID'd tracks, and those which are well reconstructed. It can be seen that hand-scanning tends to remove the off-diagonal component and therefore improve the MCS momentum resolution. Note that only those events which have been hand-scanned as acceptable (Figure \ref{realdata_goodhandscan_fig}) will be used to compute bias and resolutions.\\
 
-In order to compute a bias and a resolution, Figure \ref{MCS_range_momentum_DataRecoTrack_fig} (the tracks that were hand scanned as being well-reconstructed) is sliced in bins of range momentum and a histogram of the fractional momentum difference ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$) is created for each bin. Note that the inverse of the momentum is used rather than the momentum because this distribution is more gaussian distributed. Also note that this fractional momentum difference using inverse of momentum is algebraically equivalent to ($\frac{p_{range} - p_{MCS}}{p_{MCS}}$). This distribution is shown for two representative bins in Figure \ref{MCS_range_bias_resolution_DataRecoTrack_slices_fig}, along with the gaussian fit to each.  The mean ($\mu$) of each gaussian fit is used to compute a bias as a function of range momentum, while the width ($\sigma$) of each distribution is used to compute a resolution. The bias and resolution for this momentum reconstruction method shown in Figure \ref{MCS_range_bias_resolution_DataRecoTrack_fig}. This figure indicates a bias in the MCS momentum resolution on the order of a few percent, with a resolution that decreases from about 10\% for contained reconstructed tracks with range momentum around 0.5 GeV (which corresponds to a length of about 1.7 meters) to about 9\% for contained reconstructed tracks with range momentum greater than 0.8 GeV (which corresponds to a length of about 3.1 meters). This is only slightly higher than the the same bias and resolution measurement in simulation as shown in Figure \ref{MCS_range_bias_resolution_MCBNBSelectedRecoTrack_fig}, a difference which may be attributed to the inefficiencies in hand scanning (as compared to the truth-based MID removal and track-well-reconstructed checks in simulation-based sections). Note the bias and resolution plots here stop at a maximum range-based momentum of below 1.4 GeV due to limited statistics.
+
+The bias and resolution for the MCS momentum estimation method on this sample is computed in the same way as described in previous sections (for example in Section \ref{MCS_Momentum_Validation_MCBNBRecoTrack_section}). The bias and resolution for this momentum reconstruction method is shown in Figure \ref{MCS_range_bias_resolution_MCBNBSelectedRecoTrack_fig}. This figure indicates a bias in the MCS momentum resolution on the order of a few percent, with a resolution that decreases from about 10\% for contained tracks with true total momentum around 0.5 GeV (which corresponds to a length of about 1.7 meters) to below 7\% for contained tracks with true total momentum greater than 0.8 GeV (which corresponds to a length of about 3.1 meters). This agrees well with the analogous plots created from simulated single muons with {\sc MCTracks} (Figure \ref{MCS_range_bias_resolution_MCTrack_fig}).\\
+
+The bias and resolution for this momentum reconstruction method shown in Figure \ref{MCS_range_bias_resolution_DataRecoTrack_fig}. This figure indicates a bias in the MCS momentum resolution on the order of a few percent, with a resolution that decreases from about 10\% for contained reconstructed tracks with range momentum around 0.5 GeV (which corresponds to a length of about 1.7 meters) to about 9\% for contained reconstructed tracks with range momentum greater than 0.8 GeV (which corresponds to a length of about 3.1 meters). This is only slightly higher than the the same bias and resolution measurement in simulation as shown in Figure \ref{MCS_range_bias_resolution_MCBNBSelectedRecoTrack_fig}, a difference which may be attributed to the inefficiencies in hand scanning (as compared to the truth-based MID removal and track-well-reconstructed checks in simulation-based sections). Note the bias and resolution plots here stop at a maximum range-based momentum of below 1.4 GeV due to limited statistics.
 
 
 \begin{figure}[ht!]
@@ -55,7 +58,7 @@ In order to compute a bias and a resolution, Figure \ref{MCS_range_momentum_Data
 	\subfigure[\textit{The subset of events in Figure \ref{MCS_range_momentum_DataRecoTrack_nohandscan_fig} which were hand-scanned as having poor reconstruction quality or obvious MID topologies.}]
 	{\includegraphics[width=75mm]{Figures/MCS_range_momentum_DataRecoTracks_badhandscan.png}}
 	\quad
-	\subfigure[\textit{The subset of events in Figure \ref{MCS_range_momentum_DataRecoTrack_nohandscan_fig} which were hand-scanned as having good reconstruction quality or obvious MID topologies.}\label{MCS_range_momentum_DataRecoTrack_fig}]
+	\subfigure[\textit{The subset of events in Figure \ref{MCS_range_momentum_DataRecoTrack_nohandscan_fig} which were hand-scanned as having good reconstruction quality or obvious MID topologies.}\label{MCS_range_momentum_DataRecoTrack_fig}\label{realdata_goodhandscan_fig}]
 	{\includegraphics[width=75mm]{Figures/MCS_range_momentum_DataRecoTracks_goodhandscan.png}}
 	}
 \caption{\textit{MCS computed momentum versus range momentum for the selected neutrino-induced fully contained muon sample in data hand-scanned as having poorly reconstructed tracks (left) and well reconstructed tracks (right).}}
@@ -80,10 +83,10 @@ In order to compute a bias and a resolution, Figure \ref{MCS_range_momentum_Data
 \begin{figure}
 \centering
 \mbox{
-	\subfigure[\textit{MCS momentum bias as a function of range momentum.}]
+	\subfigure[\textit{MCS momentum bias as a function of range momentum. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{N}}$, and the horizontal error bars indicate bin width.}]
 	{\includegraphics[width=75mm]{Figures/MCS_range_bias_DataBNBSelectedRecoTrack.png}}
 	\quad
-	\subfigure[\textit{MCS momentum resolution as a function of range momentum.}]
+	\subfigure[\textit{MCS momentum resolution as a function of range momentum. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{2N}}$, and the horizontal error bars indicate bin width.}]
 	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_DataBNBSelectedRecoTrack.png}}
 	}
 \caption{\textit{MCS momentum bias and resolution as a function of range momentum for the selected, well reconstructed neutrino-induced muons in {\ub} data.}}

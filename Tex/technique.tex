@@ -12,12 +12,12 @@ Each of these steps are discussed in detail in the following subsections.\\
 
 The idea and initial implementation of MCS using the maximum likelihood method for this analysis is credited to Leonidas Kalousis, a former member of the MicroBooNE collaboration. Further details regarding the technique can be found in his internal notes concerning both Monte Carlo simulated tracks \cite{leonidas1} and reconstructed tracks \cite{leonidas2}. Only slight modifications to this code have been made for the analysis described in this note.\\
 
-For this analysis, a minimum start-to-end reconstructed track length of 100 cm was used.% Additionally, the relativistic limit approcimation was also used ($\beta \approx 1$ and $E \approx p$).
+For this analysis, a minimum start-to-end reconstructed track length of 100 cm was used. A minimum length is required to allow for sufficient scatters to measure the momentum. With 100 cm tracks and 10 cm segments (see Section \ref{track_segmentation_section}), twenty scattering measurements will ultimately be used to reconstruct the momentum of the particle (see Section \ref{scattering_angle_computation_section}).
 
 \subsection{Track Segmentation}\label{track_segmentation_section}
 The input to the track segmentation routine is a vector of ordered three-dimensional trajectory points (x,y,z) representing the reconstructed track. The points are ordered along the direction of the track, with the first point representing the start of the track, and the last point representing the end of the track. These trajectory points can be determined in a number of ways by different track reconstruction algorithms. In the case of this analysis, the track reconstruction algorithm is named ``pandoraNuPMA" which constructs these three-dimensional trajectory points by combining two-dimensional hits reconstructed from signals on the different wire planes along with timing information from the photomultiplier tubes to reconstruct the third dimension\cite{Marshall:2015rfa}. Note that the tracking resolution in the y- (vertical) and z- (beam) directions are determined by the wire plane spacings, while the resolution in the x- (drift) direction is determined by optical signal timing and is therefore the x- direction resolution is better than that of the y- and z- directions.\\
 
-Also input to the track segmentation routine is the desired segment length, which is a tunable parameter. In this note, segment lengths are generally taken to be 10 cm (based on the findings of Section \ref{SegmentLength_MCBNBRecoTrack_section}) except where otherwise explicitly stated (as in Section \ref{SegmentLength_MCBNBRecoTrack_section}). This routine begins at the start of the track, and iterates through the trajectory points in order, each time computing the straight-line distance between the first point and the current one. When a point is reached that is greater than the desired segment length, that iteration stops and the direction cosines of this segment are computed.\\
+Also input to the track segmentation routine is the desired segment length, which is a tunable parameter. In this note, segment lengths are always taken to be 10 cm (based on the findings of Appendix \ref{SegmentLength_MCBNBRecoTrack_section}) except where otherwise explicitly stated. This routine begins at the start of the track, and iterates through the trajectory points in order, each time computing the straight-line distance between the first point and the current one. When a point is reached that is greater than the desired segment length, that iteration stops and the direction cosines of this segment are computed.\\
 
 Given the subset of the three-dimensional trajectory points (x, y, z) that correspond to one ``segment" of the track, a three-dimensional linear fit is applied to the data points using the orthogonal distance regression method around the trajectory point averages for that segment. This method finds the eigenvalues and eigenvectors of the (data - average) covariance matrix and the solution is the one associated with the maximum eigenvalue. All trajectory points have equal weight in the fit. There is no goodness-of-fit requirement. It is worth noting that delta rays can deposit energy locally and somewhat off the muon trajectory, resulting in shifted trajectory points. The MCS algorithm does not attempt to remove delta rays or correct for this in any way; it assumes the reconstructed track does not include trajectory points corresponding to energy deposited by delta rays. \\
 
@@ -61,56 +61,18 @@ Given a set of angular deflections in the $x'$ and $y'$ planes for each segment 
 \begin{equation}\label{modified_highland_eqtn}
 \sigma_{o}^{RMS} = \sqrt{ (\sigma_o)^2 + (\sigma_o^{res})^2} = \sqrt{ (\frac{13.6\  \text{MeV}}{p\beta c}z\sqrt{\frac{\ell}{X_0}}\Big[1+0.0038\text{ln}\Big(\frac{\ell}{X_0}\Big)\Big])^2 + (\sigma_o^{res})^2 }
 \end{equation}
-where the formula is ``modified'' from the original Highland formula (Equation \ref{highland_eqtn}) in that it includes a detector-inherent angular resolution term $\sigma_\theta^{res}$ which is given a fixed value of 2 mrad in this analysis as described in Section \ref{ResolutionStudy_MCBNBRecoTrack_section}\cite{leonidas2}.\\
+where the formula is ``modified'' from the original Highland formula (Equation \ref{highland_eqtn}) in that it includes a detector-inherent angular resolution term $\sigma_\theta^{res}$ which is given a fixed value of 2 mrad in all studies contained in this note as described in Appendix \ref{ResolutionStudy_MCBNBRecoTrack_section}\cite{leonidas2}.\\
 
-In general, this routine does a raster scan over postulated track energies in steps of 1 MeV from a minimum of the full track range-based momentum up to a maximum of 7.5 GeV. Starting with the range-based momentum as a minimum is valid because the range-based momentum is known to be an accurate predictor of momentum for contained tracks (see Section \ref{Range_Energy_Validation_section}) and is therefore an acceptable minimum both for contained and for exiting tracks. Ending at 7.5 GeV as a maximum momentum is valid because given the BNB spectrum, no neutrino-induced tracks above that momentum are expected in {\ub}.\\
+In general, this routine does a raster scan over postulated track energies in steps of 1 MeV from a minimum of the full track range-based momentum up to a maximum of 7.5 GeV. Starting with the range-based momentum as a minimum is valid because the range-based momentum is known to be an accurate predictor of momentum for contained tracks (see Section \ref{Range_Energy_Validation_section}) and is therefore an acceptable minimum both for contained and for exiting tracks. Ending at 7.5 GeV as a maximum momentum is valid because given the BNB spectrum, no neutrino-induced tracks above that momentum are expected in {\ub}\footnote{Note that 7.5 GeV might not be sufficiently high for muons from NUMI beam neutrinos, but that is outside the scope of this analysis which is geared specifically towards BNB neutrinos}.\\
 
-Given a postulated full track momentum, the full track energy $E_t$ is computed from the usual energy momentum relation,
+Given a postulated full track momentum, $p_t$, the full track energy $E_t$ is computed from the usual energy momentum relation,
 \begin{equation}\label{energy_momentum_relation_eqtn}
-E_t^2 = p_t^2 + m^2
+E_t^2 = p_t^2 + m_\mu^2
 \end{equation}
- where $p_t$ is the full track momentum and $m$ is the mass of the muon. The maximum likelihood algorithm iterates over angular scatters for each segment, with two $\Delta\theta_j$ values for each segment (corresponding to the $x'$ and $y'$ scattering planes). The energy of the $j$th segment is given by
+ where $p_t$ is the full track momentum and $m_\mu$ is the mass of the muon. The maximum likelihood algorithm iterates over angular scatters for each segment, with two $\Delta\theta_j$ values for each segment (corresponding to the $x'$ and $y'$ scattering planes). The energy of the $j$th segment is given by
 \begin{equation}\label{segment_E_equation}
 E_{j} = E_t - k_{cal}*N_{upstream}*l_{seg}
 \end{equation}
 where $k_{cal}$ is the minimally ionizing energy constant given to be $2.105 \frac{MeV}{cm}$ in liquid argon\cite{MIPenergysource}, $N_{upstream}$ is the number of segments upstream of this particular segment, and $l_{seg}$ is the segmentation length\footnote{Note that measuring the energy loss directly via calorimetric methods is likely a more appropriate way to compute $E_j$ but incorporating calorimetry is outside the scope of this analysis}. This definition of $E_j$ therefore takes into account energy loss along the track, and can never be negative given the range of possible $E_t$ values described previously (this is why the aforementioned raster scan begins at the track's range-based momentum). This value of segment energy is used to predict the RMS angular scatter for that segment ($\sigma_\theta^{RMS}$) by way of a modified version of the modified Highland formula, Equation \ref{modified_highland_eqtn}. Still assuming the mean angular scatter, $\mu$, is zero, Equation \ref{negative_llh_eqtn} is evaluated for each segment and all evaluations are summed to compute a total summed negative log likelihood for that postulated track energy, $E_t$.\\
 
 After the raster scan over postulated track momenta is complete, the one with the smallest summed negative log likelihood is chosen to be the final MCS computed momentum for the track.
-
-
-
-
-
-
-
-
-
-
-
-
-
-%Initial contents of technique.tex below, commented out as per request. -Polina
-
-%\begin{enumerate}
-%\item this will be a detailed description of exactly how the algorithm works. it will start with a copy/paste of polina's section 1B then i will add details.
-%\item details that need to be added include a description of all of the knobs that can be turned in the MCS code: the resolution term, the step size in the energy raster scan, the segment length, and whether to use x- scatters, y- scatters, or both.
-%\item possible plot: the highland formula RMS versus segment energy so people can visualize how much more "straight" a 1 GeV muon segment is than a 500 MeV muon segment, etc... some explanation that a muon loses MIP energy as it traverses LAr so scattering gets more and more, this is taken into account in our method
-%\item discussion of how our method compares to icarus's (cite their paper)
-%\end{enumerate}
-%
-%\begin{figure}
-%\centering
-%\mbox{
-%	\subfigure[\textit{sample figure left}]
-%	{\includegraphics[width=25mm]{Figures/FILLER.png}}
-%	\quad
-%	\subfigure[\textit{sample figure right}]
-%	{\includegraphics[width=25mm]{Figures/FILLER.png}}
-%	}
-%\caption{\textit{THIS IS A SAMPLE FIGURE}}
-%\label{sample_fig}
-%\end{figure}
-
-
-
-

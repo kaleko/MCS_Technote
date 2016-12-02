@@ -1,18 +1,22 @@
 \section{Conclusions}\label{conclusion_section}
 
-This note has discussed the multiple coulomb scattering technique for estimating the momentum of a three dimensional reconstructed track and provided motivation for demonstration of the capabilities of this tool within the neutrino LArTPC community. The details of the implementation of this code have been described. The gaussian nature of scatters predicted by the Highland formula has been demonstrated. Additionally the performance of this method has been quantified in three different forms of simulation of fully contained tracks (single muon {\sc MCTracks}, truth-selected simulated BNB neutrino events, and automatically-selected selected BNB + cosmic neutrino events) as well as in approximately 0.5e20 POT of {\ub} data. The methods used to optimize the segment length (10 cm) and detector resolution term (2 mrad) in the MCS algorithm have been described. To summarize the performance on these different fully contained track samples, the bias and resolution for the different samples are overlaid in Figure \ref{MCS_range_bias_resolution_masteroverlay_fig}. Other uses besides momentum reconstruction for the MCS technique have been described, including using it as a tool for identification of poorly reconstructed tracks, determination of track direction, particle identification. 
+This note has discussed the multiple coulomb scattering technique for estimating the momentum of a three dimensional reconstructed track and provided motivation for demonstration of the capabilities of this tool within the neutrino LArTPC community. The details of the implementation of this code have been described. The gaussian nature of scatters predicted by the Highland formula has been demonstrated. Additionally the performance of this method has been quantified in two different forms of simulation of fully contained tracks (truth-selected simulated BNB neutrino events with {\sc MCTracks} and reconstructed tracks, and automatically-selected selected BNB + cosmic neutrino events) as well as in approximately 0.5e20 POT of {\ub} data.\\
+
+To summarize the performance on the different fully contained track samples, the bias and resolution for the different samples are overlaid in Figure \ref{MCS_range_bias_resolution_masteroverlay_fig}. In general, performance on reconstructed tracks in MC and data agree though extremely limited statistics above 1 GeV range-based momentum makes more concrete statements difficult. The energy resolution with reconstructed tracks tends to be slightly worse than that with {\sc MCTracks} which can be attributed to imperfect track reconstruction.\\
+
+Other uses besides momentum reconstruction for the MCS technique have been described, including using it as a tool for identification of poorly reconstructed tracks and particle identification. In the appendices can be found descriptions of the methods used to optimize the segment length (10 cm) and detector resolution term (2 mrad) in the MCS algorithm, as well as studies of using MCS to determine track direction, and studies to justify using inverse momentum to compute bias and resolution metrics.
 
 
 \begin{figure}
 \centering
 \mbox{
-	\subfigure[\textit{MCS momentum bias as a function of range momentum.}]
+	\subfigure[\textit{MCS momentum bias as a function of range momentum. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{N}}$, and the horizontal error bars indicate bin width.}]
 	{\includegraphics[width=80mm]{Figures/MCS_range_bias_multiplesamples.png}}
 	\quad
-	\subfigure[\textit{MCS momentum resolution as a function of range momentum.}]
+	\subfigure[\textit{MCS momentum resolution as a function of range momentum. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{2N}}$, and the horizontal error bars indicate bin width.}]
 	{\includegraphics[width=80mm]{Figures/MCS_range_resolution_multiplesamples.png}}
 	}
-\caption{\textit{MCS Momentum resolution for simulated contained single muon {\sc MCTracks} discussed in Section \ref{singlemu_mctrack_performance_section} (blue), automatically selected contained numuCC-induced muons from simulated BNB+cosmics where the track is well-reconstructed and matches with the true muon track discussed in Section \ref{MC_performance_section} (green), and automatically selected contained numuCC-induced muons from MicroBooNE data where the track is deemed well-reconstructed and likely-muon from hand scanning discussed in Section \ref{data_performance_section}.}}
+\caption{\textit{MCS Momentum resolution for simulated truth-selected BNB numuCC {\sc MCTracks} discussed in Section \ref{MCBNBMCTrack_performance_section} (blue), automatically selected contained numuCC-induced muons from simulated BNB+cosmics where the track is well-reconstructed and matches with the true muon track discussed in Section \ref{MC_performance_section} (green), and automatically selected contained numuCC-induced muons from MicroBooNE data where the track is deemed well-reconstructed and likely-muon from hand scanning discussed in Section \ref{data_performance_section}.}}
 \label{MCS_range_bias_resolution_masteroverlay_fig}
 \end{figure}
 
@@ -39,7 +43,7 @@ Here are a few plots that I think should be considered for the publication. The 
 % Image describing MCS idea
 \begin{figure}[ht!]
 \centering
-	\includegraphics[width=0.5\linewidth]{Figures/mcs_nocap.png} \\
+	\includegraphics[width=0.5\linewidth]{Figures/static_figs/mcs_nocap.png} \\
 \caption{\textit{The particle's trajectory is deflected as it traverses through the material \cite{leonidas1}.}}\label{pub_plot_1}
 \end{figure}
 
@@ -48,12 +52,12 @@ Here are a few plots that I think should be considered for the publication. The 
 \centering
 \mbox{
 	\subfigure[\textit{Range energy bias as a function of true energy.}]
-	{\includegraphics[width=75mm]{Figures/true_range_bias_SingleMuonMCTrack.png}}
+	{\includegraphics[width=75mm]{Figures/true_range_bias_MCBNBMCTrack.png}}
 	\quad
 	\subfigure[\textit{Range energy resolution as a function of true energy.}]
-	{\includegraphics[width=75mm]{Figures/true_range_resolution_SingleMuonMCTrack.png}}
+	{\includegraphics[width=75mm]{Figures/true_range_resolution_MCBNBMCTrack.png}}
 	}
-\caption{\textit{Range energy and true energy bias and resolution for the single muon {\sc MCTrack} sample described in Section \ref{MCTrack_Selection_section}.}}
+\caption{\textit{Range energy and true energy bias and resolution for the {\sc MCTrack} sample described in Section \ref{MCBNBMCTrack_eventselection_section}.}}
 \label{pub_plot_2}
 \end{figure}
 
@@ -73,11 +77,11 @@ Here are a few plots that I think should be considered for the publication. The 
 \centering
 \mbox{
 	\subfigure[\textit{MCS energy bias as a function of range energy.}]
-	{\includegraphics[width=80mm]{Figures/MCS_range_bias_multiplesamples.png}}
+	{\includegraphics[width=80mm]{Figures/MCS_range_bias_multiplesamples_publicplot.png}}
 	\quad
 	\subfigure[\textit{MCS energy resolution as a function of range energy.}]
-	{\includegraphics[width=80mm]{Figures/MCS_range_resolution_multiplesamples.png}}
+	{\includegraphics[width=80mm]{Figures/MCS_range_resolution_multiplesamples_publicplot.png}}
 	}
-\caption{\textit{MCS Momentum resolution for simulated contained single muon {\sc MCTracks} discussed in Section \ref{singlemu_mctrack_performance_section} (blue), automatically selected contained numuCC-induced muons from simulated BNB+cosmics where the track is well-reconstructed and matches with the true muon track discussed in Section \ref{MC_performance_section} (green), and automatically selected contained numuCC-induced muons from MicroBooNE data where the track is deemed well-reconstructed and likely-muon from hand scanning discussed in Section \ref{data_performance_section}.}}\label{pub_plot_4}
+\caption{\textit{MCS Momentum resolution for automatically selected contained numuCC-induced muons from simulated BNB+cosmics where the track is well-reconstructed and matches with the true muon track discussed in Section \ref{MC_performance_section} (blue), and automatically selected contained numuCC-induced muons from MicroBooNE data where the track is deemed well-reconstructed and likely-muon from hand scanning discussed in Section \ref{data_performance_section} (green).}}\label{pub_plot_4}
 \end{figure}
 
