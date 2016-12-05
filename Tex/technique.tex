@@ -39,17 +39,17 @@ Here, each $\Delta\theta$ corresponds to a scattering angle measurement between 
 
 To get the likelihood, one takes the product of $f_X(\Delta\theta_j)$ over all the $\Delta\theta_j$ segment-to-segment scatters along the track. Since the product of exponentials is just an exponential with the sum of the arguments, this product becomes
 \begin{equation}
-L(\mu;(\sigma_{o,1})^2,...,(\sigma_{o,n})^2;\Delta\theta_1,...,\Delta\theta_n) = \prod_{j=1}^{n}f_X(\Delta\theta_j,\mu_o,(\sigma_{o,j})^2) = (2\pi)^\frac{-n}{2}\times\prod_{j=1}^{n}(\sigma_{o,j})^{-1} \times exp(-\frac{1}{2}\sum_{j=1}^{n}\frac{(\Delta\theta_j-\mu_o)^2}{(\sigma_{o,j})^2})
+L(\mu_o;(\sigma_{o,1})^2,...,(\sigma_{o,n})^2;\Delta\theta_1,...,\Delta\theta_n) = \prod_{j=1}^{n}f_X(\Delta\theta_j,\mu_o,(\sigma_{o,j})^2) = (2\pi)^\frac{-n}{2}\times\prod_{j=1}^{n}(\sigma_{o,j})^{-1} \times exp(-\frac{1}{2}\sum_{j=1}^{n}\frac{(\Delta\theta_j-\mu_o)^2}{(\sigma_{o,j})^2})
 \end{equation}
 
 In practice, rather than maximizing likelihood it is often more computationally convenient to instead minimize the negative log likelihood. Taking the natural logarithm of the likelihood $L$ gives an expression that is related to a $\chi^2$
 \begin{equation}\label{leo_llhd_eqtn}
-l(\mu;(\sigma_{o,1})^2,...,(\sigma_{o,n})^2;\Delta\theta_1,...,\Delta\theta_n) = ln(L) = -\frac{n}{2}ln(2\pi) - \sum_{j=1}^{n}ln(\sigma_{o,j}) - \frac{1}{2}\sum_{j=1}^{n}\frac{(\Delta\theta_j-\mu)^2}{(\sigma_{o,j})^2}
+l(\mu_o;(\sigma_{o,1})^2,...,(\sigma_{o,n})^2;\Delta\theta_1,...,\Delta\theta_n) = ln(L) = -\frac{n}{2}ln(2\pi) - \sum_{j=1}^{n}ln(\sigma_{o,j}) - \frac{1}{2}\sum_{j=1}^{n}\frac{(\Delta\theta_j-\mu_o)^2}{(\sigma_{o,j})^2}
 \end{equation}
 
-The negative log likelihood for one specific segment's angular scatter $\Delta\theta_j$ given an expected scattering RMS $\sigma_\theta^j$ is given by the following equation
+The negative log likelihood for one specific segment's angular scatter $\Delta\theta_j$ given an expected scattering RMS $\sigma_{o,j}$ is given by the following equation
 \begin{equation}\label{negative_llh_eqtn}
--l(\mu, \sigma_{o,j}, \Delta\theta_j) = \frac{1}{2}ln(2\pi) + ln(\sigma_{o,j}) + \frac{1}{2}\frac{(\Delta\theta_j-\mu)^2}{(\sigma_{o,j})^2}
+-l(\mu_o, \sigma_{o,j}, \Delta\theta_j) = \frac{1}{2}ln(2\pi) + ln(\sigma_{o,j}) + \frac{1}{2}\frac{(\Delta\theta_j-\mu_o)^2}{(\sigma_{o,j})^2}
 \end{equation}
 
 In general, Equation \ref{negative_llh_eqtn} is evaluated for each segment in a track given a postulated full track momentum, and the sum of these terms is used to determine the likelihood that the postulated track momentum is correct for that track.
@@ -61,7 +61,7 @@ Given a set of angular deflections in the $x'$ and $y'$ planes for each segment 
 \begin{equation}\label{modified_highland_eqtn}
 \sigma_{o}^{RMS} = \sqrt{ (\sigma_o)^2 + (\sigma_o^{res})^2} = \sqrt{ (\frac{13.6\  \text{MeV}}{p\beta c}z\sqrt{\frac{\ell}{X_0}}\Big[1+0.0038\text{ln}\Big(\frac{\ell}{X_0}\Big)\Big])^2 + (\sigma_o^{res})^2 }
 \end{equation}
-where the formula is ``modified'' from the original Highland formula (Equation \ref{highland_eqtn}) in that it includes a detector-inherent angular resolution term $\sigma_\theta^{res}$ which is given a fixed value of 2 mrad in all studies contained in this note as described in Appendix \ref{ResolutionStudy_MCBNBRecoTrack_section}\cite{leonidas2}.\\
+where the formula is ``modified'' from the original Highland formula (Equation \ref{highland_eqtn}) in that it includes a detector-inherent angular resolution term $\sigma_o^{res}$ which is given a fixed value of 2 mrad in all studies contained in this note as described in Appendix \ref{ResolutionStudy_MCBNBRecoTrack_section}\cite{leonidas2}.\\
 
 In general, this routine does a raster scan over postulated track energies in steps of 1 MeV from a minimum of the full track range-based momentum up to a maximum of 7.5 GeV. Starting with the range-based momentum as a minimum is valid because the range-based momentum is known to be an accurate predictor of momentum for contained tracks (see Section \ref{Range_Energy_Validation_section}) and is therefore an acceptable minimum both for contained and for exiting tracks. Ending at 7.5 GeV as a maximum momentum is valid because given the BNB spectrum, no neutrino-induced tracks above that momentum are expected in {\ub}\footnote{Note that 7.5 GeV might not be sufficiently high for muons from NUMI beam neutrinos, but that is outside the scope of this analysis which is geared specifically towards BNB neutrinos}.\\
 
@@ -73,6 +73,6 @@ E_t^2 = p_t^2 + m_\mu^2
 \begin{equation}\label{segment_E_equation}
 E_{j} = E_t - k_{cal}*N_{upstream}*l_{seg}
 \end{equation}
-where $k_{cal}$ is the minimally ionizing energy constant given to be $2.105 \frac{MeV}{cm}$ in liquid argon\cite{MIPenergysource}, $N_{upstream}$ is the number of segments upstream of this particular segment, and $l_{seg}$ is the segmentation length\footnote{Note that measuring the energy loss directly via calorimetric methods is likely a more appropriate way to compute $E_j$ but incorporating calorimetry is outside the scope of this analysis}. This definition of $E_j$ therefore takes into account energy loss along the track, and can never be negative given the range of possible $E_t$ values described previously (this is why the aforementioned raster scan begins at the track's range-based momentum). This value of segment energy is used to predict the RMS angular scatter for that segment ($\sigma_\theta^{RMS}$) by way of a modified version of the modified Highland formula, Equation \ref{modified_highland_eqtn}. Still assuming the mean angular scatter, $\mu$, is zero, Equation \ref{negative_llh_eqtn} is evaluated for each segment and all evaluations are summed to compute a total summed negative log likelihood for that postulated track energy, $E_t$.\\
+where $k_{cal}$ is the minimally ionizing energy constant given to be $2.105 \frac{MeV}{cm}$ in liquid argon\cite{MIPenergysource}, $N_{upstream}$ is the number of segments upstream of this particular segment, and $l_{seg}$ is the segmentation length\footnote{Note that measuring the energy loss directly via calorimetric methods is likely a more appropriate way to compute $E_j$ but incorporating calorimetry is outside the scope of this analysis}. This definition of $E_j$ therefore takes into account energy loss along the track, and can never be negative given the range of possible $E_t$ values described previously (the aforementioned raster scan begins at the track's range-based momentum). This value of segment energy is used to predict the RMS angular scatter for that segment ($\sigma_o^{RMS}$) by way of a modified version of the modified Highland formula, Equation \ref{modified_highland_eqtn}. Still assuming the mean angular scatter, $\mu_o$, is zero, Equation \ref{negative_llh_eqtn} is evaluated for each segment and all evaluations are summed to compute a total summed negative log likelihood for that postulated track energy, $E_t$.\\
 
 After the raster scan over postulated track momenta is complete, the one with the smallest summed negative log likelihood is chosen to be the final MCS computed momentum for the track.
