@@ -79,20 +79,9 @@ Given this truth-selected sample in simulation, the true direction of the track 
 \end{figure}
 
 \section{Inverse Momentum to Quantify Resolution: Justification}\label{inverse_p_justification_section}
-Throughout this note, the bias and resolution for the MCS momentum estimation method have been computed by fitting gaussians to distributions of ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$). Note that this is algebraically equivalent to ($\frac{p_{range} - p_{MCS}}{p_{MCS}}$). The reason that the inverse momentum is used is that these distributions are more gaussian, and therefore fitting a gaussian to them and using the result of that (the mean for the bias and the width for the resolution) is more appropriate. In this section, several ways of computing the bias and resolution are demonstrated:
-\begin{enumerate}
-	\item Fitting gaussians to distributions of ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$) and using the resulting fit $\sigma$ and $\mu$ for resolution and bias estimates (respectively).
-	\item Fitting gaussians to distributions of ($\frac{p_{MCS} - p_{range}}{p_{range}}$) and using the resulting fit $\sigma$ and $\mu$ for resolution and bias estimates (respectively).
-	\item Simply using the standard deviation and mean of ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$) to estimate the resolution and the bias (respectively).
-	\item Simply using the standard deviation and mean of ($\frac{p_{MCS} - p_{range}}{p_{range}}$) to estimate the resolution and the bias (respectively).
-\end{enumerate}
-The differences between these methods are described and the choice of using option (1) throughout the note is justified.\\
+Throughout this note, the bias and resolution for the MCS momentum estimation method have been computed by fitting gaussians to distributions of ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$). The Highland formula (Equation \ref{highland_eqtn}) predicts gaussian-distributed angular scatters $\Delta\theta$ and is a function of $\frac{1}{p}$. As described by the Opera paper on multiple coulomb scattering\cite{OPERApaper}, ``since the inverted momentum distribution $\frac{1}{p}$ has a Gaussian shape, the width of the Gaussian divided by $\frac{1}{p_{mean}}$ directly gives the momentum resolution estimate $\frac{\Delta(1/p)}{(1/p)}.$''
 
-
-
-The input sample for this study was the high statistics simulated BNB neutrino interactions without any cosmics simulated described in Section \ref{MCBNB_input_sample_section}, and this study uses reconstructed tracks that have been selected according to the cuts described in Section \ref{MCBNBRecoTrack_eventselection_section}.\\
-
-To demonstrate that distributions of ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$) are more gaussian than distributions of ($\frac{p_{MCS} - p_{range}}{p_{range}}$), Figure \ref{MCS_gausvalidation_twoslices_fig} shows each of these distributions for reconstructed tracks with range energy between 0.35 and 0.53 GeV. This slice was chosen because it has the highest statistics.\\
+Purely for visualization sake, to demonstrate that distributions of ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$) are more gaussian than distributions of ($\frac{p_{MCS} - p_{range}}{p_{range}}$), Figure \ref{MCS_gausvalidation_twoslices_fig} shows each of these distributions for reconstructed tracks with range energy between 0.35 and 0.53 GeV from the sample of the high statistics simulated BNB neutrino interactions without any cosmics simulated described in Section \ref{MCBNB_input_sample_section}.\\
 
 \begin{figure}
 \centering
@@ -103,53 +92,123 @@ To demonstrate that distributions of ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{r
 	\subfigure[\textit{Fractional momentum difference using normal momentum, including gaussian fit.}]
 	{\includegraphics[width=75mm]{Figures/{MCS_range_resolution_MCBNBRecoTrack_GAUSVALIDATION_normal_gaus_slice_0.35_0.53}.png}}
 }
-
 \caption{\textit{Fractional momentum differences between 0.35 and 0.53 GeV range energy for well reconstructed muons from the simulated BNB sample with truth-based selection.}}
 \label{MCS_gausvalidation_twoslices_fig}
 \end{figure}
 
-Figures \ref{MCS_gausvalidation_bias_fig} and \ref{MCS_gausvalidation_resolution_fig} show the bias and resolution as a function of range for the four different methods of computing outlined above. In general, all four methods result in similar bias and resolutions, however the resolution when using standard devition of normal momentum (option 4) is slightly worse. \textbf{It can be seen that when using inverse momentum, the bias and resolutions computed with gaussian fits agree well with those computed from mean and std of underlying distributions (Figures \ref{MCS_gausvalidation_bias_fig}(a) and (c) agree better than Figures \ref{MCS_gausvalidation_bias_fig}(b) and (d), and Figures \ref{MCS_gausvalidation_resolution_fig}(a) and (c) agree better than Figures \ref{MCS_gausvalidation_resolution_fig}(b) and (d)). This serves as motivation to use inverse momentum rather than normal momentum.}
+
+% Throughout this note, the bias and resolution for the MCS momentum estimation method have been computed by fitting gaussians to distributions of ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$). Note that this is algebraically equivalent to ($\frac{p_{range} - p_{MCS}}{p_{MCS}}$). The reason that the inverse momentum is used is that these distributions are more gaussian, and therefore fitting a gaussian to them and using the result of that (the mean for the bias and the width for the resolution) is more appropriate. In this section, several ways of computing the bias and resolution are demonstrated:
+% \begin{enumerate}
+% 	\item Fitting gaussians to distributions of ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$) and using the resulting fit $\sigma$ and $\mu$ for resolution and bias estimates (respectively).
+% 	\item Fitting gaussians to distributions of ($\frac{p_{MCS} - p_{range}}{p_{range}}$) and using the resulting fit $\sigma$ and $\mu$ for resolution and bias estimates (respectively).
+% 	\item Simply using the standard deviation and mean of ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$) to estimate the resolution and the bias (respectively).
+% 	\item Simply using the standard deviation and mean of ($\frac{p_{MCS} - p_{range}}{p_{range}}$) to estimate the resolution and the bias (respectively).
+% \end{enumerate}
+% The differences between these methods are described and the choice of using option (1) throughout the note is justified.\\
+
+
+
+% The input sample for this study was the high statistics simulated BNB neutrino interactions without any cosmics simulated described in Section \ref{MCBNB_input_sample_section}, and this study uses reconstructed tracks that have been selected according to the cuts described in Section \ref{MCBNBRecoTrack_eventselection_section}.\\
+
+% To demonstrate that distributions of ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$) are more gaussian than distributions of ($\frac{p_{MCS} - p_{range}}{p_{range}}$), Figure \ref{MCS_gausvalidation_twoslices_fig} shows each of these distributions for reconstructed tracks with range energy between 0.35 and 0.53 GeV. This slice was chosen because it has the highest statistics.\\
+
+% \begin{figure}
+% \centering
+% \mbox{
+% 	\subfigure[\textit{Fractional momentum difference using inverse momentum, including gaussian fit.}]
+% 	{\includegraphics[width=75mm]{Figures/{MCS_range_resolution_MCBNBRecoTrack_GAUSVALIDATION_inverse_gaus_slice_0.35_0.53}.png}}
+% 	\quad
+% 	\subfigure[\textit{Fractional momentum difference using normal momentum, including gaussian fit.}]
+% 	{\includegraphics[width=75mm]{Figures/{MCS_range_resolution_MCBNBRecoTrack_GAUSVALIDATION_normal_gaus_slice_0.35_0.53}.png}}
+% }
+
+% \caption{\textit{Fractional momentum differences between 0.35 and 0.53 GeV range energy for well reconstructed muons from the simulated BNB sample with truth-based selection.}}
+% \label{MCS_gausvalidation_twoslices_fig}
+% \end{figure}
+
+% Figures \ref{MCS_gausvalidation_bias_fig} and \ref{MCS_gausvalidation_resolution_fig} show the bias and resolution as a function of range for the four different methods of computing outlined above. In general, all four methods result in similar bias and resolutions, however the resolution when using standard devition of normal momentum (option 4) is slightly worse. \textbf{It can be seen that when using inverse momentum, the bias and resolutions computed with gaussian fits agree well with those computed from mean and std of underlying distributions (Figures \ref{MCS_gausvalidation_bias_fig}(a) and (c) agree better than Figures \ref{MCS_gausvalidation_bias_fig}(b) and (d), and Figures \ref{MCS_gausvalidation_resolution_fig}(a) and (c) agree better than Figures \ref{MCS_gausvalidation_resolution_fig}(b) and (d)). This serves as motivation to use inverse momentum rather than normal momentum.}
+
+% \begin{figure}
+% \centering
+% \mbox{
+% 	\subfigure[\textit{Bias computed with gaussian fits to inverse momentum.}]
+% 	{\includegraphics[width=75mm]{Figures/MCS_range_bias_MCBNBRecoTrack_GAUSVALIDATION_inverse_gaus.png}}
+% 	\quad
+% 	\subfigure[\textit{Bias computed with gaussian fits to normal momentum.}]
+% 	{\includegraphics[width=75mm]{Figures/MCS_range_bias_MCBNBRecoTrack_GAUSVALIDATION_normal_gaus.png}}
+% }
+
+% \mbox{
+% 	\subfigure[\textit{Bias computed with mean of inverse momentum distributions.}]
+% 	{\includegraphics[width=75mm]{Figures/MCS_range_bias_MCBNBRecoTrack_GAUSVALIDATION_inverse_std.png}}
+% 	\quad
+% 	\subfigure[\textit{Bias computed with mean of normal momentum distributions.}]
+% 	{\includegraphics[width=75mm]{Figures/MCS_range_bias_MCBNBRecoTrack_GAUSVALIDATION_normal_std.png}}
+% }
+	
+% \caption{\textit{MCS bias as a function of range energy computed four different ways for well reconstructed muons from the simulated BNB sample with truth-based selection.}}
+% \label{MCS_gausvalidation_bias_fig}
+% \end{figure}
+
+% \begin{figure}
+% \centering
+% \mbox{
+% 	\subfigure[\textit{Resolution computed with gaussian fits to inverse momentum.}]
+% 	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_MCBNBRecoTrack_GAUSVALIDATION_inverse_gaus.png}}
+% 	\quad
+% 	\subfigure[\textit{Resolution computed with gaussian fits to normal momentum.}]
+% 	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_MCBNBRecoTrack_GAUSVALIDATION_normal_gaus.png}}
+% }
+
+% \mbox{
+% 	\subfigure[\textit{Resolution computed with std of inverse momentum distributions.}]
+% 	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_MCBNBRecoTrack_GAUSVALIDATION_inverse_std.png}}
+% 	\quad
+% 	\subfigure[\textit{Resolution computed with std of normal momentum distributions.}]
+% 	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_MCBNBRecoTrack_GAUSVALIDATION_normal_std.png}}
+% }
+	
+% \caption{\textit{MCS resolution as a function of range energy computed four different ways for well reconstructed muons from the simulated BNB sample with truth-based selection.}}
+% \label{MCS_gausvalidation_resolution_fig}
+% \end{figure}
+
+\clearpage
+\section{Track Angle Dependence}\label{AngleStudy_MCBNBRecoTrack_section}
+This section describes a brief study of how the performance of the MCS algorithm varies with track angle. The angles of interest are both with respect to the drift direction $x-$, and with respect to the vertical (collection plane wire orientation) direction $y-$. The input sample for this study was the high statistics simulated BNB neutrino interactions without any cosmics simulated described in Section \ref{MCBNB_input_sample_section}, and this study uses reconstructed tracks that have been selected according to the cuts described in Section \ref{MCBNBRecoTrack_eventselection_section}.\\
+
+The usual bias and resolution plots as a function of range-based momentum for different four bins of angle with respect to the drift direction are shown in Figure \ref{xangle_bias_resolution_fig}. Despite limited statistics, it is clear that there is only minimal performance change as a function of angle with respect to the drift direction.\\
+
+The usual bias and resolution plots as a function of range-based momentum for different four bins of angle with respect to the vertical (collection wire plane orientation) direction are shown in Figure \ref{yangle_bias_resolution_fig}. Despite limited statistics, it is clear that there is only minimal performance change as a function of angle with respect to the vertical direction.\\
+
+
 
 \begin{figure}
 \centering
 \mbox{
-	\subfigure[\textit{Bias computed with gaussian fits to inverse momentum.}]
-	{\includegraphics[width=75mm]{Figures/MCS_range_bias_MCBNBRecoTrack_GAUSVALIDATION_inverse_gaus.png}}
+	\subfigure[\textit{MCS momentum bias as a function of range-based momentum. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{N}}$, and the horizontal error bars indicate bin width.}]
+	{\includegraphics[width=75mm]{Figures/MCS_range_bias_anglestudy_xangle.png}}
 	\quad
-	\subfigure[\textit{Bias computed with gaussian fits to normal momentum.}]
-	{\includegraphics[width=75mm]{Figures/MCS_range_bias_MCBNBRecoTrack_GAUSVALIDATION_normal_gaus.png}}
-}
-
-\mbox{
-	\subfigure[\textit{Bias computed with mean of inverse momentum distributions.}]
-	{\includegraphics[width=75mm]{Figures/MCS_range_bias_MCBNBRecoTrack_GAUSVALIDATION_inverse_std.png}}
-	\quad
-	\subfigure[\textit{Bias computed with mean of normal momentum distributions.}]
-	{\includegraphics[width=75mm]{Figures/MCS_range_bias_MCBNBRecoTrack_GAUSVALIDATION_normal_std.png}}
-}
-	
-\caption{\textit{MCS bias as a function of range energy computed four different ways for well reconstructed muons from the simulated BNB sample with truth-based selection.}}
-\label{MCS_gausvalidation_bias_fig}
+	\subfigure[\textit{MCS momentum resolution as a function of range-based momentum. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{2N}}$, and the horizontal error bars indicate bin width.}]
+	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_anglestudy_xangle.png}}
+	}
+\caption{\textit{MCS momentum bias and resolution as a function of range momentum for the truth-selected simulated fully contained, well reconstructed muon tracks from numu charged current events. Resolution is broken into four bins of angle with respect to the drift direction: blue are tracks perpendicular to the drift direction to within 22.5 degrees, and cyan are tracks oriented parallel to the drift direction to within 22.5 degrees.}}
+\label{xangle_bias_resolution_fig}
 \end{figure}
+
 
 \begin{figure}
 \centering
 \mbox{
-	\subfigure[\textit{Resolution computed with gaussian fits to inverse momentum.}]
-	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_MCBNBRecoTrack_GAUSVALIDATION_inverse_gaus.png}}
+	\subfigure[\textit{MCS momentum bias as a function of range-based momentum. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{N}}$, and the horizontal error bars indicate bin width.}]
+	{\includegraphics[width=75mm]{Figures/MCS_range_bias_anglestudy_yangle.png}}
 	\quad
-	\subfigure[\textit{Resolution computed with gaussian fits to normal momentum.}]
-	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_MCBNBRecoTrack_GAUSVALIDATION_normal_gaus.png}}
-}
-
-\mbox{
-	\subfigure[\textit{Resolution computed with std of inverse momentum distributions.}]
-	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_MCBNBRecoTrack_GAUSVALIDATION_inverse_std.png}}
-	\quad
-	\subfigure[\textit{Resolution computed with std of normal momentum distributions.}]
-	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_MCBNBRecoTrack_GAUSVALIDATION_normal_std.png}}
-}
-	
-\caption{\textit{MCS resolution as a function of range energy computed four different ways for well reconstructed muons from the simulated BNB sample with truth-based selection.}}
-\label{MCS_gausvalidation_resolution_fig}
+	\subfigure[\textit{MCS momentum resolution as a function of range-based momentum. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{2N}}$, and the horizontal error bars indicate bin width.}]
+	{\includegraphics[width=75mm]{Figures/MCS_range_resolution_anglestudy_yangle.png}}
+	}
+\caption{\textit{MCS momentum bias and resolution as a function of range momentum for the truth-selected simulated fully contained, well reconstructed muon tracks from numu charged current events. Resolution is broken into four bins of angle with respect to the vertical (collection plane wire orientation) direction: blue are tracks perpendicular to the vertical direction to within 22.5 degrees, and cyan are tracks oriented parallel to the vertical direction to within 22.5 degrees.}}
+\label{yangle_bias_resolution_fig}
 \end{figure}
+
+
+
+
