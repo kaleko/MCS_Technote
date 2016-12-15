@@ -43,13 +43,13 @@ The event selection for this subanalysis is truth based. The fiducial volume use
 \begin{itemize}
 \item There is one neutrino interaction in the event (770,241 events remain).
 \item The neutrino interaction is of type charged-current (559,348 events remain).
-\item The neutrino interaction occurs within the fiducial volume (152,214 events remain).
+\item The neutrino interaction occurs within the fiducial volume (152,214 events remain) (note the large decrease in statistics because these neutrinos were generated within the full cryostat, and the fiducial volume is much smaller).
 \item The interacting neutrino is type $\nu_\mu$ (149,684 events remain).
 \item The {\sc MCTrack} associated with the outgoing muon from the interaction is fully contained within the fiducial volume (50,537 events remain).
 \item The {\sc MCTrack} associated with the outgoing muon from the interaction is at least one meter in length (23,378 events remain).
 \item The {\sc MCTrack} associated with the outgoing muon from the interaction does not decay in flight (this cut is implemented by requiring the {\sc MCTrack}'s total energy at its final trajectory point is equal to the muon mass) (23,342 events remain).
 \end{itemize}
-After these additional cuts are placed, 23342 events ({\sc MCTracks}) remain for MCS analysis. The energy and angle distributions for these 23342 muons can be seen in Figure \ref{BNBmuon_energy_angle_fig}. It should be noted that any computed metrics from this sample (and therefore any other BNB sample) have convolved any effects of performance differences as a function of angle.\\
+After these additional cuts are placed, 23342 events ({\sc MCTracks}) remain for MCS analysis. The energy and angle distributions for these 23342 muons can be seen in Figure \ref{BNBmuon_energy_angle_fig}. It should be noted that any computed metrics from this sample (and therefore any other BNB sample) have convolved any effects of performance differences as a function of angle. While {\sc MCTracks} do not generally suffer from problems related to angle, reconstructed tracks do (since reconstructing 3D tracks that have certain angles with respect to wire planes can be difficult). The effect that reconstructed track angle has on MCS performance is explored briefly in Appendix \ref{AngleStudy_MCBNBRecoTrack_section}.\\
 
 \begin{figure}
 \centering
@@ -164,7 +164,7 @@ For this sample of {\sc MCTracks}, only the 3D trajectory points of each {\sc MC
 \subsubsection{Highland Validation}\label{Highland_Validation_MCTrack_section}
 For a given track segment momentum and length, 98\% of the angular scatter deviations should be gaussian with an RMS described by the Highland equation (Equation \ref{highland_eqtn}), while the remaining 2\% are larger angle Rutherford scatters\cite{highland}\footnote{This is not actually taken into account explicitly in the current algorithm implementation}. Therefore, a histogram of track segment angular deviations divided by the RMS predicted by the Highland equation should be gaussian with a width of unity. In this section, we validate this claim.\\
 
-For each 10 cm segment of each {\sc MCTrack} in this single muon sample, the momentum of the muon at the start of that segment is estimated by taking the computed MCS momentum and subtracting out momentum lost in the track upstream of the start of this segment, assuming the track was minimally ionizing as described in Equation \ref{segment_E_equation}. The segment momentum, along with the segment length, is converted into an expected RMS angular deviation by way of Equation \ref{highland_eqtn}. For each consecutive pair of segments, the angular scatter in milliradians divided by the Highland expected RMS in millradians is an entry in the histogram shown in Figure \ref{Highland_validation_MCTracks_fig}. From this figure we can see that the Highland formula is valid for {\sc MCTracks}, as the gaussian fit agrees well with the underlying histogram.
+For each 10 cm segment of each {\sc MCTrack} in this single muon sample, the momentum of the muon at the start of that segment is estimated by taking the computed MCS momentum and subtracting out momentum lost in the track upstream of the start of this segment, assuming the track was minimally ionizing as described in Equation \ref{segment_E_equation}. The segment momentum, along with the segment length, is converted into an expected RMS angular deviation by way of Equation \ref{highland_eqtn}. For each consecutive pair of segments, the angular scatter in milliradians divided by the Highland expected RMS in millradians is an entry in the histogram shown in Figure \ref{Highland_validation_MCTracks_fig}. From this figure we can see that the Highland formula is valid for {\sc MCTracks}, as the gaussian fit agrees well with the underlying histogram. One can also see the non-gaussian tails which may correspond to larger angle Rutherford scatters.
 
 \begin{figure}[ht!]
 \begin{center}

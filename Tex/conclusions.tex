@@ -10,9 +10,11 @@ This note is by no means a complete, end-all analysis of the MCS code; there are
 
 Additional avenues to further this analysis include:
 \begin{itemize}
-	\item Determining if the MCS algorithm can be used for muon/pion discrimination (pions should have more larger-angle hard scatters than muons)
-	\item Quantifying the performance of the MCS algorithm as a function of track angle
-	\item Using calorimetry to determine energy loss upstream of a segment rathern than assuming MIP deposited energy (Equation \ref{segment_E_equation})
+	\item Determining if the MCS algorithm can be used for muon/pion discrimination (pions should have more larger-angle hard scatters than muons).
+	\item Quantifying the performance of the MCS algorithm as a function of track angle (which is briefly explored as an appendix to this note starting with version 1.4, but could be done more thoroughly).
+	\item Using calorimetry to determine energy loss upstream of a segment rather than assuming average MIP deposited energy (Equation \ref{segment_E_equation})... this will be best especially for cases where large amounts of energy is lost to delta rays.
+	\item Using a likelihood map (plot of likelihood vs. step in raster scan) to assign an uncertainty to the returned MCS momentum value (maybe something like the magnitude of the second derivative?)
+
 \end{itemize}
 
 
@@ -45,8 +47,9 @@ This section includes plots that to be considered for the publication. The publi
 \begin{enumerate}
 	\item Figure \ref{pub_plot_1} is a general image whose purpose is to aid the reader in understanding what MCS is and how the code works. I'm not sure this one is public-domain, but I can easily make my own version of it if necessary.
 	\item Figure \ref{pub_plot_2} is an image whose purpose is to validate using range-based momentum in place of true-momentum when the analysis is done on real data where true-momentum obviously is unknown.
-	\item Figure \ref{pub_plot_3} is an image showing the MCS momentum versus range momentum for the automatically selected, handscanned data events.
-	\item Figure \ref{pub_plot_4} is an overlay of MCS momentum bias and resolution for directly comparable samples in data and MC. The {\sc MCTrack} sample is left out of this plot because {\sc MCTracks} are very {\ub} specific. Also the x-axis cuts off at around 1.3 GeV as statistics become very limited after that.
+	\item Figure \ref{pub_plot_3} is an image whose purpose is to show that the segment-to-segment angular scatters are indeed gaussian as predicted by the Highland formula, and therefore the basis for this technique is sound.
+	\item Figure \ref{pub_plot_4} is an image showing the MCS momentum versus range momentum for the automatically selected, handscanned data events.
+	\item Figure \ref{pub_plot_5} is an overlay of MCS momentum bias and resolution for directly comparable samples in data and MC. The {\sc MCTrack} sample is left out of this plot because {\sc MCTracks} are very {\ub} specific. Also the x-axis cuts off at around 1.3 GeV as statistics become very limited after that.
 \end{enumerate}
 
 % Image describing MCS idea
@@ -70,13 +73,21 @@ This section includes plots that to be considered for the publication. The publi
 \label{pub_plot_2}
 \end{figure}
 
+% Highland validation image
+\begin{figure}
+\centering
+	\includegraphics[width=75mm]{Figures/Highland_validation_DataBNBSelectedRecoTrack_goodscan.png}
+\caption{\textit{10 cm segment angular deviations divided by expected Highland RMS for the sample of well reconstructed (as determined by the hand scanning), neutrino induced muons in {\ub}.}}
+\label{pub_plot_3}
+\end{figure}
+
 
 % Image showing MCS momentum vs range momentum the handscanned data events
 \begin{figure}
 \centering
 	\includegraphics[width=75mm]{Figures/MCS_range_momentum_DataRecoTracks_goodhandscan.png}
 \caption{\textit{MCS computed momentum versus range momentum for the selected neutrino-induced fully contained muon sample in data hand-scanned as having well reconstructed, likely-muon tracks.}}
-\label{pub_plot_3}
+\label{pub_plot_4}
 \end{figure}
 
 
@@ -91,6 +102,6 @@ This section includes plots that to be considered for the publication. The publi
 	\subfigure[\textit{MCS energy resolution as a function of range energy.}]
 	{\includegraphics[width=80mm]{Figures/MCS_range_resolution_multiplesamples_publicplot.png}}
 	}
-\caption{\textit{MCS momentum resolution for automatically selected contained numuCC-induced muons from simulated BNB+cosmics where the track is well-reconstructed and matches with the true muon track discussed in Section \ref{MC_performance_section} (blue), and automatically selected contained numuCC-induced muons from MicroBooNE data where the track is deemed well-reconstructed and likely-muon from hand scanning discussed in Section \ref{data_performance_section} (green).}}\label{pub_plot_4}
+\caption{\textit{MCS momentum resolution for automatically selected contained numuCC-induced muons from simulated BNB+cosmics where the track is well-reconstructed and matches with the true muon track discussed in Section \ref{MC_performance_section} (blue), and automatically selected contained numuCC-induced muons from MicroBooNE data where the track is deemed well-reconstructed and likely-muon from hand scanning discussed in Section \ref{data_performance_section} (green).}}\label{pub_plot_5}
 \end{figure}
 
