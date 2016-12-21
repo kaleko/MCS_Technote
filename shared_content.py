@@ -14,6 +14,7 @@ titles = {
            'MCBNBSelectedRecoTrack'   : 'Selected, Well Reconstructed Tracks from NumuCC Simulation',
            'MCBNBRecoTrack'           : 'MC numuCC BNB Truth-Selected, Well Reconstructed Tracks',
            'MCBNBMCTrack'             : 'MC numuCC BNB Truth-Selected MCTracks',
+           'MCBNBMCTrackExiting'      : 'MC numuCC BNB Truth-Selected EXITING MCTracks',
            'full_MCS_energy'          : 'MCS Total Energy [GeV]',
            'full_range_energy'        : 'Range-Based Total Energy [GeV]',
            'full_integrated_range_energy'        : 'Integrated Range-Based Total Energy [GeV]',
@@ -22,7 +23,10 @@ titles = {
            'full_integrated_range_momentum'      : 'Integrated Range-Based Momentum [GeV]',
            'full_MCS_momentum_inverse'        : 'Inverse MCS Momentum [GeV^-1]',
            'full_range_momentum_inverse'      : 'Inverse Range-Based Momentum [GeV^-1]',
-           'true_E'                   : 'True Total Energy [GeV]'
+           'true_E'                   : 'True Total Energy [GeV]',
+           'true_momentum'                   : 'True Momentum [GeV]',
+           'true_momentum_inverse'                   : 'Inverse True Momentum [GeV^-1]',
+           'full_length'              : 'Length Of Track Contained [cm]'
          }
 
 latextitles = {
@@ -34,7 +38,10 @@ latextitles = {
            'full_MCS_momentum'   : 'p_{MCS}',
            'full_MCS_momentum_inverse'        : 'p_{MCS}^{-1}',
            'full_range_momentum_inverse'      : 'p_{Range}^{-1}',
-           'true_E'              : 'E_{True}'
+           'true_E'              : 'E_{True}',
+           'true_momentum'              : 'p_{True}',
+           'true_momentum_inverse'              : 'p_{True}^{-1}',
+           'full_length'         : 'L_{Track}'
          }
 
 def gaussian(x, amp, cen, wid):
@@ -47,6 +54,9 @@ def get_dfs(myfile):
     df['full_MCS_momentum_inverse'] = 1./df['full_MCS_momentum']
     df['full_range_momentum_inverse'] = 1./df['full_range_momentum']
     
+    if 'true_momentum' in df.columns.values:
+        df['true_momentum_inverse'] = 1./df['true_momentum']
+
     #This df has segment-by-segment deviation (scattering angle, etc)
     segdf = pd.DataFrame(  root2array ( myfile, 'TMC_debug_tree' ) )
     segdf['dthetayoverpredictedRMS'] = segdf['delta_theta_y']/segdf['predicted_RMS']
