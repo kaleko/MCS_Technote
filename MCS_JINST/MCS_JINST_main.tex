@@ -37,7 +37,7 @@
 
 \abstract{Liquid Argon Time Projection Chambers (LArTPCs) are an important detector technology for the future of neutrino physics. This technology provides precise three-dimensional reconstruction of charged particle tracks that traverse the detector medium. 
 %The MicroBooNE experiment is a LArTPC at the Fermi National Accelerator laboratory with active volume dimensions of 2.6 m width $\times$ 2.3 m height $\times$ 10.4 m length located in the Booster Neutrino Beamline (BNB) which has a peak neutrino energy of about 0.7 GeV. 
-We discuss a technique for measuring a charged particle's momentum by means of multiple coulomb scattering (MCS) in the MicroBooNE LArTPC, which does not require the full particle ionization track to be contained inside of the detector volume as other track momentum reconstruction methods do (range-based momentum reconstruction and calorimetric momentum reconstruction). We provide motivation for why this technique is important, and quantify its performance on fully contained beam-neutrino-induced muon tracks both in simulation and in data. In general we find agreement between data and simulation, with small bias in the momentum reconstruction and with resolutions that vary as a function of track length, decreasing from about 12\% for the shortest (one meter long) tracks to nearly 5\% for longer (several meter) tracks. Quantification of the performance on exiting tracks, or tracks which are higher energy than those which are fully contained, will be determined in a future publication.}
+We discuss a technique for measuring a charged particle's momentum by means of multiple coulomb scattering (MCS) in the MicroBooNE LArTPC, which does not require the full particle ionization track to be contained inside of the detector volume as other track momentum reconstruction methods do (range-based momentum reconstruction and calorimetric momentum reconstruction). We provide motivation for why this technique is important, and quantify its performance on fully contained beam-neutrino-induced muon tracks both in simulation and in data. In general we find agreement between data and simulation, with small bias in the momentum reconstruction and with resolutions that vary as a function of track length, decreasing from about 11\% for the shortest (one meter long) tracks to nearly 5\% for longer (several meter) tracks. Quantification of the performance on exiting tracks, or tracks which are higher energy than those which are fully contained, will be determined in a future publication.}
 
 
 % \keywords{Only keywords from JINST's keywords list please}
@@ -65,7 +65,7 @@ We discuss a technique for measuring a charged particle's momentum by means of m
 
 \section{Introduction and Motivation}\label{sec:intro}
 
-MicroBooNE (Micro Booster Neutrino Experiment) is an experiment based at the Fermi National Accelerator Laboratory (Fermilab) that uses a large Liquid Argon Time Projection Chamber (LArTPC) to investigate the excess of low energy events observed by the MiniBooNE experiment \cite{Aguilar-Arevalo:2013pmq} and to study neutrino-argon cross-sections. MicroBooNE is part of the Short-Baseline Neutrino (SBN) physics program, along with two other LArTPCs: the Short Baseline Near Detector (SBND) and the Imaging Cosmic And Rare Underground Signal (ICARUS) detector. MicroBooNE also provides important research and development in terms of detector technology and event reconstruction techniques for future LArTPC experiments including DUNE (Deep Underground Neutrino Experiment).\\
+MicroBooNE (Micro Booster Neutrino Experiment) is an R\&D experiment based at the Fermi National Accelerator Laboratory (Fermilab) that uses a large Liquid Argon Time Projection Chamber (LArTPC) to investigate the excess of low energy events observed by the MiniBooNE experiment \cite{Aguilar-Arevalo:2013pmq} and to study neutrino-argon cross-sections. MicroBooNE is part of the Short-Baseline Neutrino (SBN) physics program, along with two other LArTPCs: the Short Baseline Near Detector (SBND) and the Imaging Cosmic And Rare Underground Signal (ICARUS) detector. MicroBooNE also provides important research and development in terms of detector technology and event reconstruction techniques for future LArTPC experiments including DUNE (Deep Underground Neutrino Experiment).\\
 
 \begin{figure}[ht!]
 \centering
@@ -75,7 +75,7 @@ MicroBooNE (Micro Booster Neutrino Experiment) is an experiment based at the Fer
 
 The MicroBooNE detector\cite{ub_detectorpaper} consists of a rectangular time projection chamber (TPC) with dimensions 2.6 m width $\times$ 2.3 m height $\times$ 10.4 m length located 470 m away from the Booster Neutrino Beam (BNB) target. LArTPCs allow for precise three-dimensional reconstruction of particle interactions. The $x-$ direction of the TPC corresponds to the drift coordinate, the $y-$ direction is the vertical direction, and the $z-$ direction is the direction along the beam. The mass of active liquid argon in the MicroBooNE TPC is 89 tons, with the total cryostat containing 170 tons of liquid argon.\\
 
-A set of 32 photomultiplier tubes (PMTs) and three wire planes with 3 mm spacing at angles of 0, and $\pm$ 60 degrees with respect to the vertical are located in the TPC for event reconstruction (Figure \ref{detector_fig}). In a neutrino interaction, a neutrino from the beam interacts with an argon nucleus and the charged outgoing secondary particles traverse the medium, losing energy and leaving an ionization trail. The resulting ionization electrons drift to the anode side of the TPC, containing the wire planes. The passage of these electrons near the first two wire planes induces a signal in them and their collection on the third plane also generates a signal. These signals are used to create three distinct two-dimensional views (in terms of wire and time) of the event. Combining these wire signals with timing information from the PMTs allows for full three-dimensional reconstruction of the event.\\
+A set of 32 photomultiplier tubes (PMTs) and three wire planes with 3 mm spacing at angles of 0, and $\pm$ 60 degrees with respect to the vertical are located in the TPC for event reconstruction (Figure \ref{detector_fig}), and the cathode plane operating voltage is -70 kV. In a neutrino interaction, a neutrino from the beam interacts with an argon nucleus and the charged outgoing secondary particles traverse the medium, losing energy and leaving an ionization trail. The resulting ionization electrons drift to the anode side of the TPC, containing the wire planes. The passage of these electrons near the first two wire planes induces a signal in them and their collection on the third plane also generates a signal. These signals are used to create three distinct two-dimensional views (in terms of wire and time) of the event. Combining these wire signals with timing information from the PMTs allows for full three-dimensional reconstruction of the event. The fiducial volume used in this analysis is defined as the full TPC volume reduced by 20 cm from both the cathode plane and the anode wire planes, by 26.5 cm from both the top and bottom walls of the TPC, by 20 cm from the beam-upstream wall of the TPC, and by 36.8 cm from the beam-downstream wall of the TPC, which corresponds to a mass of 55 tons.\\
 
 The Booster Neutrino Beam (BNB) is predominantly composed of muon neutrinos ($\nu_\mu$) with a peak neutrino energy of about 0.7 GeV, which can undergo charge-current ($\nu_\mu$CC) interactions in the TPC and produce muons. For muon tracks that are completely contained in the TPC, it is straightforward to calculate their momentum with a measurement of the length of the particle's track, or with calorimetric measurements which come from wire signal measurements. However, around half of muons from BNB neutrino events in MicroBooNE are not fully contained in the TPC, and therefore using length-based calculations for these uncontained tracks is not a possibility. The only way to compute the energy of a non-contained three-dimensional track is by means of multiple coulomb scattering (MCS). \\
 
@@ -94,10 +94,11 @@ Multiple Coulomb Scattering (MCS) occurs when a charged particle enters a medium
 \begin{equation}\label{modified_highland_eqtn}
 \sigma_{o} = \sqrt{ (\sigma_o^{HL})^2 + (\sigma_o^{res})^2} = \sqrt{ (\frac{13.6\  \text{MeV}}{p\beta c}z\sqrt{\frac{\ell}{X_0}}\Big[1+0.0038\text{ln}\Big(\frac{\ell}{X_0}\Big)\Big])^2 + (\sigma_o^{res})^2 }
 \end{equation}
-where the formula is ``modified'' from the original Highland formula (Equation \ref{highland_eqtn}) in that it includes a detector-inherent angular resolution term, $\sigma_o^{res}$. For this analysis, this term is given a fixed value of 2 mrad which has been determined to be an acceptable value based on simulation studies.\\
+where the formula is ``modified'' from the original Highland formula (Equation \ref{highland_eqtn}) in that it includes a detector-inherent angular resolution term, $\sigma_o^{res}$. For this analysis, this term is given a fixed value of 2 mrad which has been determined to be an acceptable value based on simulation studies (varying this term widely has negligible impact on the algorithm performance on the sample of tracks studied in this note).\\
 
 
-With the Highland formula, the momentum of a track-like particle can be determined using only the 3D reconstructed track it produces in the detector, without any calorimetric or track range information. The maximum-likelihood based method by which this is done is described in detail in Section \ref{MCS_technique_section}, though the original method for using MCS to determine particle momentum in a LArTPC involved using a Kalman Filter and was originally described by the ICARUS collaboration \cite{icarus_mcs_paper}.
+With the Highland formula, the momentum of a track-like particle can be determined using only the 3D reconstructed track it produces in the detector, without any calorimetric or track range information. Within neutrino physics, past emulsion detectors like the DONUT \cite{DONUT_paper} and OPERA \cite{OPERA_paper} experiments have used MCS to determine particle momenta. Additionally, the MACRO \cite{MACRO_paper} experiment at Gran Sasso Laboratory utilized this technique as well. While the original method for using MCS to determine particle momentum in a LArTPC involved using a Kalman Filter and was described by the ICARUS collaboration \cite{icarus_mcs_paper}, the maximum-likelihood based method discussed in this paper for use in the MicroBooNE detector is described in detail in Section \ref{MCS_technique_section}.
+
 
 \begin{figure}[ht!]
 \centering
@@ -158,7 +159,7 @@ Each of these steps are discussed in detail in the following subsections.\\
 % The input to the track segmentation routine is a vector of ordered three-dimensional trajectory points (x,y,z) representing the reconstructed track. The points are ordered along the direction of the track, with the first point representing the start of the track, and the last point representing the end of the track. These trajectory points can be determined in a number of ways by different track reconstruction algorithms. In the case of this analysis, the track reconstruction algorithm is named ``pandoraNuPMA" which constructs these three-dimensional trajectory points by combining two-dimensional hits reconstructed from signals on the different wire planes along with timing information from the photomultiplier tubes to reconstruct the third dimension\cite{Marshall:2015rfa}. Note that the tracking resolution in the y- (vertical) and z- (beam) directions are determined by the wire plane spacings, while the resolution in the x- (drift) direction is determined by optical signal timing and is therefore the x- direction resolution is better than that of the y- and z- directions.\\
 
 % Also input to the track segmentation routine is the desired segment length, which is a tunable parameter. In this note, segment lengths are always taken to be 10 cm (based on the findings of Appendix \ref{SegmentLength_MCBNBRecoTrack_section}) except where otherwise explicitly stated. 
-Track segmentation refers to the subdivision of three-dimensional reconstructed trajectory points of a reconstructed track into portions of definite length. In this analysis, the tracks are automatically reconstructed by the ``pandoraNuPMA" projection matching algorithm which constructs the three-dimensional trajectory points by combining two-dimensional hits reconstructed from signals on the different wire planes along with timing information from the photomultiplier tubes to reconstruct the third dimension\cite{Marshall:2015rfa}. The segmentation routine begins at the start of the track, and iterates through the trajectory points in order, defining segment start and stop points based on the straight-line distance between them. There is no overlap between segments. Given the subset of the three-dimensional trajectory points that correspond to one segment of the track, a three-dimensional linear fit is applied to the data points, weighing all trajectory points equally in the fit. In this analysis, a segment length of 10 cm is used, which is a tunable parameter that has been optimized based on simulation studies.\\
+Track segmentation refers to the subdivision of three-dimensional reconstructed trajectory points of a reconstructed track into portions of definite length. In this analysis, the tracks are automatically reconstructed by the ``pandoraNuPMA" projection matching algorithm which constructs the three-dimensional trajectory points by combining two-dimensional hits reconstructed from signals on the different wire planes along with timing information from the photomultiplier tubes to reconstruct the third dimension \cite{Marshall:2015rfa}. The segmentation routine begins at the start of the track, and iterates through the trajectory points in order, defining segment start and stop points based on the straight-line distance between them. There is no overlap between segments. Given the subset of the three-dimensional trajectory points that correspond to one segment of the track, a three-dimensional linear fit is applied to the data points, weighting all trajectory points equally in the fit. In this analysis, a segment length of 10 cm is used, which is a tunable parameter that has been optimized based on simulation studies.\\
 
 With the segments defined, the scattering angles between adjacent segments are computed. A coordinate transformation is performed such that the $z'$ direction is oriented along the direction of the first of the segment pair. The $x'$ and $y'$ coordinates are then defined such that all of $x'$, $y'$, and $z'$ are mutually orthogonal, as shown in Figure \ref{mcs_nocap_fig}. The scattering angles both with respect to the $x'$ direction and the $y'$ direction are then computed to be used by the MCS algorithm. Note that only the scattering angle with respect to the $x'$ direction is drawn in Figure \ref{mcs_nocap_fig}.
 
@@ -223,7 +224,7 @@ Given a set of angular deflections in the $x'$ and $y'$ directions for each segm
 E_{j} = E_t - k_{cal}*N_{upstream}*l_{seg}
 \end{equation}
 
-where $k_{cal}$ is the minimally ionizing energy constant taken to be $2.105 \frac{MeV}{cm}$ in liquid argon\cite{MIPenergysource}, $N_{upstream}$ is the number of segments upstream of the $j$th segment, and $l_{seg}$ is the 3D segment length. This definition of $E_j$ therefore takes into account energy loss along the track. Note that Equation \ref{segment_E_equation} introduces a minimum allowable track energy determined by the length of the track, as $E_{j}$ must remain positive. This value of segment energy is converted to a momentum, $p$, with the usual energy-momentum relation, assuming the muon mass, and is then used to predict the RMS angular scatter for that segment ($\sigma_o$) by way of Equation \ref{modified_highland_eqtn}. 
+where $k_{cal}$ is the minimally ionizing energy constant taken to be $2.105 \frac{MeV}{cm}$ in liquid argon \cite{MIPenergysource}, $N_{upstream}$ is the number of segments upstream of the $j$th segment, and $l_{seg}$ is the 3D segment length. This definition of $E_j$ therefore takes into account energy loss along the track. Note that Equation \ref{segment_E_equation} introduces a minimum allowable track energy determined by the length of the track, as $E_{j}$ must remain positive. This value of segment energy is converted to a momentum, $p$, with the usual energy-momentum relation, assuming the muon mass, and is then used to predict the RMS angular scatter for that segment ($\sigma_o$) by way of Equation \ref{modified_highland_eqtn}. 
 
 
 
@@ -244,7 +245,7 @@ where $k_{cal}$ is the minimally ionizing energy constant taken to be $2.105 \fr
 
 
 \section{Range-based Energy Validation from Simulation}\label{Range_Energy_Validation_section}
-In order to quantify the performance of the MCS energy estimation method on fully contained muons in data, an additional handle on energy is needed. Here, range-based energy is used. The stopping power of muons in liquid argon is well described by the particle data group (PDG)\cite{PDG_spline_table}. By using a linear interpolation between points in the cited PDG stopping power table, the start-to-end straight-line length of a track can be used to reconstruct the muon's total energy with good accuracy. A simulated sample of fully contained BNB neutrino-induced muons longer than one meter is used to quantify the bias and resolution for the range-based energy estimation technique. The range is defined as the straight-line distance between the true starting point and true stopping point of a muon. The bias and resolution are computed in bins of true total energy of the muons by fitting a gaussian to a distribution of the fractional energy difference ($\frac{E_{Range}-E_{True}}{E_{True}}$) in each bin. The mean of each gaussian indicates the bias for that true energy bin, and the width indicates the resolution. Figure \ref{true_range_bias_resolution_MCTrack_fig} shows the bias and resolution for the range-based energy reconstruction method. It can be seen that the bias is negligible and the resolution for this method of energy reconstruction is on the order of 2-4\%. Based on this figure, it is clear that range-based energy (and therefore range-based momentum) is a good handle on the true energy (momentum) of a reconstructed muon track in data, assuming that the track is well reconstructed in terms of length.
+In order to quantify the performance of the MCS energy estimation method on fully contained muons in data, an additional handle on energy is needed. Here, range-based energy is used. The stopping power of muons in liquid argon is well described by the continuous-slowing-down-approximation (CSDA) by the particle data group (PDG) with agreement to data at the sub-percent level \cite{MIPenergysource} \cite{PDG_spline_table} \cite{NISTdata}. By using a linear interpolation between points in the cited PDG stopping power table, the length of a track can be used to reconstruct the muon's total energy with good accuracy. A simulated sample of fully contained BNB neutrino-induced muons longer than one meter is used to quantify the bias and resolution for the range-based energy estimation technique. The range is defined as the straight-line distance between the true starting point and true stopping point of a muon. The bias and resolution are computed in bins of true total energy of the muons by fitting a gaussian to a distribution of the fractional energy difference ($\frac{E_{Range}-E_{True}}{E_{True}}$) in each bin. The mean of each gaussian indicates the bias for that true energy bin, and the width indicates the resolution. Figure \ref{true_range_bias_resolution_MCTrack_fig} shows the bias and resolution for the range-based energy reconstruction method. It can be seen that the bias is negligible and the resolution for this method of energy reconstruction is on the order of 2-4\%. Based on this figure, it is clear that range-based energy (and therefore range-based momentum) is a good handle on the true energy (momentum) of a reconstructed muon track in data, assuming that the track is well reconstructed in terms of length.
 
 \begin{figure}
 \centering
@@ -263,8 +264,8 @@ In order to quantify the performance of the MCS energy estimation method on full
 
 \section{MCS Performance on Beam Neutrino-Induced Muons in MicroBooNE Data}\label{data_performance_section}
 
-\subsection{Input Sample}
-The input sample to this portion of the analysis is $\sim$5e19 protons-on-target worth of triggered BNB neutrino interactions in MicroBooNE data, which is a small subset of the nominal amount of beam scheduled to be delivered to the detector. These events are run through a fully automated reconstruction chain which produces reconstructed objects including three-dimensional neutrino interaction points (vertices), three-dimensional tracks for each outgoing secondary particle from the interaction, and PMT-reconstructed optical flashes from the interaction scintillation light. The fiducial volume used in this analysis is defined as the full TPC volume reduced by 20 cm from both the cathode plane and the anode wire planes, by 26.5 cm from both the top and bottom walls of the TPC, by 20 cm from the beam-upstream wall of the TPC, and by 36.8 cm from the beam-downstream wall of the TPC.
+\subsection{Input Sample}\label{input_sample_section}
+The input sample to this portion of the analysis is $\sim$5e19 protons-on-target worth of triggered BNB neutrino interactions in MicroBooNE data, which is a small subset of the nominal amount of beam scheduled to be delivered to the detector. These events are run through a fully automated reconstruction chain which produces reconstructed objects including three-dimensional neutrino interaction points (vertices), three-dimensional tracks for each outgoing secondary particle from the interaction, and PMT-reconstructed optical flashes from the interaction scintillation light. The fiducial volume used in this analysis is defined in Section \ref{sec:intro}.
 
 \subsection{Event Selection}
 The following selection cuts are placed on the aforementioned reconstructed objects to select $\nu_\mu$ charged-current interactions in which the muon track exiting the interaction vertex is fully contained within the fiducial volume:
@@ -277,7 +278,7 @@ The following selection cuts are placed on the aforementioned reconstructed obje
 \item The longest track must be at least one meter long, in order to have enough sampling points in the MCS likelihood to obtain a reasonable estimate of its momentum.
 \end{enumerate}
 
-In this sample of MicroBooNE data, 598 events (tracks) remain after all event selection cuts. Each of these events (tracks) were scanned by hand with a 2D interactive event display showing the raw wire signals of the interaction from each wire plane, with the 2D projection of the reconstructed muon track and vertex overlaid. The scanning was done to ensure the track was well reconstructed with start point close to the reconstructed vertex and end point close to the end of the visible wire-signal track in all three planes. Additionally the scanning was to remove obvious mis-identification (MID) topologies such as cosmic rays inducing Michel electrons at the reconstructed neutrino vertex which were not successfully removed by the automated event selection cuts. After rejecting events (tracks) based on hand scanning, 396 tracks remain for analysis.
+In this sample of MicroBooNE data, 598 events (tracks) remain after all event selection cuts. The relatively low statistics in this sample is due to the limited input sample, described in Section \ref{input_sample_section}. Each of these events (tracks) were scanned by hand with a 2D interactive event display showing the raw wire signals of the interaction from each wire plane, with the 2D projection of the reconstructed muon track and vertex overlaid. The scanning was done to ensure the track was well reconstructed with start point close to the reconstructed vertex and end point close to the end of the visible wire-signal track in all three planes. Additionally the scanning was to remove obvious mis-identification (MID) topologies such as cosmic rays inducing Michel electrons at the reconstructed neutrino vertex which were not successfully removed by the automated event selection cuts. After rejecting events (tracks) based on hand scanning, 396 tracks remain for analysis.
 
 
 \subsection{Highland Validation}\label{highland_validation_section}
@@ -294,11 +295,6 @@ The Highland formula indicates that histogram of track segment-by-segment angula
 
 The MCS momentum versus range-based momentum for this sample of 396 tracks can be seen in Figure \ref{realdata_goodhandscan_fig}.
 
-\begin{figure}[ht!]
-\centering
-	\includegraphics[width=0.7\textwidth]{Figures/MCS_range_momentum_DataRecoTracks_goodhandscan.png} \\
-\caption{\textit{MCS computed momentum versus range momentum for the automatically selected beam neutrino-induced fully contained muon sample in MicroBooNE data after hand scanning to remove poorly reconstructed tracks and obvious mis-identification (MID) topologies.}}\label{realdata_goodhandscan_fig}
-\end{figure}
 
 % In order to compute a bias and a resolution, Figure \ref{MCS_range_momentum_MCTrack_fig} is sliced in bins of range momentum and a histogram of the fractional momentum difference ($\frac{p_{MCS}^{-1} - p_{range}^{-1}}{p_{range}^{-1}}$) is created for each bin\footnote{The choice of using inverse momentum is justified in Appendix \ref{inverse_p_justification_section}.}. This distribution is shown for three representative bins in Figure \ref{MCS_range_bias_resolution_MCTrack_slices_fig}, along with the gaussian fit to each.  The mean ($\mu$) of each gaussian fit is used to compute a bias as a function of range momentum, while the width ($\sigma$) of each distribution is used to compute a resolution. The bias and resolution for this momentum reconstruction method shown in Figure \ref{MCS_range_bias_resolution_MCTrack_fig}. This figure indicates a bias in the MCS momentum resolution on the order of a few percent, with a resolution that decreases from about 9\% for contained {\sc MCTracks} with true total momentum around 0.5 GeV (which corresponds to a length of about 1.7 meters) to below 3\% for contained {\sc MCTracks} with true total momentum greater than 0.8 GeV (which corresponds to a length of about 3.1 meters).
 
@@ -306,7 +302,28 @@ The MCS momentum versus range-based momentum for this sample of 396 tracks can b
 
 
 
-The MCS momentum fractional bias and resolution as a function of range-based momentum for this sample of 396 tracks is shown in Figure \ref{MCS_range_bias_resolution_DataRecoTrack_fig}. In order to compute this bias and resolution, distributions of fractional inverse momentum difference ($\frac{p_{MCS}^{-1} - p_{Range}^{-1}}{p_{Range}^{-1}}$) in bins of range-based momentum $p_{Range}$ are fit to gaussians and the mean of the fit determines the bias while the width of the fit determines the resolution for that bin. Inverse momentum is used here because the binned distributions are more gaussian (since the Highland formula is a function of inverse momentum), and therefore using the resulting fit parameters is more valid. Note that simply using the mean and RMS of the binned distributions yields similar results. Also shown in this figure are the bias and resolutions for an analogous simulated sample consisting of full BNB simulation with CORSIKA-generated\cite{corsika_ref} cosmic overlays passed through an identical reconstruction and event selection chain. Rather than hand scanning this sample, truth-based information was used by requiring the longest reconstructed track matched well in terms of true starting and stopping point of the $\nu_\mu$CC muon. These resolutions on the order of 10\% are consistent with the monte-carlo Kalman filter results presented by the ICARUS collaboration in this momentum range\cite{icarus_mcs_paper}.\\
+The MCS momentum fractional bias and resolution as a function of range-based momentum for this sample of 396 tracks is shown in Figure \ref{MCS_range_bias_resolution_DataRecoTrack_fig}. In order to compute this bias and resolution, distributions of fractional inverse momentum difference ($\frac{p_{MCS}^{-1} - p_{Range}^{-1}}{p_{Range}^{-1}}$) in bins of range-based momentum $p_{Range}$ are fit to gaussians and the mean of the fit determines the bias while the width of the fit determines the resolution for that bin. Inverse momentum is used here because the binned distributions are more gaussian (since the Highland formula is a function of inverse momentum), and therefore using the resulting fit parameters is more valid. Note that simply using the mean and RMS of the binned distributions yields similar results. Also shown in this figure are the bias and resolutions for an analogous simulated sample consisting of full BNB simulation with CORSIKA-generated \cite{corsika_ref} cosmic overlays passed through an identical reconstruction and event selection chain. Rather than hand scanning this sample, truth-based information was used by requiring the longest reconstructed track matched well in terms of true starting and stopping point of the $\nu_\mu$CC muon. This removes any mis identifications or interference from the simulated cosmics. These resolutions on the order of 10\% are consistent with the monte-carlo Kalman filter results presented by the ICARUS collaboration in this momentum range \cite{icarus_mcs_paper} as summarized in Table \ref{icarus_comparison_table}.\\
+
+\begin{figure}[ht!]
+\centering
+	\includegraphics[width=0.7\textwidth]{Figures/MCS_range_momentum_DataRecoTracks_goodhandscan.png} \\
+\caption{\textit{MCS computed momentum versus range momentum for the automatically selected beam neutrino-induced fully contained muon sample in MicroBooNE data after hand scanning to remove poorly reconstructed tracks and obvious mis-identification (MID) topologies.}}\label{realdata_goodhandscan_fig}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{\label{icarus_comparison_table} MicroBooNE maximum-likelihood based MCS fractional resolution on simulation as compared to published ICARUS Kalman Filter based MCS fractional resolution on simulation \cite{icarus_mcs_paper} as manually extrapolated from Figure 7 in the cited publication.}
+\smallskip
+\begin{tabular}{|c|c|c|}
+\hline
+ & $p_{true}$ = 0.5 GeV& $p_{true}$ = 1.0 GeV\\
+\hline
+ICARUS & 12\% & 10\%\\
+MicroBooNE & 9\% & 6\%\\
+\hline
+\end{tabular}
+\end{table}
+
 
 
 \begin{figure}
@@ -316,7 +333,7 @@ The MCS momentum fractional bias and resolution as a function of range-based mom
 \caption{\textit{MCS momentum fractional bias (top) and resolution (bottom) for automatically selected contained $\nu_\mu$CC-induced muons from full simulated BNB events with cosmic overlay where the track matches with the true muon track (blue), and automatically selected contained $\nu_\mu$CC-induced muons from MicroBooNE data where the track is deemed well-reconstructed and likely-muon from hand scanning (green).}}\label{MCS_range_bias_resolution_DataRecoTrack_fig}
 \end{figure}
 
-This figure indicates a bias in the MCS momentum resolution on the order of a few percent, with a resolution that decreases from about 11\% (9\%) for contained reconstructed tracks in data (simulation) with range momentum around 0.45 GeV (which corresponds to a length of about 1.5 meters) to about 5\% (6\%) for contained reconstructed tracks in data (simulation) with range momentum about 1.15 GeV (which corresponds to a length of about 4.6 meters). In general bias and resolutions agree between data and simulation within uncertainty, with resolution slightly worse in data which can be attributed to the inefficiencies involved in hand scanning compared to the truth-based matching cut in simulation.
+Figure \ref{MCS_range_bias_resolution_DataRecoTrack_fig} indicates a bias in the MCS momentum resolution on the order of a few percent, with a resolution that decreases from about 11\% (9\%) for contained reconstructed tracks in data (simulation) with range momentum around 0.45 GeV (which corresponds to a length of about 1.5 meters) to about 5\% (6\%) for contained reconstructed tracks in data (simulation) with range momentum about 1.15 GeV (which corresponds to a length of about 4.6 meters). In general bias and resolutions agree between data and simulation within uncertainty, with resolution slightly worse in data which can be attributed to the inefficiencies involved in hand scanning compared to the truth-based matching cut in simulation.
 
 
 
@@ -329,7 +346,7 @@ This figure indicates a bias in the MCS momentum resolution on the order of a fe
 
 
 \section{Conclusions}
-We have described the multiple coulomb scattering technique maximum likelihood method for estimating the momentum of a three dimensional reconstructed track in a LArTPC and have provided motivation for development of such a technique. This technique is a very valuable tool; it is the only way to estimate the momentum of an exiting muon and will be an important ingredient in future oscillation and cross-section measurements by MicroBooNE and within the LArTPC community as a whole. The performance of this method has been quantified both in simulation and in data on beam $\nu_\mu$CC-induced muons which are fully contained, with fractional bias less than 5\% and with fractional resolution below 12\%. 
+We have described the multiple coulomb scattering technique maximum likelihood method for estimating the momentum of a three dimensional reconstructed track in a LArTPC and have provided motivation for development of such a technique. This technique is a very valuable tool; it is the only way to estimate the momentum of an exiting muon and will be an important ingredient in future oscillation and cross-section measurements by MicroBooNE and within the LArTPC community as a whole. The performance of this method has been quantified both in simulation and in data on beam $\nu_\mu$CC-induced muons which are fully contained, with fractional bias less than 5\% and with fractional resolution at or below 11\%. 
 
 
 
@@ -368,11 +385,11 @@ We have described the multiple coulomb scattering technique maximum likelihood m
   %%CITATION = doi:10.1103/PhysRevLett.110.161801;%%
   %384 citations counted in    
 
-  \bibitem{ub_detectorpaper}
-  R. Acciarri {\it et al.}
-  [MicroBooNE Collaboration],
-  Design and Construction of the MicroBooNE Detector,
-  \url{http://microboone-docdb.fnal.gov:8080/cgi-bin/RetrieveFile?docid=5752&filename=MicroBooNE_DetectorPaper_Version4.0.pdf&version=3}
+  \bibitem{ub_detectorpaper} 
+  R.~Acciarri {\it et al.} [MicroBooNE Collaboration],
+  ``Design and Construction of the MicroBooNE Detector,''
+  arXiv:1612.05824 [physics.ins-det].
+  %%CITATION = ARXIV:1612.05824;%%
 
   %2
   \bibitem{lartpc}
@@ -387,6 +404,29 @@ We have described the multiple coulomb scattering technique maximum likelihood m
   Nucl.\ Instrum.\ Methods\ {\bf 129} (1975)
   104-120.
  
+
+ \bibitem{DONUT_paper} 
+  K.~Kodama {\it et al.} [DONUT Collaboration],
+  %``Observation of tau neutrino interactions,''
+  Phys.\ Lett.\ B {\bf 504}, 218 (2001)
+  doi:10.1016/S0370-2693(01)00307-0
+  [hep-ex/0012035].
+
+    \bibitem{OPERA_paper}
+  N.~Agafonova {\it et al.} [OPERA Collaboration],
+  %``Momentum measurement by the Multiple Coulomb Scattering method in the OPERA lead emulsion target,''
+  New J.\ Phys.\  {\bf 14}, 013026 (2012)
+  doi:10.1088/1367-2630/14/1/013026
+  [arXiv:1106.6211 [physics.ins-det]].
+
+ 
+  \bibitem{MACRO_paper} 
+  G.~Giacomelli [MACRO Collaboration],
+  %``Neutrino physics and astrophysics with the MACRO experiment at the Gran Sasso lab,''
+  Braz.\ J.\ Phys.\  {\bf 33}, 211 (2003)
+  doi:10.1590/S0103-97332003000200008
+  [hep-ex/0210006].
+
   \bibitem{icarus_mcs_paper}
   A.~Ankowski {\it et al.} [ICARUS Collaboration],
   ``Measurement of through-going particle momentum by means of multiple scattering with the ICARUS T600 TPC,''
@@ -413,7 +453,7 @@ We have described the multiple coulomb scattering technique maximum likelihood m
  %7
   \bibitem{Marshall:2015rfa} 
   J.~S.~Marshall and M.~A.~Thomson,
-  %``The Pandora Software Development Kit for Pattern Recognition,''
+  ``The Pandora Software Development Kit for Pattern Recognition,''
   Eur.\ Phys.\ J.\ C {\bf 75}, no. 9, 439 (2015)
   doi:10.1140/epjc/s10052-015-3659-3
   [arXiv:1506.05348 [physics.data-an]].
@@ -423,10 +463,10 @@ We have described the multiple coulomb scattering technique maximum likelihood m
   D. E. Groom, N. V. Mokhov and S. Striganov, ``Muon Stopping Power and Range Tables: 10 MeV - 100 TeV'' Table 5,
   http://pdg.lbl.gov/2012/AtomicNuclearProperties/adndt.pdf
 
-
-  %9
+  %9`'
   \bibitem{PDG_spline_table} Table 289: Muons in Liquid argon (Ar) \url{http://pdg.lbl.gov/2012/AtomicNuclearProperties/MUON_ELOSS_TABLES/muonloss_289.pdf}
 
+  \bibitem{NISTdata} ``Stopping Powers and Ranges for Protons and Alpha Particles,'' ICRU Report No. 49 (1993); Tables and graphs of these data are available at \url{http://physics.nist.gov/PhysRefData/}
 
   \bibitem{corsika_ref} D. Heck, J. Knapp, J. N. Capdevielle, G. Schatz, T. Throw, \emph{CORSIKA: A Monte Carlo Code to Simulate Extensive Air Showers}, Forschungszentrum Karlsruhe Report FZKA 6019 (1998)
 
