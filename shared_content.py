@@ -15,6 +15,7 @@ titles = {
            'MCBNBRecoTrack'           : 'MC numuCC BNB Truth-Selected, Well Reconstructed Tracks',
            'MCBNBMCTrack'             : 'MC numuCC BNB Truth-Selected MCTracks',
            'MCBNBMCTrackExiting'      : 'MC numuCC BNB Truth-Selected EXITING MCTracks',
+           'MCBNBRecoTrackExiting'    : 'MC numuCC BNB Truth-Selected EXITING Reco Tracks',
            'full_MCS_energy'          : 'MCS Total Energy [GeV]',
            'full_range_energy'        : 'Range-Based Total Energy [GeV]',
            'full_integrated_range_energy'        : 'Integrated Range-Based Total Energy [GeV]',
@@ -61,10 +62,12 @@ def get_dfs(myfile):
     segdf = pd.DataFrame(  root2array ( myfile, 'TMC_debug_tree' ) )
     segdf['dthetayoverpredictedRMS'] = segdf['delta_theta_y']/segdf['predicted_RMS']
     segdf['dthetayovertruepredictedRMS'] = segdf['delta_theta_y']/segdf['true_predicted_RMS']
+    #segdf['dthetayovertruepredictedRMS_momentumdepenentconstant'] = segdf['delta_theta_y']/segdf['true_predicted_RMS_momentumdependentconstant']
     segdf['dthetayoverpredictedRMS_fromMCS'] = segdf['delta_theta_y']/segdf['predicted_RMS_fromMCS']
     
     segdf['dthetaxoverpredictedRMS'] = segdf['delta_theta_x']/segdf['predicted_RMS']
     segdf['dthetaxovertruepredictedRMS'] = segdf['delta_theta_x']/segdf['true_predicted_RMS']
+    #segdf['dthetaxovertruepredictedRMS_momentumdepenentconstant'] = segdf['delta_theta_x']/segdf['true_predicted_RMS_momentumdependentconstant']
     segdf['dthetaxoverpredictedRMS_fromMCS'] = segdf['delta_theta_x']/segdf['predicted_RMS_fromMCS']
     
     

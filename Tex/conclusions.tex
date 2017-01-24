@@ -1,20 +1,19 @@
 \section{Conclusions and Outlook}\label{conclusion_section}
 
-This note has discussed the multiple coulomb scattering technique for estimating the momentum of a three dimensional reconstructed track and has provided motivation for demonstration of the capabilities of this tool within the neutrino LArTPC community. This technique will be important for future cross section and oscillation measurements from the {\ub} collaboration. The details of the implementation of this code have been described. The gaussian nature of scatters predicted by the Highland formula has been demonstrated. Additionally the performance of this method has been quantified in two different forms of simulation of fully contained tracks (truth-selected simulated BNB neutrino events with {\sc MCTracks} and reconstructed tracks, and automatically-selected selected BNB + cosmic neutrino events) as well as in approximately 0.5e20 POT of {\ub} data.\\
+This note has discussed the multiple coulomb scattering technique for estimating the momentum of a three dimensional reconstructed track and has provided motivation for demonstration of the capabilities of this tool within the neutrino LArTPC community. This technique will be important for future cross section and oscillation measurements from the {\ub} collaboration. The details of the implementation of this code have been described. The gaussian nature of scatters predicted by the Highland formula has been demonstrated. The performance of this method has been quantified in two different forms of simulation of fully contained tracks (truth-selected simulated BNB neutrino events with {\sc MCTracks} and reconstructed tracks, and automatically-selected selected BNB + cosmic neutrino events) as well as in approximately 0.5e20 POT of {\ub} data. Additionally, the performance of this method on exiting tracks in simulation has been quantified.\\
 
-To summarize the performance on the different fully contained track samples, the bias and resolution for the different samples are overlaid in Figure \ref{MCS_range_bias_resolution_masteroverlay_fig}. In general, performance on reconstructed tracks in MC and data agree though extremely limited statistics above 1 GeV range-based momentum makes more concrete statements difficult. The energy resolution with reconstructed tracks tends to be slightly worse than that with {\sc MCTracks} which can be attributed to imperfect track reconstruction and other detector effects to which {\sc MCTracks} are insensitive like broken wires and simulated noise.\\
+To summarize the performance on the different fully contained track samples, the bias and resolution for the different samples are overlaid in Figure \ref{MCS_range_bias_resolution_masteroverlay_fig}. In general, performance on reconstructed tracks in MC and data agree though extremely limited statistics above 1 GeV range-based momentum makes more concrete statements difficult. The energy resolution with reconstructed tracks tends to be slightly worse than that with {\sc MCTracks} which can be attributed to imperfect track reconstruction and other detector effects to which {\sc MCTracks} are insensitive like broken wires and simulated noise. No samples have a fractional bias above 5\%.\\
 
-Other uses besides momentum reconstruction for the MCS technique have been described, including using it as a tool for identification of poorly reconstructed tracks and particle identification. In the appendices can be found descriptions of the methods used to optimize the segment length (10 cm) and detector resolution term (2 mrad) in the MCS algorithm, as well as studies of using MCS to determine track direction, and studies to justify using inverse momentum to compute bias and resolution metrics.\\
+Other uses besides momentum reconstruction for the MCS technique have been described, including using it as a tool for identification of poorly reconstructed tracks and particle identification. In the appendices can be found descriptions of the methods used to optimize the segment length (14 cm) and detector resolution term (3 mrad) in the MCS algorithm, as well as studies of using MCS to determine track direction, and studies to justify using inverse momentum to compute bias and resolution metrics.\\
 
-This note is by no means a complete, end-all analysis of the MCS code; there are many useful ways to continue this study. The most obvious example is the study of performance on exiting tracks. Only fully contained tracks have been studied here because the ultimate goal was to compare data to MC. Using only simulation, however, exiting tracks can be studied since truth energy is known. It is worth noting that Leonidas did a truncated-track analysis\cite{leonidas1} in which he studied only the first $n$ centimeters of a track to determine how the MCS resolution is impacted when the end of the track is not visible; in this way one is able to use fully contained tracks to mimic exiting ones and therefore still make data/MC comparisons. However, one has to keep in mind that the first one meter of a fully-contained 1 GeV muon does not behave the same as the first one meter of an exiting 2 GeV muon and therefore it is difficult to draw concrete conclusions about exiting tracks with this method. While contained tracks have a maximum energy determined by the size of the detector, exiting tracks are not limited in this way. A simulation-only study of exiting tracks is necessary and should be done.\\
+This note is by no means a complete, end-all analysis of the MCS code; there are many useful ways to continue this study.\\
 
 Additional avenues to further this analysis include:
 \begin{itemize}
 	\item Determining if the MCS algorithm can be used for muon/pion discrimination (pions should have more larger-angle hard scatters than muons).
-	\item Quantifying the performance of the MCS algorithm as a function of track angle (which is briefly explored as an appendix to this note starting with version 1.4, but could be done more thoroughly).
-	\item Using calorimetry to determine energy loss upstream of a segment rather than assuming average MIP deposited energy (Equation \ref{segment_E_equation})... this will be best especially for cases where large amounts of energy is lost to delta rays.
+	\item Quantifying the performance of the MCS algorithm as a function of track angle (which is briefly explored in Appendix \ref{AngleStudy_MCBNBRecoTrack_section}).
+	\item Using calorimetry to determine energy loss upstream of a segment rather than assuming average MIP deposited energy or using an integral of the PDG stopping power curve... this will be best especially for cases where large amounts of energy is lost to delta rays.
 	\item Using a likelihood map (plot of likelihood vs. step in raster scan) to assign an uncertainty to the returned MCS momentum value (maybe something like the magnitude of the second derivative?)
-
 \end{itemize}
 
 
@@ -50,6 +49,7 @@ This section includes plots that to be considered for the publication. The publi
 	\item Figure \ref{pub_plot_3} is an image whose purpose is to show that the segment-to-segment angular scatters are indeed gaussian as predicted by the Highland formula, and therefore the basis for this technique is sound.
 	\item Figure \ref{pub_plot_4} is an image showing the MCS momentum versus range momentum for the automatically selected, handscanned data events.
 	\item Figure \ref{pub_plot_5} is an overlay of MCS momentum bias and resolution for directly comparable samples in data and MC. The {\sc MCTrack} sample is left out of this plot because {\sc MCTracks} are very {\ub} specific. Also the x-axis cuts off at around 1.3 GeV as statistics become very limited after that.
+	\item Figure \ref{pub_plot_6} is the MCS bias and resolution for the sample of \textit{exiting} reconstructed tracks.
 \end{enumerate}
 
 % Image describing MCS idea
@@ -105,3 +105,16 @@ This section includes plots that to be considered for the publication. The publi
 \caption{\textit{MCS momentum resolution for automatically selected contained numuCC-induced muons from simulated BNB+cosmics where the track is well-reconstructed and matches with the true muon track discussed in Section \ref{MC_performance_section} (blue), and automatically selected contained numuCC-induced muons from MicroBooNE data where the track is deemed well-reconstructed and likely-muon from hand scanning discussed in Section \ref{data_performance_section} (green).}}\label{pub_plot_5}
 \end{figure}
 
+
+
+\begin{figure}
+\centering
+\mbox{
+	\subfigure[\textit{MCS momentum bias. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{N}}$, and the horizontal error bars indicate bin width.}]
+	{\includegraphics[width=75mm]{Figures/MCS_true_exiting_bias_MCBNBRecoTrackExiting.png}}
+	\quad
+	\subfigure[\textit{MCS momentum resolution. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{2N}}$, and the horizontal error bars indicate bin width.}]
+	{\includegraphics[width=75mm]{Figures/MCS_true_exiting_resolution_MCBNBRecoTrackExiting.png}}
+	}
+\caption{\textit{MCS momentum bias as a function of true momentum for this sample of exiting muon reconstructed tracks. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{N}}$, and the horizontal error bars indicate bin width.}}\label{pub_plot_6}
+\end{figure}

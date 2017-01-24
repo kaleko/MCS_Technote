@@ -10,12 +10,9 @@
 \author[1]{Mike Shaevitz}
 \author[3]{Josh Spitz}
 
-\author[4]{[AUTHOR LIST FOR THIS NOTE SHOWN, ANYTHING PUBLIC WILL BE COLLABORATION-WIDE]}
-
 \affil[1]{Columbia University, NY}
 \affil[2]{Vrije Universiteit Brussel, Belgium}
 \affil[3]{University of Michigan, MI}
-\affil[4]{Misc}
 
 
 \date{\today}
@@ -23,7 +20,7 @@
 \begin{document}
 \maketitle
 
-\abstract{Liquid Argon Time Projection Chambers (LArTPCs) are an important detector technology for the future of the neutrino physics community. This technology provides precise three-dimensional reconstruction of charged particle tracks that traverse the detector medium. The MicroBooNE experiment is a LArTPC at the Fermi National Accelerator laboratory with active volume dimensions of 2.6 m width $\times$ 2.3 m height $\times$ 10.4 m length located in the Booster Neutrino Beamline (BNB) which has a peak neutrino energy of about 0.7 GeV. In this note, we discuss a technique of measuring a charged particle's momentum by means of Multiple Coulomb Scattering (MCS), which does not require the full track to be contained inside of the detector volume as other track momentum reconstruction methods do (range-based momentum reconstruction and calorimetric momentum reconstruction). In this note we provide motivation for why this technique is important, demonstrate and quantify its performance on fully contained neutrino-induced muon tracks both in simulation and in data. In general we find good agreement between data and simulation, with small bias in the momentum reconstruction and with resolutions that vary as a function of track length, decreasing from about 12\% for the shortest (one meter long) tracks when scattering deviations over 10 centimeter segments are used in the MCS algorithm. This technote also describes other uses for multiple coulomb scattering besides momentum reconstruction, including identification of poorly reconstructed tracks, determination of track direction, and particle identification.}
+\abstract{Liquid Argon Time Projection Chambers (LArTPCs) are an important detector technology for the future of the neutrino physics community. This technology provides precise three-dimensional reconstruction of charged particle tracks that traverse the detector medium. The MicroBooNE experiment is a LArTPC at the Fermi National Accelerator laboratory with active volume dimensions of 2.6 m width $\times$ 2.3 m height $\times$ 10.4 m length located in the Booster Neutrino Beamline (BNB) which has a peak neutrino energy of about 0.7 GeV. In this note, we discuss a technique of measuring a charged particle's momentum by means of Multiple Coulomb Scattering (MCS), which does not require the full track to be contained inside of the detector volume as other track momentum reconstruction methods do (range-based momentum reconstruction and calorimetric momentum reconstruction). In this note we provide motivation for why this technique is important, demonstrate and quantify its performance on fully contained neutrino-induced muon tracks both in simulation and in data, and quantify its performance on exiting muon tracks in simulation. In general we find good agreement between data and simulation, with small bias in the momentum reconstruction and with resolutions that vary as a function of track length, decreasing from about 12\% for the shortest (one meter long) tracks when scattering deviations over 14 centimeter segments are used in the MCS algorithm. While the primary purpose of this note is to demonstrate the performance of the MCS algorithm to reconstruct muon momentum, this technote also describes other uses for multiple coulomb scattering besides momentum reconstruction, including identification of poorly reconstructed tracks, determination of track direction, and particle identification.}
 
 \clearpage
 \tableofcontents
@@ -32,22 +29,23 @@
 \input{./Tex/global_vars.tex}
 
 \section{Note Message and Content Overview}
-This is a technote internal to the MicroBooNE collaboration quantifying the performance of the Multiple Coulomb Scattering (MCS) based momentum estimation technique. The message of this note is that MCS is an important technique for LArTPCs measuring neutrino interactions, and we have demonstrated the MCS technique works and we have quantified its performance both on simulation and data. This note is a demonstration of performance but is not an end-all inclusive study on the algorithm and subsequently has limited scope. At the end of this note are some suggestions for future analyses which have not been done yet. \textit{The message of this note is simply ``MicroBooNE has demonstrated that its likelihood-based MCS method for measuring muon momenta works specifically on contained tracks from BNB neutrinos. We describe how the method works, and we quantify how well it works.''}\\
+This is a technote internal to the MicroBooNE collaboration quantifying the performance of the Multiple Coulomb Scattering (MCS) based momentum estimation technique. The message of this note is that MCS is an important technique for LArTPCs measuring the momentum of muons originating from neutrino interactions, and we have demonstrated the MCS technique works and we have quantified its performance both on simulation and data. At the end of this note are some suggestions for future analyses which have not been done yet. \textit{The message of this note is simply ``MicroBooNE has demonstrated that its likelihood-based MCS method for measuring muon momenta works specifically on contained tracks from BNB neutrinos. We describe how the method works, and we quantify how well it works.''}\\
 
-Ideally this analysis will lead to a publication in a journal like JINST, which will also have a limited scope. A list of potential plots to be included in the publication can be found at the end of this note, in Section \ref{publicplots_section}.\\
+Ideally this analysis will lead to a publication in a journal like JINST; the publication will describe how the algorithm works, demonstrate its performance on contained tracks (showing that simulation agrees with data), and demonstrate its performance on exiting tracks in simulation. A list of potential plots to be included in the publication can be found at the end of this note, in Section \ref{publicplots_section}.\\
 
 In general the structure of this note is as follows:
 \begin{enumerate}
 \item An introduction to the MicroBooNE detector, and motivation for the MCS method for this experiment and within the future LArTPC community.
-\item A detailed description of how the actual method works.
+\item A detailed description of how the actual method works, including a re-tuning of the Highland formula (the underlying theory formula that describes the scattering) to liquid argon specifically.
 % \item Demonstration of this method on single muon {\sc MCTracks}. The purpose of this is to demonstrate that the technique works with the least obfuscated input.
-\item Demonstration of this method on a high-statistics sample of truth-selected muons from simulated numu charged-current interactions. This sample is relevant because the muons have the momentum and angle spectra that one would expect in MicroBooNE from the BNB. MCS performance is demonstrated both for {\sc MCTracks} in this sample, and well-reconstructed pandoraNuPMA tracks. 
+\item Demonstration of this method on a high-statistics sample of \underline{truth-selected} muons from simulated numu charged-current interactions. This sample is relevant because the muons have the momentum and angle spectra that one would expect in MicroBooNE from the BNB. MCS performance is demonstrated both for {\sc MCTracks} in this sample, and well-reconstructed pandoraNuPMA tracks. Additionally, this sample is divided into \textit{contained} tracks and \textit{exiting} tracks, and performance is demonstrated for each.
 \begin{itemize}
 	\item The purpose of demonstrating that the technique works with {\sc MCTracks} (which come from true {\sc GEANT4} energy depositions in the detector) is to serve as a ``best-case'' baseline before reconstruction effects are convolved. 
-	\item The purpose of demonstrating that this technique works with automatically reconstructed tracks is to get one step closer towards a data/MC comparison.
+	\item The purpose of demonstrating that this technique works with automatically reconstructed \textit{contained} tracks is to get one step closer towards a data/MC comparison.
+	\item The purpose of demonstrating that this technique works with automatically reconstructed \textit{exiting} tracks is obvious: that's the main use-case of the MCS algorithm.
 \end{itemize}
 This input sample is also used in additional studies including optimizing the segment length used in the algorithm, optimizing the additional constant resolution term used in the algorithm, studying the algorithm performance as a function of track angle, as well as a potential additional use for the technique: determining track directionality. These studies can be found in the appendices.
-\item Demonstration of this method on automatically-selected well-reconstructed neutrino events in the full MicroBooNE BNB + cosmics simulation. The purpose of this section is to take another step towards working with real automatically-selected BNB data. This section describes particle mis-identification (MID) rates, MCS PID capabilities, and other things that the previous (truth-based selection) section does not.
+\item Demonstration of this method on \underline{automatically-selected} well-reconstructed neutrino events in the full MicroBooNE BNB + cosmics simulation. The purpose of this section is to take another step towards working with real automatically-selected BNB data. This section describes particle mis-identification (MID) rates, MCS PID capabilities, and other things that the previous (truth-based selection) section does not.
 \item Demonstration of this method on automatically-selected real neutrino events in actual MicroBooNE BNB data. In order to ensure the tracks are well-reconstructed and to mitigate MIDs, a handscanning effort is used and is described in this section.
 \item A conclusion section reiterating the usefulness of the tool, describing the outlook of the algorithm and potential additional studies that could be done, along with a list of plots that might be good to put in a potential publication derived from this note.
 \end{enumerate}
@@ -57,9 +55,10 @@ This input sample is also used in additional studies including optimizing the se
 \clearpage
 \input{./Tex/technique.tex}
 \clearpage
+\input{./Tex/highland_retuning.tex}
 % DEPRICATED
 %% \input{./Tex/MC_singlemuon_performance.tex}
-% \clearpage
+\clearpage
 \input{./Tex/MC_trueneutrino_performance.tex}
 \clearpage
 \input{./Tex/MC_selected_neutrino_performance.tex}
