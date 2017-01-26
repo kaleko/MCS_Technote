@@ -12,6 +12,7 @@ titles = {
            'SingleMuonRecoTrack'      : 'Fully Contained, Well Reconstructed Single Muon Tracks',
            'DataBNBSelectedRecoTrack' : 'Selected, Well Reconstructed Tracks from NumuCC Data',
            'MCBNBSelectedRecoTrack'   : 'Selected, Well Reconstructed Tracks from NumuCC Simulation',
+           'MCBNBSelectedRecoTrackNominalHL'   : 'Selected, Well Reconstructed Tracks from NumuCC Simulation (Nominal Highland)',
            'MCBNBRecoTrack'           : 'MC numuCC BNB Truth-Selected, Well Reconstructed Tracks',
            'MCBNBMCTrack'             : 'MC numuCC BNB Truth-Selected MCTracks',
            'MCBNBMCTrackExiting'      : 'MC numuCC BNB Truth-Selected EXITING MCTracks',
