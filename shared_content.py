@@ -20,13 +20,13 @@ titles = {
            'full_MCS_energy'          : 'MCS Total Energy [GeV]',
            'full_range_energy'        : 'Range-Based Total Energy [GeV]',
            'full_integrated_range_energy'        : 'Integrated Range-Based Total Energy [GeV]',
-           'full_MCS_momentum'        : 'MCS Momentum [GeV]',
-           'full_range_momentum'      : 'Range-Based Momentum [GeV]',
-           'full_integrated_range_momentum'      : 'Integrated Range-Based Momentum [GeV]',
+           'full_MCS_momentum'        : 'MCS Momentum [GeV/c]',
+           'full_range_momentum'      : 'Range-Based Momentum [GeV/c]',
+           'full_integrated_range_momentum'      : 'Integrated Range-Based Momentum [GeV/c]',
            'full_MCS_momentum_inverse'        : 'Inverse MCS Momentum [GeV^-1]',
            'full_range_momentum_inverse'      : 'Inverse Range-Based Momentum [GeV^-1]',
            'true_E'                   : 'True Total Energy [GeV]',
-           'true_momentum'                   : 'True Momentum [GeV]',
+           'true_momentum'                   : 'True Momentum [GeV/c]',
            'true_momentum_inverse'                   : 'Inverse True Momentum [GeV^-1]',
            'full_length'              : 'Length Of Track Contained [cm]'
          }

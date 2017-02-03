@@ -351,7 +351,7 @@ This section describes a study of how the performance of the MCS algorithm chang
 
 A plot of MCS momentum versus true momentum for this sample of exiting muon reconstructed tracks is shown in Figure \ref{MCS_true_momentum_exiting_RecoTrack_fig}. There are some clear tails in which the MCS momentum is an underestimation of the true momentum. The distribution of ($\frac{p_{MCS}^{-1} - p_{true}^{-1}}{p_{true}^{-1}}$) is shown for three representative bins in Figure \ref{MCS_true_exiting_resolution_MCBNBRecoTrackExiting_slices_fig}, along with the gaussian fit to each. The low momentum tails of these distribution can be seen outside of the central gaussian fit.\\
 
-The bias and resolution plots as a function of true momentum are shown in Figures \ref{exitingRecoTrack_bias_fig_alllengths} and \ref{exitingRecoTrack_resolution_fig_alllengths} respectively. It can be seen that the bias is below 4\% for all momenta, and the resolution is roughly 14\% in the relevant momentum region for BNB numuCC muons (below 2 GeV). The resolution begins to worsen when muon momenta passes about 2.5 GeV because at this point the MCS RMS angular scatter begins to be comparable with the detector resolution term of 3 mrad. The positive bias indicates that the MCS algorithm is underestimating the true momentum of the muon which can be attributed to reconstruction effects (since this bias is smaller for {\sc MCTracks} as shown in Figure \ref{exitingMCTrack_bias_fig}). The bias and resolution plots subdivided in bins of track length analyzed are shown in Figures \ref{exitingRecoTrack_bias_fig} and \ref{exitingRecoTrack_resolution_fig} respectively. Both the bias and resolution improve for longer lengths of track contained, with the bias agreeing with zero for tracks longer than 3.5 meters. Resolution improving with length of track is intuitive; the longer portion of track contained, the more angular scattering measurements can be made to improve the likelihood.\\
+The bias and resolution plots as a function of true momentum are shown in Figures \ref{exitingRecoTrack_bias_fig_alllengths} and \ref{exitingRecoTrack_resolution_fig_alllengths} respectively. It can be seen that the bias is below 4\% for all momenta, and the resolution is roughly 14\% in the relevant momentum region for BNB numuCC muons (below 2 GeV). The resolution begins to worsen when muon momenta passes about 2.5 GeV because at this point the MCS RMS angular scatter begins to be comparable with the detector resolution term of 3 mrad. The positive bias indicates that the MCS algorithm is underestimating the true momentum of the muon which can be attributed to reconstruction effects (since this bias is smaller for {\sc MCTracks} as shown in Figure \ref{exitingMCTrack_bias_fig}). The bias and resolution plots subdivided in bins of track length analyzed are shown in Figures \ref{exitingRecoTrack_bias_fig} and \ref{exitingRecoTrack_resolution_fig} respectively. Both the bias and resolution improve for longer lengths of track contained, with the bias agreeing with zero for tracks longer than 3.5 meters. Resolution improving with length of track is intuitive; the longer portion of track contained, the more angular scattering measurements can be made to improve the likelihood. The bias and resolution as a function of MCS computed momentum are shown in Figures \ref{exitingRecoTrack_resolution_fig_vsMCS_alllengths} and \ref{exitingRecoTrack_bias_fig_vsMCS_alllengths} respectively.\\
 
 
 \begin{figure}[ht!]
@@ -407,4 +407,17 @@ The bias and resolution plots as a function of true momentum are shown in Figure
 \caption{\textit{MCS momentum bias as a function of true momentum for this sample of exiting muon reconstructed tracks, subdivided in bins of track length contained. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{N}}$, and the horizontal error bars indicate bin width.}}
 \end{figure}
 
+
+
+\begin{figure}
+\centering
+\mbox{
+	\subfigure[\textit{MCS momentum bias. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{N}}$, and the horizontal error bars indicate bin width.}\label{exitingRecoTrack_bias_fig_vsMCS_alllengths}]
+	{\includegraphics[width=75mm]{Figures/MCS_true_bias_vsMCSMomentum_MCBNBRecoTrackExiting.png}}
+	\quad
+	\subfigure[\textit{MCS momentum resolution. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{2N}}$, and the horizontal error bars indicate bin width.}\label{exitingRecoTrack_resolution_fig_vsMCS_alllengths}]
+	{\includegraphics[width=75mm]{Figures/MCS_true_resolution_vsMCSMomentum_MCBNBRecoTrackExiting.png}}
+	}
+\caption{\textit{MCS momentum bias as a function of MCS momentum for this sample of exiting muon reconstructed tracks. The vertical error bars are computed as $\frac{\sigma_{fit}}{\sqrt{N}}$, and the horizontal error bars indicate bin width.}}
+\end{figure}
 
