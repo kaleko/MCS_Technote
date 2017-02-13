@@ -65,11 +65,14 @@ def get_dfs(myfile):
     segdf['dthetayovertruepredictedRMS'] = segdf['delta_theta_y']/segdf['true_predicted_RMS']
     #segdf['dthetayovertruepredictedRMS_momentumdepenentconstant'] = segdf['delta_theta_y']/segdf['true_predicted_RMS_momentumdependentconstant']
     segdf['dthetayoverpredictedRMS_fromMCS'] = segdf['delta_theta_y']/segdf['predicted_RMS_fromMCS']
+    segdf['tempdenom'] = np.sqrt(np.square(segdf['predicted_RMS_fromMCS']) + np.square(3.))
+    segdf['dthetayoverpredictedRMS_fromMCS_with3res'] = segdf['delta_theta_y']/segdf['tempdenom']
     
     segdf['dthetaxoverpredictedRMS'] = segdf['delta_theta_x']/segdf['predicted_RMS']
     segdf['dthetaxovertruepredictedRMS'] = segdf['delta_theta_x']/segdf['true_predicted_RMS']
     #segdf['dthetaxovertruepredictedRMS_momentumdepenentconstant'] = segdf['delta_theta_x']/segdf['true_predicted_RMS_momentumdependentconstant']
     segdf['dthetaxoverpredictedRMS_fromMCS'] = segdf['delta_theta_x']/segdf['predicted_RMS_fromMCS']
+    segdf['dthetaxoverpredictedRMS_fromMCS_with3res'] = segdf['delta_theta_x']/segdf['tempdenom']
     
     
     #Optional driver DF tree that holds some MCTrack informationOA
