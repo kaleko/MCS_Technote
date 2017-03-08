@@ -270,7 +270,7 @@ The Booster Neutrino Beam (BNB) is composed predominantly of muon neutrinos ($\n
 
 \section{Multiple Coulomb scattering}
 
-Multiple Coulomb scattering occurs when a charged particle traverses a medium and undergoes electromagnetic scattering off atomic nuclei. This scattering perturbs the original trajectory of the particle within the material (figure \ref{mcs_nocap_fig}). For a given initial momentum $p$, the angular deflection scatters of a particle in either the $x'$ direction or $y'$ direction (as indicated in the aforementioned figure) form a Gaussian distribution centered at zero with an RMS width, $\sigma_o^{\text{HL}}$, given by the Highland formula \cite{highland}\cite{highland-lynch-dahl} 
+Multiple Coulomb scattering occurs when a charged particle traverses a medium and undergoes electromagnetic scattering off atomic nuclei. This scattering perturbs the original trajectory of the particle within the material (figure \ref{mcs_nocap_fig}). For a given initial momentum $p$, the angular deflection scatters of a particle in either the $x'$ direction or $y'$ direction (as indicated in the aforementioned figure) form a Gaussian distribution centered at zero with an RMS width, $\sigma_o^{\text{HL}}$, given by the Highland formula \cite{highland,highland-lynch-dahl} 
 
 \begin{equation}\label{highland_eqtn}
 	\sigma_o^{\text{HL}}=\frac{S_2}{p\beta c}z\sqrt{\frac{\ell}{X_0}}\left[1+\epsilon\times\ln\left(\frac{\ell}{X_0}\right)\right],
@@ -453,7 +453,7 @@ E_{j} = E_t - \Delta E_{j},
 \noindent where $\Delta E_{j}$ is the energy loss upstream of this segment, computed by integrating the muon stopping power curve given by the Bethe-Bloch equation described by the Particle Data Group (PDG) \cite{stoppingpowersource} along the length of track upstream of this segment. Equation \ref{segment_E_equation} introduces a minimum allowable track energy determined by the range of the track, as $E_{j}$ must remain positive. The use of the Bethe-Bloch equation to determine $\Delta E_{j}$ impacts the MCS algorithm resolution for fully contained tracks, but does not for exiting tracks where much of the ionization energy loss is not visible. This value of segment energy, $E_{j}$, is converted to a momentum $p$ with the relativistic energy-momentum relation assuming the muon mass, and is then used to predict the RMS angular scatter for that segment ($\sigma_o$) by way of equation \ref{modified_highland_eqtn_kappa}. 
 
 \section{Range-based energy validation from simulation}\label{Range_Energy_Validation_section}
-In order to quantify the performance of the MCS energy estimation method on fully contained muons in data, an independent determination of energy is needed. Range-based energy, $E_{\text{range}}$ is used here because the true energy $E_{\text{true}}$ will not be known in analyzing detector data. The stopping power of muons in liquid argon is well described by the continuous slowing-down approximation (CSDA) by the particle data group, and agrees with data at the sub-percent level \cite{MIPenergysource} \cite{PDG_spline_table} \cite{NISTdata}. By using a linear interpolation between points in the stopping power table of ref. \cite{PDG_spline_table}, the length of a track can be used to reconstruct the muon's total energy with good accuracy. A simulated sample of fully contained BNB neutrino-induced muons longer than one meter is used to quantify the bias and resolution for the range-based energy estimation technique. The range is defined as the straight-line distance between the true starting point and true stopping point of a muon, even though the trajectories are not perfectly straight lines. The bias and resolution are computed in bins of true total energy of the muons by fitting a Gaussian function to a distribution of the fractional energy difference $(E_{\text{Range}}-E_{\text{True}})/(E_{\text{True}})$ in each bin. The mean of each Gaussian yields the bias for that true energy bin, and the width indicates the resolution. Figure \ref{true_range_bias_resolution_MCTrack_fig} shows the bias and resolution for the range-based energy reconstruction method. The bias is negligible and the resolution for this method of energy reconstruction increases slightly with true muon energy but remains on the order of (2-4)\%. This result demonstrates that range-based energy (and therefore range-based momentum) is a good estimator of the true energy (momentum) of a reconstructed contained muon track in data, assuming that the track is well reconstructed in terms of length.
+In order to quantify the performance of the MCS energy estimation method on fully contained muons in data, an independent determination of energy is needed. Range-based energy, $E_{\text{range}}$ is used here because the true energy $E_{\text{true}}$ will not be known in analyzing detector data. The stopping power of muons in liquid argon is well described by the continuous slowing-down approximation (CSDA) by the particle data group, and agrees with data at the sub-percent level \cite{MIPenergysource,PDG_spline_table,NISTdata}. By using a linear interpolation between points in the stopping power table of ref. \cite{PDG_spline_table}, the length of a track can be used to reconstruct the muon's total energy with good accuracy. A simulated sample of fully contained BNB neutrino-induced muons longer than one meter is used to quantify the bias and resolution for the range-based energy estimation technique. The range is defined as the straight-line distance between the true starting point and true stopping point of a muon, even though the trajectories are not perfectly straight lines. The bias and resolution are computed in bins of true total energy of the muons by fitting a Gaussian function to a distribution of the fractional energy difference $(E_{\text{Range}}-E_{\text{True}})/(E_{\text{True}})$ in each bin. The mean of each Gaussian yields the bias for that true energy bin, and the width indicates the resolution. Figure \ref{true_range_bias_resolution_MCTrack_fig} shows the bias and resolution for the range-based energy reconstruction method. The bias is negligible and the resolution for this method of energy reconstruction increases slightly with true muon energy but remains on the order of (2-4)\%. This result demonstrates that range-based energy (and therefore range-based momentum) is a good estimator of the true energy (momentum) of a reconstructed contained muon track in data, assuming that the track is well reconstructed in terms of length.
 
 \begin{figure}
 \centering
@@ -770,15 +770,17 @@ This material is based upon work supported by the following: the U.S. Department
 
   [arXiv:1506.05348 [physics.data-an]].
 
+ \bibitem{stoppingpowersource}
+  H. Bichsel, D. E. Groom, S.R. Klein, 
+  \textit{Passage of Particles Through Matter} PDG Chapter 27, Figure 27.1 \url{http://pdg.lbl.gov/2005/reviews/passagerpp.pdf}
+
   %8
   \bibitem{MIPenergysource}
   D. E. Groom, N. V. Mokhov and S. Striganov,
   \textit{Muon Stopping Power and Range Tables: 10 MeV - 100 TeV} Table 5,
   http://pdg.lbl.gov/2012/AtomicNuclearProperties/adndt.pdf
 
-  \bibitem{stoppingpowersource}
-  H. Bichsel, D. E. Groom, S.R. Klein, 
-  \textit{Passage of Particles Through Matter} PDG Chapter 27, Figure 27.1 \url{http://pdg.lbl.gov/2005/reviews/passagerpp.pdf}
+ 
 
   %9`'
   \bibitem{PDG_spline_table} Table 289: Muons in Liquid argon (Ar) \url{http://pdg.lbl.gov/2012/AtomicNuclearProperties/MUON_ELOSS_TABLES/muonloss_289.pdf}
