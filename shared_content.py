@@ -10,8 +10,8 @@ from lmfit import  Model #better gaussian model
 titles = { 
            'SingleMuonMCTrack'        : 'Fully Contained Single Muon MCTracks',
            'SingleMuonRecoTrack'      : 'Fully Contained, Well Reconstructed Single Muon Tracks',
-           'DataBNBSelectedRecoTrack' : 'Selected, Well Reconstructed Tracks from NumuCC Data',
-           'MCBNBSelectedRecoTrack'   : 'Selected, Well Reconstructed Tracks from NumuCC Simulation',
+           'DataBNBSelectedRecoTrack' : 'Selected, Well Reconstructed Tracks from $\\nu_\\mu$CC Data',
+           'MCBNBSelectedRecoTrack'   : 'Selected, Well Reconstructed Tracks from $\\nu_\\mu$CC Simulation',
            'MCBNBSelectedRecoTrackNominalHL'   : 'Selected, Well Reconstructed Tracks from NumuCC Simulation (Nominal Highland)',
            'MCBNBRecoTrack'           : 'MC numuCC BNB Truth-Selected, Well Reconstructed Tracks',
            'MCBNBMCTrack'             : 'MC numuCC BNB Truth-Selected MCTracks',
